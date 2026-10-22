@@ -1,0 +1,899 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MAKAI</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Makai is an AI care companion for older adults. It books appointments, orders refills, calls the pharmacy and doctor's office, checks insurance and keeps the family updated, all by text.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='100' fill='%23066DB8'/%3E%3Crect x='42.5' y='42.5' width='115' height='115' rx='15' fill='%236FCF78' stroke='%230B1418' stroke-width='7'/%3E%3Cpath d='M100 42.5V157.5M46.1 47.75 100 157.5M153.9 47.75 100 157.5M42.5 97.5H70.53M129.47 97.5H157.5' fill='none' stroke='%230B1418' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=IBM+Plex+Mono:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout: the mark's ink strokes run through the page. Each section converges on one point,
+   the way the logo's lines meet at its base: a hero claim, an untangling story, a film, a text thread, a circle. */
+:root {
+  --paper: #F2F4EE;  --surface: #FFFFFF;  --ink: #0B1418;  --muted: #56635F;  --line: rgba(11, 20, 24, .12);
+  --blue: #066DB8;   --green: #6FCF78;    --green-ink: #2C7A43;
+  --blue-wash: #E3EEF7;  --green-wash: #E2F2E2;  --amber: #A86B12;  --amber-wash: #FBF0DA;  --coral: #BF4F34;  --coral-wash: #FBE6E0;
+  --tangle: #8E989B;
+  --theater: #071722;  --theater-ink: #EAF2EF;  --theater-muted: #93A9A6;
+  --cta: #066DB8;  --cta-ink: #FFFFFF;  --cta-field: rgba(255, 255, 255, .14);  --cta-line: rgba(255, 255, 255, .38);
+  --screen: #FFFFFF;  --bubble-in: #E9E9EB;  --bubble-in-ink: #0B1418;  --im-out: #0A84FF;
+  --wa-bg: #ECE5DD;  --wa-in: #FFFFFF;  --wa-out: #D9FDD3;  --wa-head: #075E54;
+  --shadow: 0 30px 60px -32px rgba(10, 40, 60, .38), 0 10px 22px -12px rgba(10, 40, 60, .16);
+
+  --f-display: 'Fraunces', 'Iowan Old Style', Georgia, serif;
+  --f-body: 'Plus Jakarta Sans', 'Segoe UI', system-ui, sans-serif;
+  --f-mono: 'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace;
+  --maxw: 1180px;
+  --nav-h: 72px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0B141A;  --surface: #13212B;  --ink: #E7EFEC;  --muted: #9AACA7;  --line: rgba(231, 239, 236, .13);
+    --blue: #5BAAE8;   --green: #7FD98A;    --green-ink: #8BE09A;
+    --blue-wash: #13293A;  --green-wash: #153020;  --amber: #E6B466;  --amber-wash: #33270F;  --coral: #EE8C72;  --coral-wash: #3A1D16;
+    --tangle: #5F6F75;
+    --theater: #03090E;  --cta: #0A5C9C;
+    --screen: #0F1B23;  --bubble-in: #25323C;  --bubble-in-ink: #E7EFEC;
+    --wa-bg: #0B141A;  --wa-in: #1F2C34;  --wa-out: #005C4B;  --wa-head: #1F2C34;
+    --shadow: 0 30px 60px -30px rgba(0, 0, 0, .75), 0 10px 22px -12px rgba(0, 0, 0, .5);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0B141A;  --surface: #13212B;  --ink: #E7EFEC;  --muted: #9AACA7;  --line: rgba(231, 239, 236, .13);
+  --blue: #5BAAE8;   --green: #7FD98A;    --green-ink: #8BE09A;
+  --blue-wash: #13293A;  --green-wash: #153020;  --amber: #E6B466;  --amber-wash: #33270F;  --coral: #EE8C72;  --coral-wash: #3A1D16;
+  --tangle: #5F6F75;
+  --theater: #03090E;  --cta: #0A5C9C;
+  --screen: #0F1B23;  --bubble-in: #25323C;  --bubble-in-ink: #E7EFEC;
+  --wa-bg: #0B141A;  --wa-in: #1F2C34;  --wa-out: #005C4B;  --wa-head: #1F2C34;
+  --shadow: 0 30px 60px -30px rgba(0, 0, 0, .75), 0 10px 22px -12px rgba(0, 0, 0, .5);
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + env(safe-area-inset-top, 0px)); }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 400 1.125rem/1.6 var(--f-body); -webkit-font-smoothing: antialiased; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 60; background: var(--paper); }
+main { overflow-x: clip; }
+img, video, svg { max-width: 100%; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; border-radius: 8px; }
+
+.wrap { width: 100%; max-width: calc(var(--maxw) + 80px); margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+@media (min-width: 720px) {
+  .wrap { padding-left: max(40px, env(safe-area-inset-left, 0px)); padding-right: max(40px, env(safe-area-inset-right, 0px)); }
+}
+
+/* ---------- type */
+.display { font: 560 clamp(3.1rem, 8.2vw, 7rem)/.95 var(--f-display); letter-spacing: -.035em; margin: 0; text-wrap: balance; font-optical-sizing: auto; }
+.display em, .h2 em, .join h2 em { font-style: italic; font-weight: 460; color: var(--blue); }
+.h2 { font: 560 clamp(2.1rem, 4.6vw, 3.7rem)/1.04 var(--f-display); letter-spacing: -.03em; margin: 0; text-wrap: balance; }
+.h3 { font: 600 clamp(1.55rem, 2.6vw, 2.15rem)/1.12 var(--f-display); letter-spacing: -.02em; margin: 0; text-wrap: balance; }
+.lede { font-size: clamp(1.15rem, 1.6vw, 1.32rem); line-height: 1.55; color: var(--muted); max-width: 34em; margin: 0; }
+.eyebrow { display: inline-flex; align-items: center; gap: .7em; margin: 0; font: 600 .78rem/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--blue); }
+.eyebrow .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 4px color-mix(in srgb, var(--green) 28%, transparent); }
+.mono { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+p { margin: 0; }
+.sec-head { display: grid; gap: 18px; max-width: 760px; }
+.sec-head.center { margin-inline: auto; text-align: center; justify-items: center; }
+section { position: relative; }
+.pad { padding-block: clamp(84px, 12vw, 168px); }
+
+/* ---------- buttons */
+.btn { display: inline-flex; align-items: center; gap: .6em; padding: .95em 1.55em; border-radius: 999px; border: 2px solid transparent;
+  font: 700 1rem/1 var(--f-body); text-decoration: none; cursor: pointer; transition: transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s, background .25s; white-space: nowrap; }
+.btn:hover { transform: translateY(-2px); }
+.btn-ink { background: var(--ink); color: var(--paper); box-shadow: 0 14px 30px -14px color-mix(in srgb, var(--ink) 60%, transparent); }
+.btn-ghost { border-color: var(--ink); color: var(--ink); background: transparent; }
+.btn-ghost svg { width: 1.05em; height: 1.05em; }
+.btn .mono { font-weight: 500; opacity: .65; font-size: .85em; }
+.btn.sm { padding: .72em 1.15em; font-size: .92rem; }
+
+/* ---------- nav */
+.nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50; transition: background .3s, box-shadow .3s, backdrop-filter .3s; }
+.nav.scrolled { background: color-mix(in srgb, var(--paper) 84%, transparent); backdrop-filter: saturate(1.4) blur(14px); -webkit-backdrop-filter: saturate(1.4) blur(14px); box-shadow: 0 1px 0 var(--line); }
+.nav-in { height: var(--nav-h); display: flex; align-items: center; gap: 28px; }
+.brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; font: 650 1.3rem/1 var(--f-display); letter-spacing: .1em; }
+.brand svg { width: 38px; height: 38px; }
+.links { display: flex; gap: 26px; margin-left: auto; }
+.links a { text-decoration: none; font-weight: 600; font-size: .95rem; color: var(--muted); transition: color .2s; }
+.links a:hover { color: var(--ink); }
+@media (max-width: 860px) { .links { display: none; } .nav .btn { margin-left: auto; } }
+
+/* ---------- hero */
+.hero-in { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: clamp(36px, 5vw, 72px); align-items: center;
+  padding-block: clamp(36px, 7vw, 96px) clamp(64px, 9vw, 128px); }
+.hero-copy { display: grid; gap: 28px; min-width: 0; }
+.cta-row { display: flex; flex-wrap: wrap; gap: 14px; }
+.works { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; color: var(--muted); font-weight: 600; font-size: .95rem; }
+.tag { display: inline-flex; align-items: center; gap: 7px; padding: 6px 12px 6px 9px; border-radius: 999px; font-weight: 700; font-size: .85rem; border: 1px solid var(--line); background: var(--surface); color: var(--ink); }
+.tag i { width: 9px; height: 9px; border-radius: 50%; }
+.hero-art { position: relative; width: 100%; max-width: 560px; aspect-ratio: 1; justify-self: center; }
+.hero-mark { position: absolute; left: 19%; top: 19%; width: 62%; height: 62%; filter: drop-shadow(0 30px 40px rgba(6, 70, 120, .25)); }
+.hero-mark .disc { transform-origin: 100px 100px; animation: pop 1s cubic-bezier(.2, 1.4, .3, 1) both; }
+.hero-mark .fill { animation: fade .6s .55s both; }
+.hero-mark .draw { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw .9s cubic-bezier(.6, 0, .2, 1) forwards; }
+@keyframes pop { from { transform: scale(.82); } to { transform: none; } }
+@keyframes fade { from { opacity: 0; } }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+.orbit { position: absolute; inset: 4%; border-radius: 50%; border: 1.5px dashed color-mix(in srgb, var(--blue) 35%, transparent); }
+.chip { position: absolute; display: flex; align-items: center; gap: 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px;
+  padding: 11px 16px 11px 11px; box-shadow: var(--shadow); line-height: 1.25; white-space: nowrap; will-change: transform; }
+.chip .ic { width: 42px; height: 42px; border-radius: 13px; display: grid; place-items: center; flex: none; }
+.chip .ic svg { width: 22px; height: 22px; }
+.chip small { display: block; color: var(--muted); font-weight: 600; font-size: .76rem; }
+.chip strong { display: block; font-weight: 800; font-size: .95rem; }
+.chip .av { width: 42px; height: 42px; flex: none; }
+.hero .chip { animation: chipIn .7s cubic-bezier(.2, 1.2, .3, 1) both; }
+@keyframes chipIn { from { opacity: 0; translate: 0 18px; scale: .9; } }
+.c1 { left: -4%; top: 6%; animation-delay: .7s !important; }
+.c2 { right: -6%; top: 22%; animation-delay: .85s !important; }
+.c3 { right: -2%; bottom: 13%; animation-delay: 1s !important; }
+.c4 { left: 0; bottom: 3%; animation-delay: 1.15s !important; }
+.c5 { left: -9%; top: 47%; animation-delay: 1.3s !important; }
+.wave { display: flex; align-items: center; gap: 3px; height: 22px; }
+.wave span { width: 3px; height: 100%; border-radius: 2px; background: var(--blue); animation: wave 1s ease-in-out infinite; transform-origin: 50% 50%; }
+@keyframes wave { 0%, 100% { transform: scaleY(.3); } 50% { transform: scaleY(1); } }
+@media (max-width: 900px) {
+  .hero-in { grid-template-columns: 1fr; }
+  .hero-art { max-width: 470px; }
+}
+@media (max-width: 560px) {
+  .chip { padding: 8px 12px 8px 8px; gap: 9px; border-radius: 14px; }
+  .chip .ic, .chip .av { width: 32px; height: 32px; border-radius: 10px; }
+  .chip .ic svg { width: 17px; height: 17px; }
+  .chip strong { font-size: .8rem; } .chip small { font-size: .66rem; }
+  .c1 { left: 0; } .c2 { right: 0; } .c3 { right: 0; } .c5 { display: none; }
+}
+
+/* ---------- untangle */
+.untangle { padding-top: clamp(84px, 11vw, 150px); }
+.ut-grid { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(28px, 5vw, 80px); margin-top: clamp(24px, 4vw, 40px); }
+.ut-step { min-height: 76vh; display: flex; flex-direction: column; justify-content: center; gap: 14px; opacity: .3; transition: opacity .45s; max-width: 30em; }
+.ut-step.on { opacity: 1; }
+.ut-step .kicker { font: 600 .78rem/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.ut-step p:last-child { color: var(--muted); }
+.ut-step:last-child .h3 { color: var(--blue); }
+.ut-stage { position: sticky; top: calc(env(safe-area-inset-top, 0px) + var(--nav-h) + 2vh); height: min(84vh, 760px); display: grid; place-items: center; }
+.ut-stage svg { width: 100%; height: 100%; overflow: visible; }
+.ut-stage text { font-family: var(--f-body); }
+.node-ring { fill: var(--surface); stroke: var(--line); stroke-width: 2; transition: stroke .4s; }
+.node.calm .node-ring { stroke: var(--green); stroke-width: 3; }
+.node use { color: var(--muted); transition: color .4s; }
+.node.calm use { color: var(--blue); }
+.node text { fill: var(--ink); font-weight: 700; font-size: 25px; }
+.pill-bg { fill: var(--surface); stroke: var(--line); stroke-width: 1.5; }
+@media (max-width: 900px) {
+  .ut-grid { grid-template-columns: 1fr; }
+  .ut-stage-col { order: -1; position: sticky; top: calc(env(safe-area-inset-top, 0px) + var(--nav-h)); z-index: 2; background: var(--paper); }
+  .ut-stage { position: static; height: 44vh; }
+  .ut-step { min-height: 52vh; justify-content: flex-start; padding-top: 0; }
+}
+
+/* ---------- film */
+.film { background: var(--theater); color: var(--theater-ink); }
+.film .eyebrow { color: var(--green); }
+.film .lede { color: var(--theater-muted); }
+.film-frame { position: relative; margin-top: clamp(36px, 5vw, 64px); aspect-ratio: 16 / 9; max-width: 100%; border-radius: 26px; overflow: hidden;
+  background: #000; box-shadow: 0 70px 140px -50px rgba(0, 0, 0, .9), 0 0 0 1px rgba(255, 255, 255, .08); transform-origin: 50% 20%; will-change: transform; }
+.film-frame video { width: 100%; height: 100%; display: block; object-fit: cover; }
+.play { all: unset; position: absolute; inset: 0; cursor: pointer; background: linear-gradient(180deg, rgba(3, 9, 14, 0) 55%, rgba(3, 9, 14, .5) 100%); }
+.play-pill { position: absolute; left: clamp(14px, 3vw, 32px); bottom: clamp(14px, 3vw, 32px); display: flex; align-items: center; gap: 14px; padding: 8px 22px 8px 8px; border-radius: 999px;
+  background: rgba(7, 23, 34, .72); color: #FFFFFF; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 20px 40px -16px rgba(0, 0, 0, .7); transition: transform .3s cubic-bezier(.2, 1.4, .3, 1); }
+.play:hover .play-pill { transform: scale(1.04); }
+.play-btn { position: relative; width: clamp(48px, 5.4vw, 64px); aspect-ratio: 1; border-radius: 50%; background: #FFFFFF; display: grid; place-items: center; }
+.play-btn svg { width: 38%; height: 38%; margin-left: 8%; color: #066DB8; }
+.play-btn::before { content: ""; position: absolute; inset: -7px; border-radius: 50%; border: 2px solid rgba(255, 255, 255, .6); animation: ping 2.4s cubic-bezier(.2, .6, .3, 1) infinite; }
+@keyframes ping { 0% { transform: scale(.9); opacity: 1; } 100% { transform: scale(1.5); opacity: 0; } }
+.play-label { display: grid; gap: 4px; font-weight: 700; font-size: clamp(.9rem, 1.4vw, 1.05rem); line-height: 1.1; }
+.play-label small { font: 500 .74rem/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; opacity: .7; }
+.play:focus-visible .play-pill { outline: 3px solid #FFFFFF; outline-offset: 4px; }
+
+/* ---------- features */
+.ft-grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(40px, 7vw, 110px); margin-top: clamp(28px, 5vw, 56px); }
+.ft-phone-col { position: relative; }
+.phone-sticky { position: sticky; top: calc(env(safe-area-inset-top, 0px) + var(--nav-h) + 3vh); display: grid; justify-items: center; gap: 18px; }
+.seg { display: inline-flex; padding: 4px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow); }
+.seg button { appearance: none; border: 0; background: transparent; color: var(--muted); cursor: pointer; padding: 9px 18px; border-radius: 999px; font: 700 .88rem/1 var(--f-body); display: inline-flex; align-items: center; gap: 8px; transition: background .25s, color .25s; }
+.seg button i { width: 9px; height: 9px; border-radius: 50%; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.phone { width: min(340px, 100%); aspect-ratio: 340 / 690; border-radius: 54px; background: #0B1418; padding: 11px; box-shadow: 0 50px 90px -40px rgba(10, 30, 45, .55), 0 0 0 1px rgba(255, 255, 255, .06) inset; }
+.screen { position: relative; height: 100%; border-radius: 44px; overflow: hidden; background: var(--screen); display: flex; flex-direction: column; transition: background .35s; }
+.phone.wa .screen { background: var(--wa-bg); }
+.p-island { position: absolute; top: 11px; left: 50%; width: 98px; height: 28px; margin-left: -49px; border-radius: 20px; background: #0B1418; z-index: 3; }
+.p-head { position: relative; padding: 52px 16px 12px; display: grid; justify-items: center; gap: 5px; border-bottom: 1px solid var(--line); background: color-mix(in srgb, var(--screen) 92%, var(--ink) 4%); transition: background .35s, color .35s; }
+.p-head svg { width: 42px; height: 42px; }
+.p-head .name { font-weight: 800; font-size: .78rem; letter-spacing: .08em; }
+.p-head .sub { display: none; }
+.phone.wa .p-head { background: var(--wa-head); color: #FFFFFF; justify-items: start; grid-template-columns: auto 1fr; align-items: center; column-gap: 10px; padding: 50px 16px 12px; border-bottom: 0; }
+.phone.wa .p-head svg { width: 36px; height: 36px; grid-row: span 2; }
+.phone.wa .p-head .name { font-size: .92rem; align-self: end; }
+.phone.wa .p-head .sub { display: block; font-size: .7rem; opacity: .75; align-self: start; }
+.thread { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; gap: 8px; padding: 14px 12px 20px; overflow: hidden; }
+.msg { max-width: 80%; padding: 9px 13px; border-radius: 19px; font-size: .86rem; line-height: 1.38; font-weight: 500; opacity: 0; transform: translateY(14px) scale(.94);
+  transition: opacity .35s, transform .45s cubic-bezier(.2, 1.3, .3, 1); }
+.msg.shown { opacity: 1; transform: none; }
+.msg.out { align-self: flex-end; background: var(--im-out); color: #FFFFFF; border-bottom-right-radius: 6px; transform-origin: right bottom; }
+.msg.in { align-self: flex-start; background: var(--bubble-in); color: var(--bubble-in-ink); border-bottom-left-radius: 6px; transform-origin: left bottom; }
+.msg .who { display: block; font-size: .68rem; font-weight: 800; color: var(--blue); margin-bottom: 2px; letter-spacing: .02em; }
+.msg.sys { align-self: center; font: 600 .68rem/1 var(--f-mono); letter-spacing: .04em; padding: 6px 11px; border-radius: 999px; background: var(--blue-wash); color: var(--blue); display: inline-flex; align-items: center; gap: 6px; }
+.msg.sys .wave { height: 11px; gap: 2px; } .msg.sys .wave span { width: 2px; }
+.phone.wa .msg { border-radius: 11px; box-shadow: 0 1px 1px rgba(0, 0, 0, .12); }
+.phone.wa .msg.out { background: var(--wa-out); color: var(--ink); border-top-right-radius: 3px; }
+.phone.wa .msg.in { background: var(--wa-in); color: var(--ink); border-top-left-radius: 3px; }
+.phone.wa .msg.sys { box-shadow: none; }
+.ft { min-height: 74vh; display: flex; flex-direction: column; justify-content: center; gap: 16px; opacity: .32; transition: opacity .45s; }
+.ft.on { opacity: 1; }
+.ft-label { display: inline-flex; align-items: center; gap: 12px; font: 600 .78rem/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.ft-label .ic { width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; }
+.ft-label .ic svg { width: 22px; height: 22px; }
+.ft p { color: var(--muted); max-width: 30em; }
+.mini { display: none; }
+.ft-list { padding-bottom: 22vh; }
+@media (max-width: 900px) {
+  .ft-grid { grid-template-columns: 1fr; }
+  .ft-phone-col { display: none; }
+  .ft-list { padding-bottom: 0; }
+  .ft { min-height: 0; opacity: 1; padding-block: 34px; border-top: 1px solid var(--line); }
+  .mini { display: flex; flex-direction: column; gap: 7px; margin-top: 8px; padding: 16px 14px; border-radius: 22px; background: var(--screen); border: 1px solid var(--line); }
+  .mini .msg { opacity: 1; transform: none; font-size: .9rem; }
+}
+
+/* ---------- family */
+.fam-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(40px, 6vw, 96px); align-items: center; }
+.fam-copy { display: grid; gap: 22px; min-width: 0; }
+.fam-copy > p { color: var(--muted); max-width: 32em; }
+.feed { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 10px; }
+.feed li { display: grid; grid-template-columns: 76px 1fr; gap: 14px; align-items: baseline; padding: 14px 16px; border-radius: 16px; background: var(--surface); border: 1px solid var(--line);
+  transition: transform .5s cubic-bezier(.2, 1.2, .3, 1), box-shadow .5s, border-color .5s; }
+.feed li.fresh { border-color: color-mix(in srgb, var(--green) 70%, transparent); box-shadow: var(--shadow); transform: translateX(6px); }
+.feed time { font: 600 .78rem/1.4 var(--f-mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+.feed span { font-weight: 600; font-size: .98rem; }
+.circle { position: relative; width: 100%; max-width: 540px; aspect-ratio: 1; justify-self: center; }
+.circle svg.links-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.c-ring { fill: none; stroke: color-mix(in srgb, var(--blue) 40%, transparent); stroke-width: .35; stroke-dasharray: 1.2 1.6; }
+.c-link { stroke: color-mix(in srgb, var(--green) 85%, transparent); stroke-width: .7; stroke-linecap: round; }
+.c-dot { fill: var(--blue); }
+.hub { position: absolute; left: 50%; top: 50%; width: 26%; aspect-ratio: 1; translate: -50% -50%; filter: drop-shadow(0 18px 26px rgba(6, 70, 120, .3)); }
+.person { position: absolute; width: 21%; translate: -50% -50%; display: grid; justify-items: center; gap: 6px; text-align: center; }
+.person .av { width: 100%; aspect-ratio: 1; }
+.person b { font-size: .95rem; line-height: 1.1; }
+.person small { display: block; color: var(--muted); font-weight: 600; font-size: .75rem; }
+.person .ping { position: absolute; top: 0; right: 0; width: 26%; aspect-ratio: 1; border-radius: 50%; background: var(--green); border: 3px solid var(--paper); display: grid; place-items: center; scale: 0; transition: scale .4s cubic-bezier(.2, 1.6, .3, 1); }
+.person .ping svg { width: 60%; height: 60%; color: #FFFFFF; }
+.person.got .ping { scale: 1; }
+@media (max-width: 900px) { .fam-grid { grid-template-columns: 1fr; } .circle { max-width: 440px; } }
+@media (max-width: 480px) { .person b { font-size: .8rem; } .person small { font-size: .66rem; } }
+
+/* ---------- how */
+.how-track { position: relative; margin-top: clamp(36px, 5vw, 64px); }
+.how-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 3vw, 36px); position: relative; }
+.how-line { position: absolute; left: 8%; right: 8%; top: 38px; height: 4px; overflow: visible; pointer-events: none; }
+.how-steps li { position: relative; display: grid; gap: 14px; align-content: start; }
+.how-num { width: 76px; height: 76px; border-radius: 50%; display: grid; place-items: center; background: var(--surface); border: 3px solid var(--ink); font: 600 1.7rem/1 var(--f-display); position: relative; z-index: 1; }
+.how-steps li:last-child .how-num { background: var(--green); color: #0B1418; border-color: #0B1418; }
+.how-steps p { color: var(--muted); max-width: 22em; }
+@media (max-width: 820px) { .how-steps { grid-template-columns: 1fr; gap: 34px; } .how-line { display: none; } .how-steps li { grid-template-columns: 76px 1fr; column-gap: 20px; } .how-steps li > :not(.how-num) { grid-column: 2; } .how-num { grid-row: span 2; } }
+
+/* ---------- join */
+.join { background: var(--cta); color: var(--cta-ink); overflow: hidden; }
+.join-lines { position: absolute; right: -6%; top: 50%; width: min(760px, 90vw); aspect-ratio: 1; translate: 0 -50%; opacity: .2; overflow: visible; pointer-events: none; }
+.join-in { position: relative; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: clamp(36px, 6vw, 90px); align-items: center; }
+.join h2 { font: 560 clamp(2.4rem, 5.4vw, 4.6rem)/1 var(--f-display); letter-spacing: -.035em; margin: 0; text-wrap: balance; }
+.join h2 em { color: var(--cta-ink); opacity: .85; }
+.join p { margin-top: 20px; font-size: 1.15rem; opacity: .85; max-width: 30em; }
+.form { display: grid; gap: 14px; padding: clamp(22px, 3vw, 34px); border-radius: 26px; background: var(--cta-field); border: 1px solid var(--cta-line); backdrop-filter: blur(6px); }
+.form label { font: 600 .74rem/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; opacity: .85; }
+.form input, .form select { width: 100%; font: 600 1.05rem/1.2 var(--f-body); color: var(--cta-ink); background: rgba(0, 0, 0, .14); border: 1.5px solid var(--cta-line); border-radius: 14px; padding: 15px 16px; appearance: none; }
+.form select { background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%); background-position: calc(100% - 22px) 52%, calc(100% - 16px) 52%; background-size: 6px 6px; background-repeat: no-repeat; }
+.form option { color: #0B1418; }
+.form input::placeholder { color: var(--cta-ink); opacity: .6; }
+.form input:focus-visible, .form select:focus-visible { outline: 3px solid #FFFFFF; outline-offset: 2px; }
+.btn-light { background: #FFFFFF; color: #04416F; justify-content: center; margin-top: 6px; }
+.form-note { min-height: 1.4em; font-size: .92rem; font-weight: 600; }
+@media (max-width: 860px) { .join-in { grid-template-columns: 1fr; } }
+
+/* ---------- footer */
+footer { padding-block: 48px 56px; border-top: 1px solid var(--line); }
+.foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; color: var(--muted); font-size: .92rem; }
+.foot .brand { color: var(--ink); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .001ms !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- shared symbols: the Makai mark and line icons -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="mk" viewBox="0 0 200 200">
+    <circle cx="100" cy="100" r="100" fill="#066DB8"/>
+    <rect x="42.5" y="42.5" width="115" height="115" rx="15" fill="#6FCF78"/>
+    <g fill="none" stroke="#0B1418" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M100 42.5V157.5M46.1 47.75 100 157.5M153.9 47.75 100 157.5M42.5 97.5H70.53M129.47 97.5H157.5"/>
+      <rect x="42.5" y="42.5" width="115" height="115" rx="15"/>
+    </g>
+  </symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zM9 16l2 2 4-4"/></symbol>
+  <symbol id="i-pill" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7ZM8.5 8.5l7 7"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1zM9 12l2 2 4-4"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+  <symbol id="i-steth" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M11 2v2M5 2v2M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1M8 15a6 6 0 0 0 12 0v-3M22 10a2 2 0 1 1-4 0 2 2 0 0 1 4 0z"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7ZM14 2v4a2 2 0 0 0 2 2h4M16 13H8M16 17H8M10 9H8"/></symbol>
+  <symbol id="i-msg" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path fill="currentColor" d="M7 4.5v15a1 1 0 0 0 1.5.86l12.6-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></symbol>
+</svg>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top" aria-label="MAKAI, back to top"><svg aria-hidden="true"><use href="#mk"/></svg>MAKAI</a>
+    <nav class="links" aria-label="Sections">
+      <a href="#untangle">Why Makai</a>
+      <a href="#film">Film</a>
+      <a href="#features">What it does</a>
+      <a href="#family">Families</a>
+    </nav>
+    <a class="btn btn-ink sm" href="#join">Get early access</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero">
+    <div class="wrap hero-in">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="dot"></span>AI care companion for older adults</p>
+        <h1 class="display">Healthcare, <em>handled.</em></h1>
+        <p class="lede">Makai books appointments, orders refills, calls the pharmacy and the doctor’s office, checks insurance and keeps the whole family updated. Mom just sends a text.</p>
+        <div class="cta-row">
+          <a class="btn btn-ink" href="#join">Get early access</a>
+          <a class="btn btn-ghost" href="#film"><svg aria-hidden="true"><use href="#i-play"/></svg>Watch the film <span class="mono">1:17</span></a>
+        </div>
+        <p class="works">Works in <span class="tag"><i style="background:#0A84FF"></i>iMessage</span><span class="tag"><i style="background:#25D366"></i>WhatsApp</span></p>
+      </div>
+
+      <div class="hero-art" id="heroArt" aria-hidden="true">
+        <div class="orbit" data-depth="-.04"></div>
+        <svg class="hero-mark" id="heroMark" viewBox="0 0 200 200" data-depth=".05">
+          <circle class="disc" cx="100" cy="100" r="100" fill="#066DB8"/>
+          <rect class="fill" x="42.5" y="42.5" width="115" height="115" rx="15" fill="#6FCF78"/>
+          <g fill="none" stroke="#0B1418" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round">
+            <path class="draw" pathLength="1" style="animation-delay:.25s" d="M100 42.5V157.5"/>
+            <path class="draw" pathLength="1" style="animation-delay:.35s" d="M46.1 47.75 100 157.5"/>
+            <path class="draw" pathLength="1" style="animation-delay:.45s" d="M153.9 47.75 100 157.5"/>
+            <path class="draw" pathLength="1" style="animation-delay:.6s" d="M42.5 97.5H70.53"/>
+            <path class="draw" pathLength="1" style="animation-delay:.65s" d="M129.47 97.5H157.5"/>
+            <rect class="draw" pathLength="1" style="animation-delay:.1s" x="42.5" y="42.5" width="115" height="115" rx="15"/>
+          </g>
+        </svg>
+        <div class="chip c1" data-depth=".16"><span class="ic" style="background:var(--green-wash);color:var(--green-ink)"><svg><use href="#i-cal"/></svg></span><span><small>Dr. Patel · Cardiology</small><strong>Booked · Thu 2:00 PM</strong></span></div>
+        <div class="chip c2" data-depth=".26"><span class="ic" style="background:var(--blue-wash);color:var(--blue)"><svg><use href="#i-pill"/></svg></span><span><small>Lisinopril 10 mg</small><strong>Ready at 4:00 PM</strong></span></div>
+        <div class="chip c3" data-depth=".1"><span class="ic" style="background:var(--green-wash);color:var(--green-ink)"><svg><use href="#i-shield"/></svg></span><span><small>Heart ultrasound</small><strong>Covered · $0 copay</strong></span></div>
+        <div class="chip c4" data-depth=".22"><span class="av" data-avatar="sarah"></span><span><small>Sarah</small><strong>Thank you, Makai!</strong></span></div>
+        <div class="chip c5" data-depth=".32"><span class="ic" style="background:var(--blue-wash);color:var(--blue)"><svg><use href="#i-phone"/></svg></span><span><small>Calling the pharmacy</small><span class="wave"><span></span><span style="animation-delay:-.2s"></span><span style="animation-delay:-.45s"></span><span style="animation-delay:-.7s"></span><span style="animation-delay:-.3s"></span><span style="animation-delay:-.6s"></span></span></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== UNTANGLE ===================== -->
+  <section class="untangle" id="untangle">
+    <div class="wrap">
+      <header class="sec-head">
+        <p class="eyebrow"><span class="dot"></span>Why Makai</p>
+        <h2 class="h2">Caring for an aging parent is a tangle of phone calls.</h2>
+      </header>
+    </div>
+    <div class="wrap ut-grid">
+      <div class="ut-steps" id="utSteps">
+        <article class="ut-step on">
+          <p class="kicker">The clinic</p>
+          <h3 class="h3">40 minutes on hold.</h3>
+          <p>Booking one appointment means calling the office, waiting, and calling back after they close for lunch.</p>
+        </article>
+        <article class="ut-step">
+          <p class="kicker">The pharmacy</p>
+          <h3 class="h3">A refill slips through the cracks.</h3>
+          <p>The bottle runs out on a Sunday. Nobody noticed it was getting low.</p>
+        </article>
+        <article class="ut-step">
+          <p class="kicker">The family</p>
+          <h3 class="h3">Everyone is worried. Nobody knows.</h3>
+          <p>Her kids live miles away and text each other to ask if anyone has talked to Mom.</p>
+        </article>
+        <article class="ut-step">
+          <p class="kicker">Makai</p>
+          <h3 class="h3">Makai untangles it.</h3>
+          <p>One companion handles the calls, the refills and the paperwork, then tells everyone what happened.</p>
+        </article>
+      </div>
+      <div class="ut-stage-col">
+        <div class="ut-stage"><svg id="utSvg" viewBox="0 0 800 800" role="img" aria-label="Lines between the clinic, pharmacy, insurance, billing, cardiology and family straighten into the Makai mark."></svg></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FILM ===================== -->
+  <section class="film pad" id="film">
+    <div class="wrap">
+      <header class="sec-head center">
+        <p class="eyebrow"><span class="dot"></span>The film</p>
+        <h2 class="h2">Meet Makai in 77 seconds.</h2>
+        <p class="lede">From 40 minutes on hold to a family that always knows what’s happening.</p>
+      </header>
+      <div class="film-frame" id="filmFrame">
+        <video id="filmVideo" src="film.mp4" poster="poster.jpg" preload="metadata" playsinline></video>
+        <button class="play" id="playBtn" type="button" aria-label="Play the MAKAI film with sound">
+          <span class="play-pill">
+            <span class="play-btn"><svg aria-hidden="true"><use href="#i-play"/></svg></span>
+            <span class="play-label">Play with sound<small>1:17</small></span>
+          </span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FEATURES ===================== -->
+  <section class="features pad" id="features">
+    <div class="wrap">
+      <header class="sec-head">
+        <p class="eyebrow"><span class="dot"></span>What Makai does</p>
+        <h2 class="h2">It all happens in a text thread she already knows how to use.</h2>
+      </header>
+      <div class="ft-grid">
+        <div class="ft-phone-col">
+          <div class="phone-sticky">
+            <div class="seg" role="group" aria-label="Messaging app">
+              <button type="button" id="segIm" aria-pressed="true"><i style="background:#0A84FF"></i>iMessage</button>
+              <button type="button" id="segWa" aria-pressed="false"><i style="background:#25D366"></i>WhatsApp</button>
+            </div>
+            <div class="phone" id="phone">
+              <div class="screen">
+                <div class="p-island"></div>
+                <div class="p-head"><svg aria-hidden="true"><use href="#mk"/></svg><span class="name" id="pName">MAKAI</span><span class="sub" id="pSub">online</span></div>
+                <div class="thread" id="thread" aria-live="polite"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ft-list" id="ftList"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAMILY ===================== -->
+  <section class="family pad" id="family">
+    <div class="wrap fam-grid">
+      <div class="fam-copy">
+        <p class="eyebrow"><span class="dot"></span>For families</p>
+        <h2 class="h2">The whole family, <em>in the loop.</em></h2>
+        <p>Add the people who help look after her. Each time Makai books, refills, calls or checks coverage, they hear about it right away.</p>
+        <ul class="feed" id="feed" aria-label="Example care updates"></ul>
+      </div>
+      <div class="circle" id="circle" aria-hidden="true">
+        <svg class="links-svg" id="circleSvg" viewBox="0 0 100 100"></svg>
+        <svg class="hub"><use href="#mk"/></svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== HOW ===================== -->
+  <section class="how pad" id="how" style="padding-top:0">
+    <div class="wrap">
+      <header class="sec-head">
+        <p class="eyebrow"><span class="dot"></span>Getting started</p>
+        <h2 class="h2">Three steps, and she never waits on hold again.</h2>
+      </header>
+      <div class="how-track">
+      <svg class="how-line" id="howLine" viewBox="0 0 100 4" preserveAspectRatio="none" aria-hidden="true"><path d="M0 2H100" fill="none" style="stroke:var(--ink)" stroke-width="4" vector-effect="non-scaling-stroke" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/></svg>
+      <ol class="how-steps" id="howSteps">
+        <li><span class="how-num">1</span><h3 class="h3">Set up her care circle</h3><p>Add her doctors, her pharmacy and her insurance, plus the family members who want updates.</p></li>
+        <li><span class="how-num">2</span><h3 class="h3">She texts Makai</h3><p>In iMessage or WhatsApp, the same way she texts the grandkids. No new app, no passwords.</p></li>
+        <li><span class="how-num">3</span><h3 class="h3">Makai takes it from there</h3><p>It books, refills, calls, checks coverage and keeps everyone posted as it goes.</p></li>
+      </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== JOIN ===================== -->
+  <section class="join pad" id="join">
+    <svg class="join-lines" id="joinLines" viewBox="0 0 200 200" aria-hidden="true">
+      <g fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round">
+        <path pathLength="1" stroke-dasharray="1" stroke-dashoffset="1" d="M42.5 57.5a15 15 0 0 1 15-15h85a15 15 0 0 1 15 15v85a15 15 0 0 1-15 15h-85a15 15 0 0 1-15-15z"/>
+        <path pathLength="1" stroke-dasharray="1" stroke-dashoffset="1" d="M100 42.5V157.5"/>
+        <path pathLength="1" stroke-dasharray="1" stroke-dashoffset="1" d="M46.1 47.75 100 157.5"/>
+        <path pathLength="1" stroke-dasharray="1" stroke-dashoffset="1" d="M153.9 47.75 100 157.5"/>
+        <path pathLength="1" stroke-dasharray="1" stroke-dashoffset="1" d="M42.5 97.5H70.53"/>
+        <path pathLength="1" stroke-dasharray="1" stroke-dashoffset="1" d="M129.47 97.5H157.5"/>
+        <circle cx="100" cy="100" r="99" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+      </g>
+    </svg>
+    <div class="wrap join-in">
+      <div>
+        <h2>Healthcare, handled. <em>For her, and for you.</em></h2>
+        <p>Get early access to MAKAI. Leave your email and we’ll let you know when Makai is ready for your family.</p>
+      </div>
+      <form class="form" id="joinForm" novalidate>
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+        <label for="who">Who is Makai for?</label>
+        <select id="who" name="who">
+          <option>My mom or dad</option>
+          <option>Myself</option>
+          <option>Someone I care for</option>
+        </select>
+        <button class="btn btn-light" type="submit">Get early access</button>
+        <p class="form-note" id="formNote" role="status"></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a class="brand" href="#top"><svg aria-hidden="true"><use href="#mk"/></svg>MAKAI</a>
+    <span>Healthcare, handled. Works in iMessage and WhatsApp.</span>
+    <span>© 2026 MAKAI</span>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const seg = (p, a, b) => clamp((p - a) / (b - a));
+  const ease = { io: t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2, out: t => 1 - Math.pow(1 - t, 3),
+    back: t => { const c = 1.6; return 1 + (c + 1) * Math.pow(t - 1, 3) + c * Math.pow(t - 1, 2); } };
+  const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const NS = 'http://www.w3.org/2000/svg';
+
+  // ---------------------------------------------------------------- avatars (same illustration style as the film)
+  const SKIN = ['#F2C9A5', '#E3A982', '#C68A64'];
+  function avatar({ bg, skin, hair, style, shirt, glasses = false, beard = false }) {
+    const ink = '#0B1418', sw = 4;
+    let back = '', front = '';
+    if (style === 'bun') {
+      back = `<circle cx="100" cy="52" r="19" fill="${hair}" stroke="${ink}" stroke-width="${sw}"/>`;
+      front = `<path d="M65 100C60 66 80 56 100 56C122 56 141 66 135 100C130 84 118 74 100 73C84 74 71 84 65 100Z" fill="${hair}" stroke="${ink}" stroke-width="${sw}" stroke-linejoin="round"/>`;
+    } else if (style === 'bob') {
+      back = `<path d="M60 128C50 70 74 50 100 50C126 50 150 70 140 128C128 132 72 132 60 128Z" fill="${hair}" stroke="${ink}" stroke-width="${sw}" stroke-linejoin="round"/>`;
+      front = `<path d="M66 100C66 70 84 60 104 60C124 60 136 74 134 96C120 90 100 80 92 70C86 82 76 92 66 100Z" fill="${hair}" stroke="${ink}" stroke-width="${sw}" stroke-linejoin="round"/>`;
+    } else if (style === 'short') {
+      front = `<path d="M65 96C62 64 82 52 102 52C124 52 140 66 135 96C132 82 124 76 112 74C100 80 82 80 70 78C67 84 66 90 65 96Z" fill="${hair}" stroke="${ink}" stroke-width="${sw}" stroke-linejoin="round"/>`;
+    } else {
+      back = [[70, 70], [84, 56], [100, 52], [116, 56], [130, 70], [136, 88], [64, 88]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="15" fill="${hair}" stroke="${ink}" stroke-width="${sw}"/>`).join('');
+    }
+    const g = glasses ? `<g fill="none" stroke="${ink}" stroke-width="3.5"><circle cx="86" cy="101" r="10"/><circle cx="114" cy="101" r="10"/><path d="M96 101h8"/></g>` : '';
+    const b = beard ? `<path d="M70 108C72 136 88 144 100 144C112 144 128 136 130 108C124 120 112 124 100 124C88 124 76 120 70 108Z" fill="${hair}" stroke="${ink}" stroke-width="${sw}" stroke-linejoin="round"/>` : '';
+    return `<svg viewBox="0 0 200 200" width="100%" height="100%" aria-hidden="true"><circle cx="100" cy="100" r="98" fill="${bg}"/>
+      <g clip-path="circle(98px at 100px 100px)">${back}
+      <path d="M28 214C32 168 62 150 100 150C138 150 168 168 172 214Z" fill="${shirt}" stroke="${ink}" stroke-width="${sw}"/>
+      <path d="M84 151L100 176L116 151" fill="#fff" stroke="${ink}" stroke-width="${sw}" stroke-linejoin="round"/>
+      <path d="M88 126L88 150Q100 158 112 150L112 126" fill="${skin}" stroke="${ink}" stroke-width="${sw}"/>
+      <ellipse cx="100" cy="100" rx="34" ry="40" fill="${skin}" stroke="${ink}" stroke-width="${sw}"/>${front}${b}
+      <circle cx="86" cy="102" r="3.4" fill="${ink}"/><circle cx="114" cy="102" r="3.4" fill="${ink}"/>${g}
+      <circle cx="78" cy="118" r="6" fill="#F08F8F" opacity=".35"/><circle cx="122" cy="118" r="6" fill="#F08F8F" opacity=".35"/>
+      ${beard ? '' : `<path d="M90 120Q100 128 110 120" fill="none" stroke="${ink}" stroke-width="3.5" stroke-linecap="round"/>`}</g>
+      <circle cx="100" cy="100" r="98" fill="none" stroke="${ink}" stroke-width="${sw}"/></svg>`;
+  }
+  const AV = {
+    margaret: avatar({ bg: '#E4F6E6', skin: SKIN[0], hair: '#EEECE8', style: 'bun', shirt: '#066DB8', glasses: true }),
+    sarah: avatar({ bg: '#FCE9E3', skin: SKIN[1], hair: '#6B3E26', style: 'bob', shirt: '#6FCF78' }),
+    jake: avatar({ bg: '#E3F0FA', skin: SKIN[0], hair: '#3B2A1E', style: 'short', shirt: '#F4B860', beard: true }),
+    emma: avatar({ bg: '#FFF4D9', skin: SKIN[2], hair: '#1E1A17', style: 'curly', shirt: '#E9785A' }),
+  };
+  document.querySelectorAll('[data-avatar]').forEach(el => { el.innerHTML = AV[el.dataset.avatar]; });
+
+  // ---------------------------------------------------------------- scroll engine
+  const tracked = [];
+  const track = (el, fn) => tracked.push({ el, fn });
+  let queued = false;
+  function frame() {
+    queued = false;
+    const vh = innerHeight;
+    for (const t of tracked) {
+      const r = t.el.getBoundingClientRect();
+      if (r.bottom < -vh * .5 || r.top > vh * 1.5) continue;
+      t.fn(r, vh);
+    }
+  }
+  const request = () => { if (!queued) { queued = true; requestAnimationFrame(frame); } };
+  addEventListener('scroll', request, { passive: true });
+  addEventListener('resize', request);
+
+  // nav
+  track(document.body, () => $('nav').classList.toggle('scrolled', scrollY > 8));
+
+  // ---------------------------------------------------------------- hero: scroll + pointer parallax
+  const heroArt = $('heroArt');
+  const depthEls = [...heroArt.querySelectorAll('[data-depth]')];
+  let px = 0, py = 0;
+  function placeHero() {
+    if (RM) return;
+    const s = scrollY;
+    depthEls.forEach(el => {
+      const d = +el.dataset.depth;
+      el.style.transform = `translate3d(${(px * d * 60).toFixed(1)}px, ${(-s * d + py * d * 60).toFixed(1)}px, 0)`;
+    });
+  }
+  track(heroArt, placeHero);
+  heroArt.parentElement.addEventListener('pointermove', e => {
+    const r = heroArt.getBoundingClientRect();
+    px = (e.clientX - (r.left + r.width / 2)) / r.width;
+    py = (e.clientY - (r.top + r.height / 2)) / r.height;
+    placeHero();
+  });
+
+  // ---------------------------------------------------------------- untangle: tangled lines straighten into the mark
+  const svg = $('utSvg');
+  const el = (tag, attrs, parent) => {
+    const n = document.createElementNS(NS, tag);
+    for (const k in attrs) { const v = attrs[k]; if (typeof v === 'string' && v.startsWith('var(')) n.style.setProperty(k, v); else n.setAttribute(k, v); }
+    (parent || svg).appendChild(n); return n;
+  };
+  const C = 400, S = 1.5;                       // mark centred, 300px wide in the 800 box
+  const L2S = (u, v) => [C + (u - 100) * S, C + (v - 100) * S];
+  const TARGET = [[[100, 42.5], [100, 157.5]], [[46.1, 47.75], [100, 157.5]], [[153.9, 47.75], [100, 157.5]], [[42.5, 97.5], [70.53, 97.5]], [[129.47, 97.5], [157.5, 97.5]]]
+    .map(([a, b]) => { const A = L2S(...a), B = L2S(...b); return Array.from({ length: 7 }, (_, i) => [lerp(A[0], B[0], i / 6), lerp(A[1], B[1], i / 6)]); });
+  const SRC = [
+    [[150, 150], [420, 30], [250, 560], [420, 430], [590, 300], [520, 770], [560, 690]],
+    [[640, 120], [730, 380], [190, 300], [300, 520], [400, 720], [50, 560], [130, 620]],
+    [[700, 470], [520, 630], [630, 110], [400, 220], [170, 330], [260, 30], [150, 150]],
+    [[80, 380], [300, 170], [570, 570], [480, 420], [400, 280], [770, 300], [640, 120]],
+    [[560, 690], [290, 730], [650, 380], [360, 330], [70, 270], [250, 710], [80, 380]],
+  ];
+  const NODES = [
+    { id: 'clinic', label: 'Clinic', icon: 'i-steth', at: [150, 150] },
+    { id: 'pharmacy', label: 'Pharmacy', icon: 'i-pill', at: [640, 120] },
+    { id: 'insurance', label: 'Insurance', icon: 'i-shield', at: [700, 470] },
+    { id: 'family', label: 'Family', icon: 'i-users', at: [560, 690] },
+    { id: 'billing', label: 'Billing', icon: 'i-file', at: [130, 620] },
+    { id: 'cardio', label: 'Cardiology', icon: 'i-heart', at: [80, 380] },
+  ].map((n, i) => { const a = (-90 + 60 * i) * Math.PI / 180; return { ...n, orbit: [C + Math.cos(a) * 318, C + Math.sin(a) * 318] }; });
+  const path7 = p => `M${p[0]}C${p[1]} ${p[2]} ${p[3]}C${p[4]} ${p[5]} ${p[6]}`.replace(/(\d+\.\d{2})\d+/g, '$1');
+
+  const gDeco = el('g', { fill: 'none', 'stroke-width': 3, 'stroke-linecap': 'round', stroke: 'var(--tangle)' });
+  const DECO = ['M130 620C380 760 760 690 700 470', 'M80 380C200 760 640 640 640 120', 'M150 150C700 40 760 620 560 690', 'M640 120C200 40 30 520 130 620'].map(d => el('path', { d, opacity: .7 }, gDeco));
+  const spokes = NODES.map(() => el('path', { fill: 'none', stroke: 'var(--green)', 'stroke-width': 4, 'stroke-linecap': 'round', 'stroke-dasharray': '2 13', opacity: 0 }));
+  const disc = el('circle', { cx: C, cy: C, r: 0, fill: '#066DB8' });
+  const fillR = el('rect', { x: L2S(42.5, 0)[0], y: L2S(0, 42.5)[1], width: 115 * S, height: 115 * S, rx: 15 * S, fill: '#6FCF78', opacity: 0 });
+  const lines = SRC.map(() => ({
+    grey: el('path', { fill: 'none', stroke: 'var(--tangle)', 'stroke-width': 3.2, 'stroke-linecap': 'round' }),
+    ink: el('path', { fill: 'none', stroke: '#0B1418', 'stroke-width': 5.5 * S, 'stroke-linecap': 'round', opacity: 0 }),
+  }));
+  const frameR = el('rect', { x: L2S(42.5, 0)[0], y: L2S(0, 42.5)[1], width: 115 * S, height: 115 * S, rx: 15 * S, fill: 'none', stroke: '#0B1418', 'stroke-width': 5.5 * S, pathLength: 1, 'stroke-dasharray': 1, 'stroke-dashoffset': 1 });
+  const nodeEls = NODES.map(n => {
+    const g = el('g', { class: 'node' });
+    el('circle', { r: 48, class: 'node-ring' }, g);
+    el('use', { href: '#' + n.icon, x: -22, y: -22, width: 44, height: 44 }, g);
+    const t = el('text', { y: 84, 'text-anchor': 'middle' }, g); t.textContent = n.label;
+    return g;
+  });
+  // story props: the hold timer, the missed refill, the worried family
+  const hold = el('g', {});
+  el('rect', { x: -98, y: -27, width: 196, height: 54, rx: 27, class: 'pill-bg' }, hold);
+  el('circle', { cx: -70, cy: 0, r: 7, fill: 'var(--coral)' }, hold);
+  const holdT = el('text', { x: -52, y: 9, 'font-size': 25, 'font-weight': 700, fill: 'var(--ink)', 'font-family': 'IBM Plex Mono, monospace' }, hold); holdT.textContent = 'On hold 00:00';
+  const miss = el('g', {});
+  el('rect', { x: -78, y: -24, width: 156, height: 48, rx: 24, fill: 'var(--coral-wash)', stroke: 'var(--coral)', 'stroke-width': 2 }, miss);
+  const missT = el('text', { y: 8, 'text-anchor': 'middle', 'font-size': 22, 'font-weight': 800, fill: 'var(--coral)' }, miss); missT.textContent = 'Refill missed';
+  const worry = ['Has anyone called Mom?', 'Is she okay?'].map((txt, i) => {
+    const g = el('g', {});
+    const w = txt.length * 12.4 + 36;
+    el('rect', { x: -w / 2, y: -25, width: w, height: 50, rx: 18, class: 'pill-bg' }, g);
+    const t = el('text', { y: 8, 'text-anchor': 'middle', 'font-size': 21, 'font-weight': 600, fill: 'var(--ink)' }, g); t.textContent = txt;
+    return g;
+  });
+
+  const fmt = s => `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+  const stepEls = [...document.querySelectorAll('.ut-step')];
+  function drawUntangle(p) {
+    const mp = ease.io(seg(p, .7, .87));
+    lines.forEach((ln, i) => {
+      const wob = (1 - mp) * 16;
+      const pts = SRC[i].map((q, k) => {
+        const w = k % 3 ? Math.sin(p * 14 + i * 1.7 + k) * wob : 0;
+        return [lerp(q[0], TARGET[i][k][0], mp) + w, lerp(q[1], TARGET[i][k][1], mp) - w];
+      });
+      const d = path7(pts);
+      ln.grey.setAttribute('d', d); ln.ink.setAttribute('d', d);
+      const k = seg(mp, .45, .9);
+      ln.grey.setAttribute('opacity', (1 - k).toFixed(3));
+      ln.ink.setAttribute('opacity', k.toFixed(3));
+      ln.ink.setAttribute('stroke-width', lerp(3.2, 5.5 * S, mp).toFixed(2));
+    });
+    gDeco.setAttribute('opacity', (1 - seg(p, .62, .76)).toFixed(3));
+    disc.setAttribute('r', (150 * ease.back(seg(p, .76, .88))).toFixed(2));
+    fillR.setAttribute('opacity', seg(p, .82, .88).toFixed(3));
+    frameR.setAttribute('stroke-dashoffset', (1 - ease.io(seg(p, .74, .88))).toFixed(3));
+    const np = ease.io(seg(p, .74, .94));
+    NODES.forEach((n, i) => {
+      const jitter = (1 - np) * 6;
+      const x = lerp(n.at[0], n.orbit[0], np) + Math.sin(p * 9 + i) * jitter, y = lerp(n.at[1], n.orbit[1], np) + Math.cos(p * 7 + i) * jitter;
+      const shake = n.id === 'pharmacy' ? Math.sin(p * 120) * 6 * seg(p, .26, .3) * (1 - seg(p, .48, .52)) : 0;
+      nodeEls[i].setAttribute('transform', `translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${shake.toFixed(2)})`);
+      nodeEls[i].classList.toggle('calm', np > .5);
+      n.now = [x, y];
+      const sp = seg(p, .88, .97);
+      spokes[i].setAttribute('d', `M${C} ${C}L${lerp(C, x, sp).toFixed(1)} ${lerp(C, y, sp).toFixed(1)}`);
+      spokes[i].setAttribute('opacity', sp > 0 ? 1 : 0);
+    });
+    const clinic = NODES[0].now, pharm = NODES[1].now, fam = NODES[3].now;
+    holdT.textContent = 'On hold ' + fmt(2400 * Math.pow(seg(p, 0, .22), 1.6));
+    hold.setAttribute('transform', `translate(${clinic[0] + 120} ${clinic[1] - 6})`);
+    hold.setAttribute('opacity', (1 - seg(p, .27, .33)).toFixed(3));
+    miss.setAttribute('transform', `translate(${pharm[0] - 10} ${pharm[1] + 132}) scale(${lerp(.7, 1, ease.back(seg(p, .26, .33))).toFixed(3)})`);
+    miss.setAttribute('opacity', (seg(p, .26, .3) * (1 - seg(p, .5, .55))).toFixed(3));
+    worry.forEach((g, i) => {
+      const a = seg(p, .52 + i * .06, .56 + i * .06), b = seg(p, .7, .75);
+      g.setAttribute('transform', `translate(${fam[0] - 150 + i * 60} ${fam[1] - 120 - i * 64 - (1 - a) * 20})`);
+      g.setAttribute('opacity', (a * (1 - b)).toFixed(3));
+    });
+  }
+  const utSteps = $('utSteps');
+  const narrow = matchMedia('(max-width: 900px)');
+  track($('untangle'), (r, vh) => {
+    const rr = utSteps.getBoundingClientRect();
+    const line = narrow.matches ? .9 : .58;
+    let p = clamp((vh * line - rr.top) / (rr.height - vh * .25));
+    const active = Math.min(3, Math.floor(p * 4));
+    stepEls.forEach((s, i) => s.classList.toggle('on', i === active));
+    if (RM) p = [.12, .4, .64, 1][active];
+    drawUntangle(p);
+  });
+  drawUntangle(0);
+
+  // ---------------------------------------------------------------- film: frame grows into place, play with sound
+  const filmFrame = $('filmFrame'), video = $('filmVideo'), playBtn = $('playBtn');
+  track($('film'), (r, vh) => {
+    if (RM) return;
+    const fr = filmFrame.getBoundingClientRect();
+    const k = ease.out(clamp(1 - (fr.top - vh * .18) / (vh * .75)));
+    filmFrame.style.transform = `scale(${lerp(.84, 1, k).toFixed(4)})`;
+    filmFrame.style.borderRadius = `${lerp(44, 26, k).toFixed(1)}px`;
+  });
+  playBtn.addEventListener('click', () => {
+    playBtn.hidden = true;
+    video.controls = true;
+    video.play().catch(() => { playBtn.hidden = false; video.controls = false; });
+  });
+  video.addEventListener('ended', () => { playBtn.hidden = false; video.controls = false; });
+
+  // ---------------------------------------------------------------- features: one text thread per job
+  const FEATURES = [
+    { label: 'Appointments', icon: 'i-cal', tone: 'green', title: 'Books the appointment.',
+      body: 'She says what she needs in plain words. Makai finds a time, books it with the office and confirms it with her.',
+      head: 'MAKAI', msgs: [['out', 'I need to see Dr. Patel about my heart.'], ['in', 'I can set that up. Thursday at 2:00 PM or Friday at 10:00 AM?'], ['out', 'Thursday, please.'], ['in', 'Booked: Thursday, Nov 12 at 2:00 PM with Dr. Patel.']] },
+    { label: 'Prescriptions', icon: 'i-pill', tone: 'blue', title: 'Orders refills before they run out.',
+      body: 'Makai keeps an eye on her prescriptions and asks the pharmacy for a refill in time, so she never misses a dose.',
+      head: 'MAKAI', msgs: [['in', 'Your lisinopril runs out in 5 days. Should I order the refill?'], ['out', 'Yes please.'], ['in', 'Done. It’s ready at your pharmacy today at 4:00 PM.']] },
+    { label: 'Phone calls', icon: 'i-phone', tone: 'green', title: 'Calls the pharmacy and the doctor’s office.',
+      body: 'Makai makes the calls, waits on hold and sends live updates as it goes. She never spends another afternoon listening to hold music.',
+      head: 'MAKAI', msgs: [['out', 'Can you call Dr. Patel’s office? I need to move Thursday.'], ['in', 'Calling them now. I’ll keep you posted.'], ['sys', 'Makai is on hold · 12 min'], ['in', 'All set. You’re now Friday at 10:00 AM, same doctor.']] },
+    { label: 'Insurance', icon: 'i-shield', tone: 'blue', title: 'Checks coverage before the visit.',
+      body: 'Before an appointment or a new prescription, Makai checks what her plan covers and what she will pay.',
+      head: 'MAKAI', msgs: [['out', 'Will my insurance cover the heart ultrasound?'], ['sys', 'Checking her plan'], ['in', 'Yes, it’s covered. Your copay is $0.']] },
+    { label: 'Family updates', icon: 'i-users', tone: 'green', title: 'Keeps the family posted.',
+      body: 'Everyone in her care circle sees each update as it happens. Nobody has to call around to find out what the doctor said.',
+      head: 'Margaret’s care circle', msgs: [['in', 'Mom’s cardiology visit is confirmed for Friday at 10:00 AM.', 'Makai'], ['in', 'Lisinopril refill picked up.', 'Makai'], ['in', 'Thank you, Makai! ♥', 'Sarah'], ['out', 'I’m all set, sweetheart.']] },
+  ];
+  const msgHTML = ([kind, text, who]) => kind === 'sys'
+    ? `<div class="msg sys"><span class="wave"><span></span><span style="animation-delay:-.3s"></span><span style="animation-delay:-.6s"></span></span>${text}</div>`
+    : `<div class="msg ${kind}">${who ? `<span class="who">${who}</span>` : ''}${text}</div>`;
+  $('ftList').innerHTML = FEATURES.map((f, i) => `<article class="ft${i ? '' : ' on'}">
+      <span class="ft-label"><span class="ic" style="background:var(--${f.tone}-wash);color:var(--${f.tone === 'green' ? 'green-ink' : 'blue'})"><svg><use href="#${f.icon}"/></svg></span>${f.label}</span>
+      <h3 class="h3">${f.title}</h3><p>${f.body}</p>
+      <div class="mini" aria-hidden="true">${f.msgs.map(m => msgHTML(m).replace('class="msg ', 'class="msg shown ')).join('')}</div></article>`).join('');
+  const ftEls = [...document.querySelectorAll('.ft')];
+  const thread = $('thread'), phone = $('phone');
+  let shownConv = -1, shownCount = -1;
+  function setConversation(i, count) {
+    if (i !== shownConv) {
+      thread.innerHTML = FEATURES[i].msgs.map(msgHTML).join('');
+      $('pName').textContent = FEATURES[i].head;
+      $('pSub').textContent = i === 4 ? 'Sarah, Jake, Emma, Makai' : 'online';
+      shownConv = i; shownCount = -1;
+    }
+    if (count !== shownCount) {
+      const ms = [...thread.children];
+      requestAnimationFrame(() => ms.forEach((m, k) => m.classList.toggle('shown', k < count)));
+      shownCount = count;
+    }
+  }
+  setConversation(0, FEATURES[0].msgs.length);
+  track($('features'), (r, vh) => {
+    const line = vh * .55;
+    let active = 0, local = 1;
+    ftEls.forEach((f, i) => { const fr = f.getBoundingClientRect(); if (fr.top < line) { active = i; local = clamp((line - fr.top) / (fr.height * .7)); } });
+    if (ftEls[0].getBoundingClientRect().top >= line) local = 1;
+    ftEls.forEach((f, i) => f.classList.toggle('on', i === active));
+    const n = FEATURES[active].msgs.length;
+    setConversation(active, RM ? n : Math.max(1, Math.min(n, Math.ceil(local * n + .01))));
+  });
+  const segIm = $('segIm'), segWa = $('segWa');
+  const setApp = wa => { phone.classList.toggle('wa', wa); segIm.setAttribute('aria-pressed', !wa); segWa.setAttribute('aria-pressed', wa); };
+  segIm.addEventListener('click', () => setApp(false));
+  segWa.addEventListener('click', () => setApp(true));
+
+  // ---------------------------------------------------------------- family: updates travel out to everyone
+  const FEED = [
+    ['2:04 PM', 'Refill ready at the pharmacy at 4:00 PM.'],
+    ['1:41 PM', 'Coverage check: heart ultrasound covered, $0 copay.'],
+    ['11:15 AM', 'Cardiology visit moved to Friday at 10:00 AM.'],
+    ['9:02 AM', 'Appointment confirmed with Dr. Patel’s office.'],
+    ['Yesterday', 'Lisinopril refill picked up.'],
+  ];
+  const feed = $('feed');
+  const renderFeed = start => {
+    feed.innerHTML = [0, 1, 2, 3].map(k => { const [t, s] = FEED[(start + k) % FEED.length]; return `<li><time>${t}</time><span>${s}</span></li>`; }).join('');
+    const first = feed.firstElementChild;
+    requestAnimationFrame(() => requestAnimationFrame(() => first.classList.add('fresh')));
+  };
+  renderFeed(0);
+  const PEOPLE = [
+    { k: 'margaret', name: 'Margaret', role: 'Mom', a: -90 },
+    { k: 'sarah', name: 'Sarah', role: 'Daughter', a: 0 },
+    { k: 'emma', name: 'Emma', role: 'Granddaughter', a: 90 },
+    { k: 'jake', name: 'Jake', role: 'Son', a: 180 },
+  ].map(p => ({ ...p, x: 50 + Math.cos(p.a * Math.PI / 180) * 37, y: 50 + Math.sin(p.a * Math.PI / 180) * 37 }));
+  const circle = $('circle'), csvg = $('circleSvg');
+  csvg.innerHTML = `<circle class="c-ring" cx="50" cy="50" r="37"/>` + PEOPLE.map(p => `<line class="c-link" x1="50" y1="50" x2="${p.x.toFixed(2)}" y2="${p.y.toFixed(2)}"/>`).join('') +
+    PEOPLE.map(() => `<circle class="c-dot" r="1.3" cx="50" cy="50" opacity="0"/>`).join('');
+  PEOPLE.forEach(p => circle.insertAdjacentHTML('beforeend', `<div class="person" style="left:${p.x}%;top:${p.y}%"><span class="av">${AV[p.k]}</span><span class="ping"><svg><use href="#i-check"/></svg></span><b>${p.name}<small>${p.role}</small></b></div>`));
+  const dots = [...csvg.querySelectorAll('.c-dot')], persons = [...circle.querySelectorAll('.person')];
+  const ring = csvg.querySelector('.c-ring');
+  let famVisible = false, pulseStart = performance.now(), feedIdx = 0;
+  new IntersectionObserver(es => { famVisible = es[0].isIntersecting; if (famVisible) { pulseStart = performance.now(); requestAnimationFrame(famTick); } }, { threshold: .15 }).observe(circle);
+  function famTick(now) {
+    if (!famVisible || RM) return;
+    const t = (now - pulseStart) / 1000, cycle = 3.2, ph = t % cycle;
+    if (t > 0 && Math.floor(t / cycle) !== feedIdx) { feedIdx = Math.floor(t / cycle); renderFeed(feedIdx % FEED.length); }
+    PEOPLE.forEach((p, i) => {
+      const k = clamp((ph - i * .12) / 1.1);
+      dots[i].setAttribute('cx', lerp(50, p.x, ease.io(k)).toFixed(2));
+      dots[i].setAttribute('cy', lerp(50, p.y, ease.io(k)).toFixed(2));
+      dots[i].setAttribute('opacity', k > 0 && k < 1 ? 1 : 0);
+      persons[i].classList.toggle('got', ph > i * .12 + 1.1 && ph < cycle - .4);
+    });
+    requestAnimationFrame(famTick);
+  }
+  track($('family'), (r, vh) => { if (!RM) ring.style.transform = `rotate(${((vh - r.top) * .04).toFixed(2)}deg)`; ring.style.transformOrigin = '50px 50px'; });
+
+  // ---------------------------------------------------------------- how: the line draws across the steps
+  const howPath = $('howLine').querySelector('path');
+  track($('how'), (r, vh) => { howPath.setAttribute('stroke-dashoffset', RM ? 0 : (1 - ease.io(clamp((vh * .85 - r.top) / (vh * .6)))).toFixed(3)); });
+
+  // ---------------------------------------------------------------- join: the mark draws itself in white
+  const joinPaths = [...$('joinLines').querySelectorAll('path, circle')];
+  track($('join'), (r, vh) => {
+    const p = RM ? 1 : clamp((vh - r.top) / (vh * .9));
+    joinPaths.forEach((q, i) => q.setAttribute('stroke-dashoffset', (1 - ease.io(seg(p, i * .07, .45 + i * .07))).toFixed(3)));
+  });
+
+  // ---------------------------------------------------------------- early-access form
+  // This preview has nowhere to send signups. When hosting the page, post the form to your signup tool here.
+  $('joinForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const email = $('email');
+    const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
+    $('formNote').textContent = ok ? 'Signups aren’t connected on this preview yet. Your email was not sent.' : 'Enter an email address like name@example.com.';
+    if (!ok) email.focus();
+  });
+
+  frame();
+})();
+</script>
+</body>
+</html>
