@@ -288,15 +288,17 @@ section { position: relative; }
 .join h2 { font: 560 clamp(2.4rem, 5.4vw, 4.6rem)/1 var(--f-display); letter-spacing: -.035em; margin: 0; text-wrap: balance; }
 .join h2 em { color: var(--cta-ink); opacity: .85; }
 .join p { margin-top: 20px; font-size: 1.15rem; opacity: .85; max-width: 30em; }
-.form { display: grid; gap: 14px; padding: clamp(22px, 3vw, 34px); border-radius: 26px; background: var(--cta-field); border: 1px solid var(--cta-line); backdrop-filter: blur(6px); }
-.form label { font: 600 .74rem/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; opacity: .85; }
-.form input, .form select { width: 100%; font: 600 1.05rem/1.2 var(--f-body); color: var(--cta-ink); background: rgba(0, 0, 0, .14); border: 1.5px solid var(--cta-line); border-radius: 14px; padding: 15px 16px; appearance: none; }
-.form select { background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%); background-position: calc(100% - 22px) 52%, calc(100% - 16px) 52%; background-size: 6px 6px; background-repeat: no-repeat; }
-.form option { color: #0B1418; }
-.form input::placeholder { color: var(--cta-ink); opacity: .6; }
-.form input:focus-visible, .form select:focus-visible { outline: 3px solid #FFFFFF; outline-offset: 2px; }
-.btn-light { background: #FFFFFF; color: #04416F; justify-content: center; margin-top: 6px; }
-.form-note { min-height: 1.4em; font-size: .92rem; font-weight: 600; }
+.beta-card { display: grid; gap: 22px; padding: clamp(24px, 3vw, 36px); border-radius: 26px; background: var(--cta-field); border: 1px solid var(--cta-line); backdrop-filter: blur(6px); }
+.join .beta-eyebrow { margin: 0; font: 600 .74rem/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; opacity: .85; }
+.beta-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; }
+.beta-steps li { display: grid; grid-template-columns: 42px minmax(0, 1fr); gap: 14px; align-items: start; }
+.beta-steps b { width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; background: #FFFFFF; color: #04416F; font: 600 1.15rem/1 var(--f-display); }
+.beta-steps span { font-weight: 700; font-size: 1.08rem; line-height: 1.3; padding-top: 2px; }
+.beta-steps small { display: block; font-weight: 500; font-size: .92rem; opacity: .8; margin-top: 4px; }
+.btn-light { background: #FFFFFF; color: #04416F; justify-content: center; font-size: 1.08rem; padding: 1.05em 1.6em; }
+.btn-light svg { width: 1em; height: 1em; }
+.btn-light:focus-visible { outline: 3px solid #FFFFFF; outline-offset: 3px; }
+.join .beta-note { margin: 0; font-size: .86rem; opacity: .75; }
 @media (max-width: 860px) { .join-in { grid-template-columns: 1fr; } }
 
 /* ---------- footer */
@@ -332,6 +334,7 @@ footer { padding-block: 48px 56px; border-top: 1px solid var(--line); }
   <symbol id="i-file" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7ZM14 2v4a2 2 0 0 0 2 2h4M16 13H8M16 17H8M10 9H8"/></symbol>
   <symbol id="i-msg" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-out" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M7 17 17 7M8 7h9v9"/></symbol>
   <symbol id="i-play" viewBox="0 0 24 24"><path fill="currentColor" d="M7 4.5v15a1 1 0 0 0 1.5.86l12.6-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></symbol>
 </svg>
 
@@ -344,7 +347,7 @@ footer { padding-block: 48px 56px; border-top: 1px solid var(--line); }
       <a href="#features">What it does</a>
       <a href="#family">Families</a>
     </nav>
-    <a class="btn btn-ink sm" href="#join">Get early access</a>
+    <a class="btn btn-ink sm" href="https://docs.google.com/forms/d/e/1FAIpQLSfIJOdhw-7fcJ1MaqPreExmCDaFmSeIFeTYAaUrMTtxB7zGbw/viewform" target="_blank" rel="noopener">Join the beta</a>
   </div>
 </header>
 
@@ -358,7 +361,7 @@ footer { padding-block: 48px 56px; border-top: 1px solid var(--line); }
         <h1 class="display">Healthcare, <em>handled.</em></h1>
         <p class="lede">Makai books appointments, orders refills, calls the pharmacy and the doctor’s office, checks insurance and keeps the whole family updated. Mom just sends a text.</p>
         <div class="cta-row">
-          <a class="btn btn-ink" href="#join">Get early access</a>
+          <a class="btn btn-ink" href="https://docs.google.com/forms/d/e/1FAIpQLSfIJOdhw-7fcJ1MaqPreExmCDaFmSeIFeTYAaUrMTtxB7zGbw/viewform" target="_blank" rel="noopener">Join the beta</a>
           <a class="btn btn-ghost" href="#film"><svg aria-hidden="true"><use href="#i-play"/></svg>Watch the film <span class="mono">1:17</span></a>
         </div>
         <p class="works">Works in <span class="tag"><i style="background:#0A84FF"></i>iMessage</span><span class="tag"><i style="background:#25D366"></i>WhatsApp</span></p>
@@ -522,20 +525,17 @@ footer { padding-block: 48px 56px; border-top: 1px solid var(--line); }
     <div class="wrap join-in">
       <div>
         <h2>Healthcare, handled. <em>For her, and for you.</em></h2>
-        <p>Get early access to MAKAI. Leave your email and we’ll let you know when Makai is ready for your family.</p>
+        <p>We’re inviting families to try MAKAI early. Tell us a little about your mom or dad, and we’ll email you when there’s a spot.</p>
       </div>
-      <form class="form" id="joinForm" novalidate>
-        <label for="email">Email</label>
-        <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
-        <label for="who">Who is Makai for?</label>
-        <select id="who" name="who">
-          <option>My mom or dad</option>
-          <option>Myself</option>
-          <option>Someone I care for</option>
-        </select>
-        <button class="btn btn-light" type="submit">Get early access</button>
-        <p class="form-note" id="formNote" role="status"></p>
-      </form>
+      <div class="beta-card">
+        <p class="beta-eyebrow">The MAKAI beta</p>
+        <ol class="beta-steps">
+          <li><b>1</b><span>Tell us about your parent<small>13 short questions, about 2 minutes</small></span></li>
+          <li><b>2</b><span>We email you when there’s a spot<small>We only use your email to contact you about the beta</small></span></li>
+        </ol>
+        <a class="btn btn-light" href="https://docs.google.com/forms/d/e/1FAIpQLSfIJOdhw-7fcJ1MaqPreExmCDaFmSeIFeTYAaUrMTtxB7zGbw/viewform" target="_blank" rel="noopener">Join the beta <svg aria-hidden="true"><use href="#i-out"/></svg></a>
+        <p class="beta-note">Opens a Google Form in a new tab.</p>
+      </div>
     </div>
   </section>
 </main>
@@ -882,15 +882,6 @@ footer { padding-block: 48px 56px; border-top: 1px solid var(--line); }
     joinPaths.forEach((q, i) => q.setAttribute('stroke-dashoffset', (1 - ease.io(seg(p, i * .07, .45 + i * .07))).toFixed(3)));
   });
 
-  // ---------------------------------------------------------------- early-access form
-  // This preview has nowhere to send signups. When hosting the page, post the form to your signup tool here.
-  $('joinForm').addEventListener('submit', e => {
-    e.preventDefault();
-    const email = $('email');
-    const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
-    $('formNote').textContent = ok ? 'Signups aren’t connected on this preview yet. Your email was not sent.' : 'Enter an email address like name@example.com.';
-    if (!ok) email.focus();
-  });
 
   frame();
 })();

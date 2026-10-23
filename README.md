@@ -26,7 +26,13 @@ Then visit http://localhost:8000.
 
 It's a static site, so any static host works. Upload the folder as-is to GitHub Pages, Netlify, Vercel or Cloudflare Pages.
 
-## Before launch
+## Beta signups
 
-- **Early-access form**: it isn't connected to anything yet. On submit it tells the visitor signups aren't connected. Wire the `submit` handler at the bottom of `index.html` (search for `joinForm`) to your signup tool.
+The "Join the beta" buttons open the Google Form **MAKAI beta signup**, owned by manav@makaicare.com:
+https://docs.google.com/forms/d/e/1FAIpQLSfIJOdhw-7fcJ1MaqPreExmCDaFmSeIFeTYAaUrMTtxB7zGbw/viewform
+
+Responses show up in the form's Responses tab, which can also be linked to a Google Sheet. To change the form link, search `index.html` for `forms/d/e/`.
+
+## Notes
+
 - **Example content**: Dr. Patel, Margaret's family, the copay amounts and the appointment times are illustrative.
