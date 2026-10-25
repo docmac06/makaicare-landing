@@ -49,6 +49,25 @@ The hero and the blue "join" section each have the same waitlist sign-up ("Join 
 
 A sign-up counts as saved if either write succeeds; failures are logged in the Vercel function logs.
 
+## Analytics
+
+PostHog (project "makaicare", US cloud) is loaded in `<head>` and records page views, PostHog's default autocapture
+(clicks and form submits, never what is typed), and these events:
+
+| Event | When | Properties |
+| --- | --- | --- |
+| `waitlist_joined` | a sign-up is saved | `source` (hero or join), `country_code` |
+| `waitlist_failed` | saving a sign-up fails | `source`, `reason` |
+| `waitlist_invalid_number` | the number doesn't validate | `source` |
+| `film_played` / `film_completed` | the brand film starts / ends | none |
+
+The phone number itself is never sent to PostHog. Events go through `analytics()` in the page script, which does nothing
+where PostHog isn't loaded.
+
+**Editing this page:** this `index.html` is generated from the page source kept outside the repo
+(`landing/index.html` + `landing/analytics.html`, built by `landing/build_site.sh`). Edits made directly in the repo are
+safe, but tell Manav so they're carried into the source before the next build, or they'll be overwritten.
+
 ## Notes
 
 - **Example content**: Dr. Patel, Margaret's family, the copay amounts and the appointment times are illustrative.
