@@ -7,7 +7,7 @@ The landing page for MAKAI, an AI care companion for older adults. It books appo
 | File | What it is |
 | --- | --- |
 | `index.html` | The whole page: markup, styles and scroll animations in one file, no build step |
-| `api/join.js` | Vercel function behind the beta sign-up: saves each phone number to private Vercel Blob storage |
+| `api/join.js` | Vercel function behind the waitlist sign-up: saves each phone number to private Vercel Blob storage |
 | `film.mp4` | The 77-second brand film (1080p30, web encode, about 14 MB) |
 | `poster.jpg` | Poster frame shown before the film plays |
 
@@ -33,9 +33,9 @@ npx vercel deploy --prod
 
 The page is static, but the sign-up form needs `api/join.js` to run as a Vercel function.
 
-## Beta signups
+## Waitlist signups
 
-The hero and the blue "join" section each have the same sign-up: a phone number (country code defaults to +1) and two
+The hero and the blue "join" section each have the same waitlist sign-up ("Join the waitlist"): a phone number (country code defaults to +1) and two
 checkboxes, WhatsApp and iMessage, at least one required. Submitting posts to `/api/join`, which validates the number
 and saves it to the **private** Vercel Blob store `makai-waitlist` as `waitlist/<number>.json`:
 

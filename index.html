@@ -138,7 +138,8 @@ section { position: relative; }
   .idone { border-radius: 26px; flex-wrap: wrap; }
   .ichan { padding-left: 0; }
   .ichan .ilab { width: 100%; padding-left: 8px; }
-  .tog { flex: 1; justify-content: center; }
+  .ichan { gap: 8px; }
+  .tog { flex: 1; justify-content: center; gap: 8px; padding: 8px 10px; font-size: .9rem; }
 }
 
 /* ---------- nav */
@@ -402,7 +403,7 @@ footer { padding-block: 48px 56px; border-top: 1px solid var(--line); }
       <a href="#features">What it does</a>
       <a href="#family">Families</a>
     </nav>
-    <a class="btn btn-ink sm" href="#top" data-intake-focus>Join the beta</a>
+    <a class="btn btn-ink sm" href="#top" data-intake-focus>Join the waitlist</a>
   </div>
 </header>
 
@@ -583,7 +584,7 @@ footer { padding-block: 48px 56px; border-top: 1px solid var(--line); }
         <p>We’re inviting families to try MAKAI early. Leave your phone number and we’ll message you when there’s a spot.</p>
       </div>
       <div class="beta-card">
-        <p class="beta-eyebrow">The MAKAI beta</p>
+        <p class="beta-eyebrow">The MAKAI waitlist</p>
         <form class="intake" data-intake="join" novalidate></form>
       </div>
     </div>
@@ -932,7 +933,7 @@ footer { padding-block: 48px 56px; border-top: 1px solid var(--line); }
     joinPaths.forEach((q, i) => q.setAttribute('stroke-dashoffset', (1 - ease.io(seg(p, i * .07, .45 + i * .07))).toFixed(3)));
   });
 
-  // ---------------------------------------------------------------- beta intake: a phone number + where to message it
+  // ---------------------------------------------------------------- waitlist intake: a phone number + where to message it
   const COUNTRIES = [
     ['US', 'United States', '1'], ['IN', 'India', '91'], ['GB', 'United Kingdom', '44'], ['CA', 'Canada', '1'], ['AE', 'United Arab Emirates', '971'],
     ['AU', 'Australia', '61'], ['SG', 'Singapore', '65'], ['NZ', 'New Zealand', '64'], ['IE', 'Ireland', '353'], ['DE', 'Germany', '49'],
@@ -973,7 +974,7 @@ footer { padding-block: 48px 56px; border-top: 1px solid var(--line); }
           <select aria-label="Country code">${COUNTRIES.map(([iso, name, code]) => `<option value="${iso}">${flag(iso)} ${name} (+${code})</option>`).join('')}</select></label>
         <input id="${id}" type="tel" name="whatsapp" inputmode="tel" autocomplete="tel" placeholder="Phone number" aria-label="Phone number" aria-describedby="${id}-note" required>
         <input class="hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <button class="btn ${light ? 'btn-light' : 'btn-ink'}" type="submit">Join the beta</button>
+        <button class="btn ${light ? 'btn-light' : 'btn-ink'}" type="submit">Join the waitlist</button>
       </div>
       <div class="ichan" role="group" aria-label="Message me on">
         <span class="ilab">Message me on</span>
@@ -1013,7 +1014,7 @@ footer { padding-block: 48px 56px; border-top: 1px solid var(--line); }
       } catch (err) {
         fail(err.message === 'invalid' ? 'That number doesn’t look right. Check the country code and try again.' : 'Couldn’t save that just now. Please try again.');
       } finally {
-        btn.disabled = false; btn.textContent = 'Join the beta';
+        btn.disabled = false; btn.textContent = 'Join the waitlist';
       }
     });
   });

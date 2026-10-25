@@ -1,5 +1,5 @@
 // POST /api/join  { phone: "+14155550123", channels: ["whatsapp", "imessage"], source: "hero" | "join" }
-// Saves a beta signup to the private "makai-waitlist" Blob store as waitlist/<digits>.json.
+// Saves a waitlist signup to the private "makai-waitlist" Blob store as waitlist/<digits>.json.
 // One file per number, so signing up twice just refreshes the same entry. Browse them in
 // Vercel → Storage → makai-waitlist.
 import { put } from '@vercel/blob';
