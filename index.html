@@ -348,6 +348,11 @@ footer { padding-block: 48px 56px; border-top: 1px solid var(--line); }
   *, *::before, *::after { animation-duration: .001ms !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
 }
 </style>
+<!-- PostHog analytics (project "makaicare"); the token is the public project key -->
+<script>
+!function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagResult isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'https://us.i.posthog.com', defaults: '2026-08-30' });
+</script>
 </head>
 <body>
 
@@ -758,8 +763,9 @@ footer { padding-block: 48px 56px; border-top: 1px solid var(--line); }
     playBtn.hidden = true;
     video.controls = true;
     video.play().catch(() => { playBtn.hidden = false; video.controls = false; });
+    posthog.capture('film_played');
   });
-  video.addEventListener('ended', () => { playBtn.hidden = false; video.controls = false; });
+  video.addEventListener('ended', () => { playBtn.hidden = false; video.controls = false; posthog.capture('film_completed'); });
 
   // ---------------------------------------------------------------- features: one text thread per job
   const FEATURES = [
@@ -933,14 +939,17 @@ footer { padding-block: 48px 56px; border-top: 1px solid var(--line); }
       e.preventDefault();
       const code = COUNTRIES.find(c => c[0] === sel.value)[2];
       const phone = compose(code, input.value);
-      if (!valid(phone, code, input.value)) return fail(`Enter your phone number, like ${cv.textContent} ${code === '1' ? '415 555 0123' : '98765 43210'}.`);
+      if (!valid(phone, code, input.value)) { posthog.capture('waitlist_invalid_number', { source: form.dataset.intake }); return fail(`Enter your phone number, like ${cv.textContent} ${code === '1' ? '415 555 0123' : '98765 43210'}.`); }
       btn.disabled = true; btn.textContent = 'Joining…';
       try {
         const r = await fetch('/api/join', { method: 'POST', headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ phone, source: form.dataset.intake, company: form.querySelector('.hp').value }) });
         if (!r.ok) throw new Error(r.status === 400 ? 'invalid' : 'server');
         forms.forEach(f => { f.classList.add('done'); f.querySelector('input[type=tel]').value = ''; });
+        // the phone number itself never goes to PostHog, only where the sign-up came from
+        posthog.capture('waitlist_joined', { source: form.dataset.intake, country_code: code });
       } catch (err) {
+        posthog.capture('waitlist_failed', { source: form.dataset.intake, reason: err.message });
         fail(err.message === 'invalid' ? 'That number doesn’t look right. Check the country code and try again.' : 'Couldn’t save that just now. Please try again.');
       } finally {
         btn.disabled = false; btn.textContent = 'Join the waitlist';
