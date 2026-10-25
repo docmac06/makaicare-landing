@@ -7,31 +7,44 @@ The landing page for MAKAI, an AI care companion for older adults. It books appo
 | File | What it is |
 | --- | --- |
 | `index.html` | The whole page: markup, styles and scroll animations in one file, no build step |
+| `api/join.js` | Vercel function behind the beta sign-up: saves each phone number to private Vercel Blob storage |
 | `film.mp4` | The 77-second brand film (1080p30, web encode, about 14 MB) |
 | `poster.jpg` | Poster frame shown before the film plays |
 
-Fonts load from Google Fonts. There are no other dependencies.
+Fonts load from Google Fonts. The only dependency is `@vercel/blob`, used by the sign-up function.
 
 ## Run it locally
 
-Open `index.html` in a browser, or serve the folder:
+With the Vercel CLI linked to the project, this runs the page and the sign-up function together:
 
 ```bash
-python3 -m http.server 8000
+npx vercel dev
 ```
 
-Then visit http://localhost:8000.
+Opening `index.html` directly works for the page itself, but sign-ups need the function.
 
 ## Deploy
 
-It's a static site, so any static host works. Upload the folder as-is to GitHub Pages, Netlify, Vercel or Cloudflare Pages.
+The site is hosted on Vercel (project `makaicare-landing`, served at makaicare.com). Deploy with:
+
+```bash
+npx vercel deploy --prod
+```
+
+The page is static, but the sign-up form needs `api/join.js` to run as a Vercel function.
 
 ## Beta signups
 
-The "Join the beta" buttons open the Google Form **MAKAI beta signup**, owned by manav@makaicare.com:
-https://docs.google.com/forms/d/e/1FAIpQLSfIJOdhw-7fcJ1MaqPreExmCDaFmSeIFeTYAaUrMTtxB7zGbw/viewform
+The hero and the blue "join" section each have the same sign-up: a phone number (country code defaults to +1) and two
+checkboxes, WhatsApp and iMessage, at least one required. Submitting posts to `/api/join`, which validates the number
+and saves it to the **private** Vercel Blob store `makai-waitlist` as `waitlist/<number>.json`:
 
-Responses show up in the form's Responses tab, which can also be linked to a Google Sheet. To change the form link, search `index.html` for `forms/d/e/`.
+```json
+{ "phone": "+14155550123", "channels": ["whatsapp", "imessage"], "source": "hero", "joinedAt": "…", "country": "US" }
+```
+
+To see sign-ups, open Vercel → Storage → **makai-waitlist**. Each file is named by its phone number, and signing up
+again with the same number updates that file instead of adding a duplicate. `country` comes from Vercel's IP geolocation.
 
 ## Notes
 

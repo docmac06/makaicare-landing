@@ -95,6 +95,52 @@ section { position: relative; }
 .btn .mono { font-weight: 500; opacity: .65; font-size: .85em; }
 .btn.sm { padding: .72em 1.15em; font-size: .92rem; }
 
+/* ---------- WhatsApp intake: one field, one button (hero + join) */
+.intake { display: grid; gap: 12px; width: 100%; max-width: 540px; }
+.ipill { display: flex; align-items: center; gap: 4px; padding: 6px; border-radius: 999px; background: var(--surface); border: 1.5px solid var(--line);
+  box-shadow: var(--shadow); transition: border-color .2s, box-shadow .2s; }
+.ipill:focus-within { border-color: var(--blue); box-shadow: 0 0 0 4px color-mix(in srgb, var(--blue) 20%, transparent), var(--shadow); }
+.cc { position: relative; flex: none; display: inline-flex; align-items: center; gap: 5px; height: 50px; padding: 0 4px 0 18px; font: 700 1.05rem/1 var(--f-body); color: var(--ink); cursor: pointer; border-radius: 999px; }
+.cc svg { width: 14px; height: 14px; opacity: .55; }
+.cc select { position: absolute; inset: 0; width: 100%; opacity: 0; cursor: pointer; font-size: 16px; }
+.ipill input[type=tel] { flex: 1; min-width: 0; height: 50px; border: 0; background: transparent; padding: 0 10px; font: 600 1.06rem/1 var(--f-body); color: var(--ink); outline: none; }
+.ipill input[type=tel]::placeholder { color: var(--muted); font-weight: 500; opacity: .85; }
+.ipill .btn { flex: none; padding: 1.02em 1.5em; }
+.ipill .btn[disabled] { opacity: .7; cursor: progress; transform: none; }
+.intake .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.ichan { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding-left: 8px; }
+.ichan .ilab { font-weight: 600; font-size: .92rem; color: var(--muted); margin-right: 2px; }
+.tog { display: inline-flex; align-items: center; gap: 10px; padding: 8px 16px 8px 10px; border-radius: 999px; background: var(--surface); border: 1.5px solid var(--line);
+  font-weight: 700; font-size: .95rem; cursor: pointer; user-select: none; transition: border-color .2s, background .2s; }
+.tog input { appearance: none; -webkit-appearance: none; margin: 0; width: 22px; height: 22px; flex: none; border-radius: 7px; cursor: pointer;
+  border: 2px solid color-mix(in srgb, var(--ink) 30%, transparent); background: transparent center / 14px no-repeat; transition: background-color .2s, border-color .2s; }
+.tog input:checked { background-color: var(--c); border-color: var(--c);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M20 6 9 17l-5-5' fill='none' stroke='white' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+.tog:has(input:checked) { border-color: var(--c); background: color-mix(in srgb, var(--c) 10%, var(--surface)); }
+.tog input:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+.intake.needchan .tog { border-color: var(--coral); }
+.inote { margin: 0; padding-left: 20px; font-size: .92rem; color: var(--muted); }
+.inote.err { color: var(--coral); font-weight: 600; }
+.idone { display: none; align-items: center; gap: 14px; padding: 10px 22px 10px 10px; border-radius: 999px; background: var(--green-wash); border: 1.5px solid color-mix(in srgb, var(--green) 45%, transparent); }
+.idone b { width: 46px; height: 46px; flex: none; border-radius: 50%; display: grid; place-items: center; background: var(--green); color: #0B1418; }
+.idone b svg { width: 22px; height: 22px; }
+.idone span { font-weight: 700; line-height: 1.3; }
+.idone small { display: block; font-weight: 500; font-size: .88rem; color: var(--muted); }
+.idone button { margin-left: auto; flex: none; border: 0; background: none; padding: 6px 4px; font: 700 .88rem/1 var(--f-body); color: var(--blue); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.intake.done .ipill, .intake.done .inote, .intake.done .ichan { display: none; }
+.intake.done .idone { display: flex; animation: chipIn .5s cubic-bezier(.2, 1.2, .3, 1) both; }
+.intake.shake .ipill { animation: shake .4s; }
+@keyframes shake { 20%, 60% { translate: -8px 0; } 40%, 80% { translate: 8px 0; } }
+@media (max-width: 440px) {
+  .ipill { flex-wrap: wrap; border-radius: 30px; }
+  .ipill input[type=tel] { flex-basis: 0; }
+  .ipill .btn { width: 100%; justify-content: center; }
+  .idone { border-radius: 26px; flex-wrap: wrap; }
+  .ichan { padding-left: 0; }
+  .ichan .ilab { width: 100%; padding-left: 8px; }
+  .tog { flex: 1; justify-content: center; }
+}
+
 /* ---------- nav */
 .nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50; transition: background .3s, box-shadow .3s, backdrop-filter .3s; }
 .nav.scrolled { background: color-mix(in srgb, var(--paper) 84%, transparent); backdrop-filter: saturate(1.4) blur(14px); -webkit-backdrop-filter: saturate(1.4) blur(14px); box-shadow: 0 1px 0 var(--line); }
@@ -110,7 +156,7 @@ section { position: relative; }
 .hero-in { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: clamp(36px, 5vw, 72px); align-items: center;
   padding-block: clamp(36px, 7vw, 96px) clamp(64px, 9vw, 128px); }
 .hero-copy { display: grid; gap: 28px; min-width: 0; }
-.cta-row { display: flex; flex-wrap: wrap; gap: 14px; }
+.cta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; }
 .works { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; color: var(--muted); font-weight: 600; font-size: .95rem; }
 .tag { display: inline-flex; align-items: center; gap: 7px; padding: 6px 12px 6px 9px; border-radius: 999px; font-weight: 700; font-size: .85rem; border: 1px solid var(--line); background: var(--surface); color: var(--ink); }
 .tag i { width: 9px; height: 9px; border-radius: 50%; }
@@ -290,15 +336,25 @@ section { position: relative; }
 .join p { margin-top: 20px; font-size: 1.15rem; opacity: .85; max-width: 30em; }
 .beta-card { display: grid; gap: 22px; padding: clamp(24px, 3vw, 36px); border-radius: 26px; background: var(--cta-field); border: 1px solid var(--cta-line); backdrop-filter: blur(6px); }
 .join .beta-eyebrow { margin: 0; font: 600 .74rem/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; opacity: .85; }
-.beta-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; }
-.beta-steps li { display: grid; grid-template-columns: 42px minmax(0, 1fr); gap: 14px; align-items: start; }
-.beta-steps b { width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; background: #FFFFFF; color: #04416F; font: 600 1.15rem/1 var(--f-display); }
-.beta-steps span { font-weight: 700; font-size: 1.08rem; line-height: 1.3; padding-top: 2px; }
-.beta-steps small { display: block; font-weight: 500; font-size: .92rem; opacity: .8; margin-top: 4px; }
 .btn-light { background: #FFFFFF; color: #04416F; justify-content: center; font-size: 1.08rem; padding: 1.05em 1.6em; }
-.btn-light svg { width: 1em; height: 1em; }
 .btn-light:focus-visible { outline: 3px solid #FFFFFF; outline-offset: 3px; }
-.join .beta-note { margin: 0; font-size: .86rem; opacity: .75; }
+.join .intake { max-width: none; }
+.join .ipill { background: rgba(255, 255, 255, .12); border-color: var(--cta-line); box-shadow: none; }
+.join .ipill:focus-within { border-color: #FFFFFF; box-shadow: 0 0 0 4px rgba(255, 255, 255, .22); }
+.join .cc, .join .ipill input[type=tel] { color: #FFFFFF; }
+.join .ipill input[type=tel]::placeholder { color: rgba(255, 255, 255, .72); }
+.join .cc select { color: #0B1418; }
+.join .inote { margin-top: 0; font-size: .92rem; opacity: 1; color: rgba(255, 255, 255, .78); }
+.join .inote.err { color: #FFD7CC; }
+.join .idone { background: rgba(255, 255, 255, .14); border-color: var(--cta-line); }
+.join .idone small { color: rgba(255, 255, 255, .78); }
+.join .idone button { color: #FFFFFF; }
+.join .ichan .ilab { color: rgba(255, 255, 255, .85); }
+.join .tog { background: rgba(255, 255, 255, .12); border-color: var(--cta-line); color: #FFFFFF; }
+.join .tog input { border-color: rgba(255, 255, 255, .7); }
+.join .tog:has(input:checked) { background: rgba(255, 255, 255, .22); border-color: #FFFFFF; }
+.join .tog input:focus-visible { outline-color: #FFFFFF; }
+.join .intake.needchan .tog { border-color: #FFD7CC; }
 @media (max-width: 860px) { .join-in { grid-template-columns: 1fr; } }
 
 /* ---------- footer */
@@ -334,7 +390,6 @@ footer { padding-block: 48px 56px; border-top: 1px solid var(--line); }
   <symbol id="i-file" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7ZM14 2v4a2 2 0 0 0 2 2h4M16 13H8M16 17H8M10 9H8"/></symbol>
   <symbol id="i-msg" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"/></symbol>
-  <symbol id="i-out" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M7 17 17 7M8 7h9v9"/></symbol>
   <symbol id="i-play" viewBox="0 0 24 24"><path fill="currentColor" d="M7 4.5v15a1 1 0 0 0 1.5.86l12.6-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></symbol>
 </svg>
 
@@ -347,7 +402,7 @@ footer { padding-block: 48px 56px; border-top: 1px solid var(--line); }
       <a href="#features">What it does</a>
       <a href="#family">Families</a>
     </nav>
-    <a class="btn btn-ink sm" href="https://docs.google.com/forms/d/e/1FAIpQLSfIJOdhw-7fcJ1MaqPreExmCDaFmSeIFeTYAaUrMTtxB7zGbw/viewform" target="_blank" rel="noopener">Join the beta</a>
+    <a class="btn btn-ink sm" href="#top" data-intake-focus>Join the beta</a>
   </div>
 </header>
 
@@ -360,11 +415,11 @@ footer { padding-block: 48px 56px; border-top: 1px solid var(--line); }
         <p class="eyebrow"><span class="dot"></span>AI care companion for older adults</p>
         <h1 class="display">Healthcare, <em>handled.</em></h1>
         <p class="lede">Makai books appointments, orders refills, calls the pharmacy and the doctor’s office, checks insurance and keeps the whole family updated. Mom just sends a text.</p>
+        <form class="intake" data-intake="hero" novalidate></form>
         <div class="cta-row">
-          <a class="btn btn-ink" href="https://docs.google.com/forms/d/e/1FAIpQLSfIJOdhw-7fcJ1MaqPreExmCDaFmSeIFeTYAaUrMTtxB7zGbw/viewform" target="_blank" rel="noopener">Join the beta</a>
-          <a class="btn btn-ghost" href="#film"><svg aria-hidden="true"><use href="#i-play"/></svg>Watch the film <span class="mono">1:17</span></a>
+          <a class="btn btn-ghost sm" href="#film"><svg aria-hidden="true"><use href="#i-play"/></svg>Watch the film <span class="mono">1:17</span></a>
+          <p class="works">Works in <span class="tag"><i style="background:#0A84FF"></i>iMessage</span><span class="tag"><i style="background:#25D366"></i>WhatsApp</span></p>
         </div>
-        <p class="works">Works in <span class="tag"><i style="background:#0A84FF"></i>iMessage</span><span class="tag"><i style="background:#25D366"></i>WhatsApp</span></p>
       </div>
 
       <div class="hero-art" id="heroArt" aria-hidden="true">
@@ -525,16 +580,11 @@ footer { padding-block: 48px 56px; border-top: 1px solid var(--line); }
     <div class="wrap join-in">
       <div>
         <h2>Healthcare, handled. <em>For her, and for you.</em></h2>
-        <p>We’re inviting families to try MAKAI early. Tell us a little about your mom or dad, and we’ll email you when there’s a spot.</p>
+        <p>We’re inviting families to try MAKAI early. Leave your phone number and we’ll message you when there’s a spot.</p>
       </div>
       <div class="beta-card">
         <p class="beta-eyebrow">The MAKAI beta</p>
-        <ol class="beta-steps">
-          <li><b>1</b><span>Tell us about your parent<small>13 short questions, about 2 minutes</small></span></li>
-          <li><b>2</b><span>We email you when there’s a spot<small>We only use your email to contact you about the beta</small></span></li>
-        </ol>
-        <a class="btn btn-light" href="https://docs.google.com/forms/d/e/1FAIpQLSfIJOdhw-7fcJ1MaqPreExmCDaFmSeIFeTYAaUrMTtxB7zGbw/viewform" target="_blank" rel="noopener">Join the beta <svg aria-hidden="true"><use href="#i-out"/></svg></a>
-        <p class="beta-note">Opens a Google Form in a new tab.</p>
+        <form class="intake" data-intake="join" novalidate></form>
       </div>
     </div>
   </section>
@@ -882,6 +932,98 @@ footer { padding-block: 48px 56px; border-top: 1px solid var(--line); }
     joinPaths.forEach((q, i) => q.setAttribute('stroke-dashoffset', (1 - ease.io(seg(p, i * .07, .45 + i * .07))).toFixed(3)));
   });
 
+  // ---------------------------------------------------------------- beta intake: a phone number + where to message it
+  const COUNTRIES = [
+    ['US', 'United States', '1'], ['IN', 'India', '91'], ['GB', 'United Kingdom', '44'], ['CA', 'Canada', '1'], ['AE', 'United Arab Emirates', '971'],
+    ['AU', 'Australia', '61'], ['SG', 'Singapore', '65'], ['NZ', 'New Zealand', '64'], ['IE', 'Ireland', '353'], ['DE', 'Germany', '49'],
+    ['FR', 'France', '33'], ['NL', 'Netherlands', '31'], ['ES', 'Spain', '34'], ['IT', 'Italy', '39'], ['CH', 'Switzerland', '41'],
+    ['SE', 'Sweden', '46'], ['SA', 'Saudi Arabia', '966'], ['QA', 'Qatar', '974'], ['KW', 'Kuwait', '965'], ['OM', 'Oman', '968'],
+    ['BH', 'Bahrain', '973'], ['PK', 'Pakistan', '92'], ['BD', 'Bangladesh', '880'], ['LK', 'Sri Lanka', '94'], ['NP', 'Nepal', '977'],
+    ['MY', 'Malaysia', '60'], ['PH', 'Philippines', '63'], ['HK', 'Hong Kong', '852'], ['JP', 'Japan', '81'], ['ZA', 'South Africa', '27'],
+    ['NG', 'Nigeria', '234'], ['KE', 'Kenya', '254'], ['MX', 'Mexico', '52'], ['BR', 'Brazil', '55'], ['IL', 'Israel', '972'],
+  ];
+  const flag = iso => iso.replace(/./g, ch => String.fromCodePoint(127397 + ch.charCodeAt(0)));
+  // the number as typed + the chosen country -> +E.164; a leading + or 00 overrides the picker
+  function compose(code, raw) {
+    const s = raw.trim();
+    let d = s.replace(/\D/g, '');
+    if (s.startsWith('+')) return '+' + d;
+    if (s.startsWith('00')) return '+' + d.slice(2);
+    if (code === '1' && d.length === 11 && d.startsWith('1')) d = d.slice(1);
+    else if (code !== '1') d = d.replace(/^0+/, '');
+    return '+' + code + d;
+  }
+  // national number lengths for the codes most visitors will use; everyone else gets a loose range
+  const NATIONAL = { '1': [10, 10], '91': [10, 10], '44': [9, 10], '971': [8, 9], '61': [9, 9] };
+  function valid(e164, code, raw) {
+    if (!/^\+[1-9]\d{7,14}$/.test(e164)) return false;
+    const t = raw.trim();
+    if (t.startsWith('+') || t.startsWith('00')) return true;
+    const n = e164.length - 1 - code.length, [lo, hi] = NATIONAL[code] || [6, 12];
+    return n >= lo && n <= hi;
+  }
+  const NOTE = 'No spam. One message when it’s your turn.';
+  const forms = [...document.querySelectorAll('[data-intake]')];
+  forms.forEach(form => {
+    const light = form.closest('.join');
+    const id = 'wa-' + form.dataset.intake;
+    form.innerHTML = `
+      <div class="ipill">
+        <label class="cc"><span class="cc-v"></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <select aria-label="Country code">${COUNTRIES.map(([iso, name, code]) => `<option value="${iso}">${flag(iso)} ${name} (+${code})</option>`).join('')}</select></label>
+        <input id="${id}" type="tel" name="whatsapp" inputmode="tel" autocomplete="tel" placeholder="Phone number" aria-label="Phone number" aria-describedby="${id}-note" required>
+        <input class="hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="btn ${light ? 'btn-light' : 'btn-ink'}" type="submit">Join the beta</button>
+      </div>
+      <div class="ichan" role="group" aria-label="Message me on">
+        <span class="ilab">Message me on</span>
+        <label class="tog" style="--c:#25D366"><input type="checkbox" name="channel" value="whatsapp">WhatsApp</label>
+        <label class="tog" style="--c:#0A84FF"><input type="checkbox" name="channel" value="imessage">iMessage</label>
+      </div>
+      <p class="inote" id="${id}-note" aria-live="polite">${NOTE}</p>
+      <div class="idone" role="status"><b><svg aria-hidden="true"><use href="#i-check"/></svg></b>
+        <span>You’re on the list.<small>We’ll message you when it’s your turn.</small></span>
+        <button type="button">Add another</button></div>`;
+    const sel = form.querySelector('select'), cv = form.querySelector('.cc-v'), input = form.querySelector('input[type=tel]');
+    const note = form.querySelector('.inote'), btn = form.querySelector('button[type=submit]');
+    const setCode = () => { cv.textContent = '+' + COUNTRIES.find(c => c[0] === sel.value)[2]; };
+    sel.value = 'US'; setCode();   // US by default; the picker covers everyone else
+    sel.addEventListener('change', () => { setCode(); input.focus(); });
+    const clearErr = () => { form.classList.remove('needchan'); if (note.classList.contains('err')) { note.classList.remove('err'); note.textContent = NOTE; } };
+    input.addEventListener('input', clearErr);
+    form.querySelectorAll('[name=channel]').forEach(c => c.addEventListener('change', clearErr));
+    form.querySelector('.idone button').addEventListener('click', () => { forms.forEach(f => f.classList.remove('done')); input.value = ''; input.focus(); });
+    const fail = msg => {
+      note.textContent = msg; note.classList.add('err');
+      form.classList.remove('shake'); void form.offsetWidth; form.classList.add('shake');
+    };
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const code = COUNTRIES.find(c => c[0] === sel.value)[2];
+      const phone = compose(code, input.value);
+      if (!valid(phone, code, input.value)) return fail(`Enter your phone number, like ${cv.textContent} ${code === '1' ? '415 555 0123' : '98765 43210'}.`);
+      const channels = [...form.querySelectorAll('[name=channel]:checked')].map(c => c.value);
+      if (!channels.length) { form.classList.add('needchan'); return fail('Pick WhatsApp, iMessage, or both.'); }
+      btn.disabled = true; btn.textContent = 'Joining…';
+      try {
+        const r = await fetch('/api/join', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ phone, channels, source: form.dataset.intake, company: form.querySelector('.hp').value }) });
+        if (!r.ok) throw new Error(r.status === 400 ? 'invalid' : 'server');
+        forms.forEach(f => { f.classList.add('done'); f.querySelector('input[type=tel]').value = ''; f.querySelectorAll('[name=channel]').forEach(c => { c.checked = false; }); });
+      } catch (err) {
+        fail(err.message === 'invalid' ? 'That number doesn’t look right. Check the country code and try again.' : 'Couldn’t save that just now. Please try again.');
+      } finally {
+        btn.disabled = false; btn.textContent = 'Join the beta';
+      }
+    });
+  });
+  // the nav button jumps to the hero field
+  document.querySelectorAll('[data-intake-focus]').forEach(a => a.addEventListener('click', e => {
+    e.preventDefault();
+    const f = forms[0].querySelector('input[type=tel]');
+    window.scrollTo({ top: 0, behavior: RM ? 'auto' : 'smooth' });
+    setTimeout(() => f.focus({ preventScroll: true }), RM ? 0 : 450);
+  }));
 
   frame();
 })();
