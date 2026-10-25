@@ -35,16 +35,19 @@ The page is static, but the sign-up form needs `api/join.js` to run as a Vercel 
 
 ## Waitlist signups
 
-The hero and the blue "join" section each have the same waitlist sign-up ("Join the waitlist"): a phone number (country code defaults to +1) and two
-checkboxes, WhatsApp and iMessage, at least one required. Submitting posts to `/api/join`, which validates the number
-and saves it to the **private** Vercel Blob store `makai-waitlist` as `waitlist/<number>.json`:
+The hero and the blue "join" section each have the same waitlist sign-up ("Join the waitlist"): a phone number (country
+code defaults to +1) and two checkboxes, WhatsApp and iMessage, at least one required. Submitting posts to `/api/join`,
+which validates the number and saves it in two places:
 
-```json
-{ "phone": "+14155550123", "channels": ["whatsapp", "imessage"], "source": "hero", "joinedAt": "…", "country": "US" }
-```
+1. **The Google Sheet "MAKAI waitlist (Responses)"** in manav@makaicare.com's Drive. This is the list to read: one row per
+   sign-up with Timestamp, Phone, Channels, Source (hero or join) and Country (from Vercel's IP geolocation). The function
+   fills the unlisted Google Form "MAKAI waitlist", which is linked to that Sheet. The form's id lives in the Vercel env
+   var `WAITLIST_FORM_ID`, not in this public repo. The question ids are in `api/join.js` (`FIELD`); if you edit the
+   form's questions, update them there.
+2. **A backup** in the private Vercel Blob store `makai-waitlist`, as `waitlist/<number>.json` (one file per number, so a
+   repeat sign-up overwrites rather than duplicates). Browse it in Vercel → Storage → makai-waitlist.
 
-To see sign-ups, open Vercel → Storage → **makai-waitlist**. Each file is named by its phone number, and signing up
-again with the same number updates that file instead of adding a duplicate. `country` comes from Vercel's IP geolocation.
+A sign-up counts as saved if either write succeeds; failures are logged in the Vercel function logs.
 
 ## Notes
 
