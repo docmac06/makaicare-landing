@@ -71,8 +71,7 @@ a { color: inherit; }
 }
 
 /* ---------- type */
-.display { font: 560 clamp(3.1rem, 8.2vw, 7rem)/.95 var(--f-display); letter-spacing: -.035em; margin: 0; text-wrap: balance; font-optical-sizing: auto; }
-.display em, .h2 em, .join h2 em { font-style: italic; font-weight: 460; color: var(--blue); }
+.h2 em, .join h2 em { font-style: italic; font-weight: 460; color: var(--blue); }
 .h2 { font: 560 clamp(2.1rem, 4.6vw, 3.7rem)/1.04 var(--f-display); letter-spacing: -.03em; margin: 0; text-wrap: balance; }
 .h3 { font: 600 clamp(1.55rem, 2.6vw, 2.15rem)/1.12 var(--f-display); letter-spacing: -.02em; margin: 0; text-wrap: balance; }
 .lede { font-size: clamp(1.15rem, 1.6vw, 1.32rem); line-height: 1.55; color: var(--muted); max-width: 34em; margin: 0; }
@@ -108,17 +107,6 @@ section { position: relative; }
 .ipill .btn { flex: none; padding: 1.02em 1.5em; }
 .ipill .btn[disabled] { opacity: .7; cursor: progress; transform: none; }
 .intake .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
-.ichan { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding-left: 8px; }
-.ichan .ilab { font-weight: 600; font-size: .92rem; color: var(--muted); margin-right: 2px; }
-.tog { display: inline-flex; align-items: center; gap: 10px; padding: 8px 16px 8px 10px; border-radius: 999px; background: var(--surface); border: 1.5px solid var(--line);
-  font-weight: 700; font-size: .95rem; cursor: pointer; user-select: none; transition: border-color .2s, background .2s; }
-.tog input { appearance: none; -webkit-appearance: none; margin: 0; width: 22px; height: 22px; flex: none; border-radius: 7px; cursor: pointer;
-  border: 2px solid color-mix(in srgb, var(--ink) 30%, transparent); background: transparent center / 14px no-repeat; transition: background-color .2s, border-color .2s; }
-.tog input:checked { background-color: var(--c); border-color: var(--c);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M20 6 9 17l-5-5' fill='none' stroke='white' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
-.tog:has(input:checked) { border-color: var(--c); background: color-mix(in srgb, var(--c) 10%, var(--surface)); }
-.tog input:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
-.intake.needchan .tog { border-color: var(--coral); }
 .inote { margin: 0; padding-left: 20px; font-size: .92rem; color: var(--muted); }
 .inote.err { color: var(--coral); font-weight: 600; }
 .idone { display: none; align-items: center; gap: 14px; padding: 10px 22px 10px 10px; border-radius: 999px; background: var(--green-wash); border: 1.5px solid color-mix(in srgb, var(--green) 45%, transparent); }
@@ -127,19 +115,16 @@ section { position: relative; }
 .idone span { font-weight: 700; line-height: 1.3; }
 .idone small { display: block; font-weight: 500; font-size: .88rem; color: var(--muted); }
 .idone button { margin-left: auto; flex: none; border: 0; background: none; padding: 6px 4px; font: 700 .88rem/1 var(--f-body); color: var(--blue); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
-.intake.done .ipill, .intake.done .inote, .intake.done .ichan { display: none; }
+.intake.done .ipill, .intake.done .inote { display: none; }
 .intake.done .idone { display: flex; animation: chipIn .5s cubic-bezier(.2, 1.2, .3, 1) both; }
 .intake.shake .ipill { animation: shake .4s; }
+@keyframes chipIn { from { opacity: 0; translate: 0 18px; scale: .9; } }
 @keyframes shake { 20%, 60% { translate: -8px 0; } 40%, 80% { translate: 8px 0; } }
 @media (max-width: 440px) {
   .ipill { flex-wrap: wrap; border-radius: 30px; }
   .ipill input[type=tel] { flex-basis: 0; }
   .ipill .btn { width: 100%; justify-content: center; }
   .idone { border-radius: 26px; flex-wrap: wrap; }
-  .ichan { padding-left: 0; }
-  .ichan .ilab { width: 100%; padding-left: 8px; }
-  .ichan { gap: 8px; }
-  .tog { flex: 1; justify-content: center; gap: 8px; padding: 8px 10px; font-size: .9rem; }
 }
 
 /* ---------- nav */
@@ -152,52 +137,49 @@ section { position: relative; }
 .links a { text-decoration: none; font-weight: 600; font-size: .95rem; color: var(--muted); transition: color .2s; }
 .links a:hover { color: var(--ink); }
 @media (max-width: 860px) { .links { display: none; } .nav .btn { margin-left: auto; } }
+/* over the night-sky hero */
+.nav.on-dark .brand { color: #FFFFFF; }
+.nav.on-dark .links a { color: rgba(255, 255, 255, .68); }
+.nav.on-dark .links a:hover { color: #FFFFFF; }
+.nav.on-dark .btn-ink { background: #FFFFFF; color: #0B1418; box-shadow: none; }
+.nav.on-dark.scrolled { background: rgba(3, 10, 17, .55); box-shadow: 0 1px 0 rgba(255, 255, 255, .08); }
+html.top-dark body::before { background: #02060B; }
 
-/* ---------- hero */
-.hero-in { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: clamp(36px, 5vw, 72px); align-items: center;
-  padding-block: clamp(36px, 7vw, 96px) clamp(64px, 9vw, 128px); }
-.hero-copy { display: grid; gap: 28px; min-width: 0; }
-.cta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; }
-.works { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; color: var(--muted); font-weight: 600; font-size: .95rem; }
-.tag { display: inline-flex; align-items: center; gap: 7px; padding: 6px 12px 6px 9px; border-radius: 999px; font-weight: 700; font-size: .85rem; border: 1px solid var(--line); background: var(--surface); color: var(--ink); }
-.tag i { width: 9px; height: 9px; border-radius: 50%; }
-.hero-art { position: relative; width: 100%; max-width: 560px; aspect-ratio: 1; justify-self: center; }
-.hero-mark { position: absolute; left: 19%; top: 19%; width: 62%; height: 62%; filter: drop-shadow(0 30px 40px rgba(6, 70, 120, .25)); }
-.hero-mark .disc { transform-origin: 100px 100px; animation: pop 1s cubic-bezier(.2, 1.4, .3, 1) both; }
-.hero-mark .fill { animation: fade .6s .55s both; }
-.hero-mark .draw { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw .9s cubic-bezier(.6, 0, .2, 1) forwards; }
-@keyframes pop { from { transform: scale(.82); } to { transform: none; } }
-@keyframes fade { from { opacity: 0; } }
-@keyframes draw { to { stroke-dashoffset: 0; } }
-.orbit { position: absolute; inset: 4%; border-radius: 50%; border: 1.5px dashed color-mix(in srgb, var(--blue) 35%, transparent); }
-.chip { position: absolute; display: flex; align-items: center; gap: 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px;
-  padding: 11px 16px 11px 11px; box-shadow: var(--shadow); line-height: 1.25; white-space: nowrap; will-change: transform; }
-.chip .ic { width: 42px; height: 42px; border-radius: 13px; display: grid; place-items: center; flex: none; }
-.chip .ic svg { width: 22px; height: 22px; }
-.chip small { display: block; color: var(--muted); font-weight: 600; font-size: .76rem; }
-.chip strong { display: block; font-weight: 800; font-size: .95rem; }
-.chip .av { width: 42px; height: 42px; flex: none; }
-.hero .chip { animation: chipIn .7s cubic-bezier(.2, 1.2, .3, 1) both; }
-@keyframes chipIn { from { opacity: 0; translate: 0 18px; scale: .9; } }
-.c1 { left: -4%; top: 6%; animation-delay: .7s !important; }
-.c2 { right: -6%; top: 22%; animation-delay: .85s !important; }
-.c3 { right: -2%; bottom: 13%; animation-delay: 1s !important; }
-.c4 { left: 0; bottom: 3%; animation-delay: 1.15s !important; }
-.c5 { left: -9%; top: 47%; animation-delay: 1.3s !important; }
-.wave { display: flex; align-items: center; gap: 3px; height: 22px; }
-.wave span { width: 3px; height: 100%; border-radius: 2px; background: var(--blue); animation: wave 1s ease-in-out infinite; transform-origin: 50% 50%; }
-@keyframes wave { 0%, 100% { transform: scaleY(.3); } 50% { transform: scaleY(1); } }
-@media (max-width: 900px) {
-  .hero-in { grid-template-columns: 1fr; }
-  .hero-art { max-width: 470px; }
-}
-@media (max-width: 560px) {
-  .chip { padding: 8px 12px 8px 8px; gap: 9px; border-radius: 14px; }
-  .chip .ic, .chip .av { width: 32px; height: 32px; border-radius: 10px; }
-  .chip .ic svg { width: 17px; height: 17px; }
-  .chip strong { font-size: .8rem; } .chip small { font-size: .66rem; }
-  .c1 { left: 0; } .c2 { right: 0; } .c3 { right: 0; } .c5 { display: none; }
-}
+/* ---------- hero: one claim under a night sky; the light page below rises like a horizon */
+.hero { position: relative; isolation: isolate; overflow: hidden; color: #FFFFFF; display: flex; flex-direction: column; min-height: 100svh;
+  margin-top: calc(-1 * var(--nav-h));
+  background: radial-gradient(85% 55% at 50% 100%, #0F4170 0%, #082540 34%, #04101C 66%, #02060B 100%); }
+.hero::before { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: .5;
+  background-image: radial-gradient(1.2px 1.2px at 12% 18%, #fff 50%, transparent 52%), radial-gradient(1px 1px at 27% 42%, #fff 50%, transparent 52%),
+    radial-gradient(1.4px 1.4px at 46% 12%, #fff 50%, transparent 52%), radial-gradient(1px 1px at 63% 33%, #fff 50%, transparent 52%),
+    radial-gradient(1.2px 1.2px at 81% 21%, #fff 50%, transparent 52%), radial-gradient(1px 1px at 91% 47%, #fff 50%, transparent 52%),
+    radial-gradient(1px 1px at 7% 58%, #fff 50%, transparent 52%), radial-gradient(1.3px 1.3px at 72% 62%, #fff 50%, transparent 52%);
+  -webkit-mask-image: linear-gradient(#000 0%, transparent 75%); mask-image: linear-gradient(#000 0%, transparent 75%); }
+.hero-in { position: relative; z-index: 2; flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center;
+  padding-top: calc(var(--nav-h) + clamp(64px, 14vh, 160px)); padding-bottom: clamp(190px, 28vh, 300px); }
+.hero h1 { margin: 0; max-width: 11ch; font: 560 clamp(3.4rem, 10vw, 8rem)/.97 var(--f-display); letter-spacing: -.035em; text-wrap: balance;
+  font-optical-sizing: auto; animation: rise .9s cubic-bezier(.2, .8, .2, 1) both; }
+.hero h1 em { font-style: italic; font-weight: 440; color: #9CCBF5; }
+.hero-sub { margin: clamp(22px, 3.5vh, 32px) 0 0; max-width: 34em; font: 500 clamp(.78rem, 1.4vw, .92rem)/1.75 var(--f-body); letter-spacing: .3em;
+  text-transform: uppercase; text-wrap: balance; color: rgba(255, 255, 255, .62); animation: rise .9s .12s cubic-bezier(.2, .8, .2, 1) both; }
+.hero .intake { margin-top: clamp(36px, 6vh, 56px); max-width: 560px; animation: rise .9s .24s cubic-bezier(.2, .8, .2, 1) both; }
+@keyframes rise { from { opacity: 0; translate: 0 24px; } }
+.horizon { position: absolute; z-index: 1; left: 50%; bottom: 0; width: max(2400px, 250vw); aspect-ratio: 1; border-radius: 50%; pointer-events: none;
+  translate: -50% calc(100% - clamp(96px, 15vh, 170px));
+  background: linear-gradient(180deg, color-mix(in srgb, #7CC0F5 22%, var(--paper)) 0, var(--paper) 120px);
+  box-shadow: 0 -1px 0 1px rgba(214, 236, 255, .95), 0 -8px 24px rgba(156, 203, 245, .65), 0 -36px 110px rgba(58, 155, 232, .5), 0 -110px 240px rgba(6, 109, 184, .4); }
+/* the sign-up on the night sky */
+.hero .ipill { background: rgba(255, 255, 255, .07); border-color: rgba(255, 255, 255, .17); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 24px 60px -24px rgba(0, 0, 0, .7), inset 0 1px 0 rgba(255, 255, 255, .06); }
+.hero .ipill:focus-within { border-color: rgba(255, 255, 255, .55); box-shadow: 0 0 0 4px rgba(124, 192, 245, .2), 0 24px 60px -24px rgba(0, 0, 0, .7); }
+.hero .cc, .hero .ipill input[type=tel] { color: #FFFFFF; }
+.hero .ipill input[type=tel]::placeholder { color: rgba(255, 255, 255, .55); }
+.hero .cc select { color: #0B1418; }
+.hero .inote { padding-left: 0; text-align: center; color: rgba(255, 255, 255, .5); }
+.hero .inote.err { color: #FFB4A2; }
+.hero .idone { background: rgba(255, 255, 255, .08); border-color: rgba(255, 255, 255, .2); text-align: left; }
+.hero .idone small { color: rgba(255, 255, 255, .7); }
+.hero .idone button { color: #9CCBF5; }
 
 /* ---------- untangle */
 .untangle { padding-top: clamp(84px, 11vw, 150px); }
@@ -270,6 +252,9 @@ section { position: relative; }
 .msg.in { align-self: flex-start; background: var(--bubble-in); color: var(--bubble-in-ink); border-bottom-left-radius: 6px; transform-origin: left bottom; }
 .msg .who { display: block; font-size: .68rem; font-weight: 800; color: var(--blue); margin-bottom: 2px; letter-spacing: .02em; }
 .msg.sys { align-self: center; font: 600 .68rem/1 var(--f-mono); letter-spacing: .04em; padding: 6px 11px; border-radius: 999px; background: var(--blue-wash); color: var(--blue); display: inline-flex; align-items: center; gap: 6px; }
+.wave { display: flex; align-items: center; gap: 3px; height: 22px; }
+.wave span { width: 3px; height: 100%; border-radius: 2px; background: var(--blue); animation: wave 1s ease-in-out infinite; transform-origin: 50% 50%; }
+@keyframes wave { 0%, 100% { transform: scaleY(.3); } 50% { transform: scaleY(1); } }
 .msg.sys .wave { height: 11px; gap: 2px; } .msg.sys .wave span { width: 2px; }
 .phone.wa .msg { border-radius: 11px; box-shadow: 0 1px 1px rgba(0, 0, 0, .12); }
 .phone.wa .msg.out { background: var(--wa-out); color: var(--ink); border-top-right-radius: 3px; }
@@ -350,12 +335,6 @@ section { position: relative; }
 .join .idone { background: rgba(255, 255, 255, .14); border-color: var(--cta-line); }
 .join .idone small { color: rgba(255, 255, 255, .78); }
 .join .idone button { color: #FFFFFF; }
-.join .ichan .ilab { color: rgba(255, 255, 255, .85); }
-.join .tog { background: rgba(255, 255, 255, .12); border-color: var(--cta-line); color: #FFFFFF; }
-.join .tog input { border-color: rgba(255, 255, 255, .7); }
-.join .tog:has(input:checked) { background: rgba(255, 255, 255, .22); border-color: #FFFFFF; }
-.join .tog input:focus-visible { outline-color: #FFFFFF; }
-.join .intake.needchan .tog { border-color: #FFD7CC; }
 @media (max-width: 860px) { .join-in { grid-template-columns: 1fr; } }
 
 /* ---------- footer */
@@ -394,7 +373,7 @@ footer { padding-block: 48px 56px; border-top: 1px solid var(--line); }
   <symbol id="i-play" viewBox="0 0 24 24"><path fill="currentColor" d="M7 4.5v15a1 1 0 0 0 1.5.86l12.6-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></symbol>
 </svg>
 
-<header class="nav" id="nav">
+<header class="nav on-dark" id="nav">
   <div class="wrap nav-in">
     <a class="brand" href="#top" aria-label="MAKAI, back to top"><svg aria-hidden="true"><use href="#mk"/></svg>MAKAI</a>
     <nav class="links" aria-label="Sections">
@@ -410,40 +389,13 @@ footer { padding-block: 48px 56px; border-top: 1px solid var(--line); }
 <main id="top">
 
   <!-- ===================== HERO ===================== -->
-  <section class="hero">
+  <section class="hero" id="hero">
     <div class="wrap hero-in">
-      <div class="hero-copy">
-        <p class="eyebrow"><span class="dot"></span>AI care companion for older adults</p>
-        <h1 class="display">Healthcare, <em>handled.</em></h1>
-        <p class="lede">Makai books appointments, orders refills, calls the pharmacy and the doctor’s office, checks insurance and keeps the whole family updated. Mom just sends a text.</p>
-        <form class="intake" data-intake="hero" novalidate></form>
-        <div class="cta-row">
-          <a class="btn btn-ghost sm" href="#film"><svg aria-hidden="true"><use href="#i-play"/></svg>Watch the film <span class="mono">1:17</span></a>
-          <p class="works">Works in <span class="tag"><i style="background:#0A84FF"></i>iMessage</span><span class="tag"><i style="background:#25D366"></i>WhatsApp</span></p>
-        </div>
-      </div>
-
-      <div class="hero-art" id="heroArt" aria-hidden="true">
-        <div class="orbit" data-depth="-.04"></div>
-        <svg class="hero-mark" id="heroMark" viewBox="0 0 200 200" data-depth=".05">
-          <circle class="disc" cx="100" cy="100" r="100" fill="#066DB8"/>
-          <rect class="fill" x="42.5" y="42.5" width="115" height="115" rx="15" fill="#6FCF78"/>
-          <g fill="none" stroke="#0B1418" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round">
-            <path class="draw" pathLength="1" style="animation-delay:.25s" d="M100 42.5V157.5"/>
-            <path class="draw" pathLength="1" style="animation-delay:.35s" d="M46.1 47.75 100 157.5"/>
-            <path class="draw" pathLength="1" style="animation-delay:.45s" d="M153.9 47.75 100 157.5"/>
-            <path class="draw" pathLength="1" style="animation-delay:.6s" d="M42.5 97.5H70.53"/>
-            <path class="draw" pathLength="1" style="animation-delay:.65s" d="M129.47 97.5H157.5"/>
-            <rect class="draw" pathLength="1" style="animation-delay:.1s" x="42.5" y="42.5" width="115" height="115" rx="15"/>
-          </g>
-        </svg>
-        <div class="chip c1" data-depth=".16"><span class="ic" style="background:var(--green-wash);color:var(--green-ink)"><svg><use href="#i-cal"/></svg></span><span><small>Dr. Patel · Cardiology</small><strong>Booked · Thu 2:00 PM</strong></span></div>
-        <div class="chip c2" data-depth=".26"><span class="ic" style="background:var(--blue-wash);color:var(--blue)"><svg><use href="#i-pill"/></svg></span><span><small>Lisinopril 10 mg</small><strong>Ready at 4:00 PM</strong></span></div>
-        <div class="chip c3" data-depth=".1"><span class="ic" style="background:var(--green-wash);color:var(--green-ink)"><svg><use href="#i-shield"/></svg></span><span><small>Heart ultrasound</small><strong>Covered · $0 copay</strong></span></div>
-        <div class="chip c4" data-depth=".22"><span class="av" data-avatar="sarah"></span><span><small>Sarah</small><strong>Thank you, Makai!</strong></span></div>
-        <div class="chip c5" data-depth=".32"><span class="ic" style="background:var(--blue-wash);color:var(--blue)"><svg><use href="#i-phone"/></svg></span><span><small>Calling the pharmacy</small><span class="wave"><span></span><span style="animation-delay:-.2s"></span><span style="animation-delay:-.45s"></span><span style="animation-delay:-.7s"></span><span style="animation-delay:-.3s"></span><span style="animation-delay:-.6s"></span></span></span></div>
-      </div>
+      <h1>Be their kid <em>again.</em></h1>
+      <p class="hero-sub">The AI that handles your parents’ healthcare</p>
+      <form class="intake" data-intake="hero" novalidate></form>
     </div>
+    <div class="horizon" id="horizon" aria-hidden="true"></div>
   </section>
 
   <!-- ===================== UNTANGLE ===================== -->
@@ -664,27 +616,13 @@ footer { padding-block: 48px 56px; border-top: 1px solid var(--line); }
   addEventListener('scroll', request, { passive: true });
   addEventListener('resize', request);
 
-  // nav
-  track(document.body, () => $('nav').classList.toggle('scrolled', scrollY > 8));
-
-  // ---------------------------------------------------------------- hero: scroll + pointer parallax
-  const heroArt = $('heroArt');
-  const depthEls = [...heroArt.querySelectorAll('[data-depth]')];
-  let px = 0, py = 0;
-  function placeHero() {
-    if (RM) return;
-    const s = scrollY;
-    depthEls.forEach(el => {
-      const d = +el.dataset.depth;
-      el.style.transform = `translate3d(${(px * d * 60).toFixed(1)}px, ${(-s * d + py * d * 60).toFixed(1)}px, 0)`;
-    });
-  }
-  track(heroArt, placeHero);
-  heroArt.parentElement.addEventListener('pointermove', e => {
-    const r = heroArt.getBoundingClientRect();
-    px = (e.clientX - (r.left + r.width / 2)) / r.width;
-    py = (e.clientY - (r.top + r.height / 2)) / r.height;
-    placeHero();
+  // nav: light-on-dark while the night-sky hero is behind it
+  const nav = $('nav'), horizon = $('horizon');
+  track(document.body, () => {
+    nav.classList.toggle('scrolled', scrollY > 8);
+    const dark = horizon.getBoundingClientRect().top > nav.offsetHeight;
+    nav.classList.toggle('on-dark', dark);
+    document.documentElement.classList.toggle('top-dark', dark);
   });
 
   // ---------------------------------------------------------------- untangle: tangled lines straighten into the mark
@@ -933,7 +871,7 @@ footer { padding-block: 48px 56px; border-top: 1px solid var(--line); }
     joinPaths.forEach((q, i) => q.setAttribute('stroke-dashoffset', (1 - ease.io(seg(p, i * .07, .45 + i * .07))).toFixed(3)));
   });
 
-  // ---------------------------------------------------------------- waitlist intake: a phone number + where to message it
+  // ---------------------------------------------------------------- waitlist intake: a phone number, nothing else
   const COUNTRIES = [
     ['US', 'United States', '1'], ['IN', 'India', '91'], ['GB', 'United Kingdom', '44'], ['CA', 'Canada', '1'], ['AE', 'United Arab Emirates', '971'],
     ['AU', 'Australia', '61'], ['SG', 'Singapore', '65'], ['NZ', 'New Zealand', '64'], ['IE', 'Ireland', '353'], ['DE', 'Germany', '49'],
@@ -966,7 +904,6 @@ footer { padding-block: 48px 56px; border-top: 1px solid var(--line); }
   const NOTE = 'No spam. One message when it’s your turn.';
   const forms = [...document.querySelectorAll('[data-intake]')];
   forms.forEach(form => {
-    const light = form.closest('.join');
     const id = 'wa-' + form.dataset.intake;
     form.innerHTML = `
       <div class="ipill">
@@ -974,12 +911,7 @@ footer { padding-block: 48px 56px; border-top: 1px solid var(--line); }
           <select aria-label="Country code">${COUNTRIES.map(([iso, name, code]) => `<option value="${iso}">${flag(iso)} ${name} (+${code})</option>`).join('')}</select></label>
         <input id="${id}" type="tel" name="whatsapp" inputmode="tel" autocomplete="tel" placeholder="Phone number" aria-label="Phone number" aria-describedby="${id}-note" required>
         <input class="hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <button class="btn ${light ? 'btn-light' : 'btn-ink'}" type="submit">Join the waitlist</button>
-      </div>
-      <div class="ichan" role="group" aria-label="Message me on">
-        <span class="ilab">Message me on</span>
-        <label class="tog" style="--c:#25D366"><input type="checkbox" name="channel" value="whatsapp">WhatsApp</label>
-        <label class="tog" style="--c:#0A84FF"><input type="checkbox" name="channel" value="imessage">iMessage</label>
+        <button class="btn btn-light" type="submit">Join the waitlist</button>
       </div>
       <p class="inote" id="${id}-note" aria-live="polite">${NOTE}</p>
       <div class="idone" role="status"><b><svg aria-hidden="true"><use href="#i-check"/></svg></b>
@@ -990,9 +922,7 @@ footer { padding-block: 48px 56px; border-top: 1px solid var(--line); }
     const setCode = () => { cv.textContent = '+' + COUNTRIES.find(c => c[0] === sel.value)[2]; };
     sel.value = 'US'; setCode();   // US by default; the picker covers everyone else
     sel.addEventListener('change', () => { setCode(); input.focus(); });
-    const clearErr = () => { form.classList.remove('needchan'); if (note.classList.contains('err')) { note.classList.remove('err'); note.textContent = NOTE; } };
-    input.addEventListener('input', clearErr);
-    form.querySelectorAll('[name=channel]').forEach(c => c.addEventListener('change', clearErr));
+    input.addEventListener('input', () => { if (note.classList.contains('err')) { note.classList.remove('err'); note.textContent = NOTE; } });
     form.querySelector('.idone button').addEventListener('click', () => { forms.forEach(f => f.classList.remove('done')); input.value = ''; input.focus(); });
     const fail = msg => {
       note.textContent = msg; note.classList.add('err');
@@ -1003,14 +933,12 @@ footer { padding-block: 48px 56px; border-top: 1px solid var(--line); }
       const code = COUNTRIES.find(c => c[0] === sel.value)[2];
       const phone = compose(code, input.value);
       if (!valid(phone, code, input.value)) return fail(`Enter your phone number, like ${cv.textContent} ${code === '1' ? '415 555 0123' : '98765 43210'}.`);
-      const channels = [...form.querySelectorAll('[name=channel]:checked')].map(c => c.value);
-      if (!channels.length) { form.classList.add('needchan'); return fail('Pick WhatsApp, iMessage, or both.'); }
       btn.disabled = true; btn.textContent = 'Joining…';
       try {
         const r = await fetch('/api/join', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ phone, channels, source: form.dataset.intake, company: form.querySelector('.hp').value }) });
+          body: JSON.stringify({ phone, source: form.dataset.intake, company: form.querySelector('.hp').value }) });
         if (!r.ok) throw new Error(r.status === 400 ? 'invalid' : 'server');
-        forms.forEach(f => { f.classList.add('done'); f.querySelector('input[type=tel]').value = ''; f.querySelectorAll('[name=channel]').forEach(c => { c.checked = false; }); });
+        forms.forEach(f => { f.classList.add('done'); f.querySelector('input[type=tel]').value = ''; });
       } catch (err) {
         fail(err.message === 'invalid' ? 'That number doesn’t look right. Check the country code and try again.' : 'Couldn’t save that just now. Please try again.');
       } finally {

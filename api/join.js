@@ -1,4 +1,4 @@
-// POST /api/join  { phone: "+14155550123", channels: ["whatsapp", "imessage"], source: "hero" | "join" }
+// POST /api/join  { phone: "+14155550123", source: "hero" | "join" }
 // Saves a waitlist signup in two places:
 //   1. the "MAKAI waitlist" Google Form, whose linked Sheet "MAKAI waitlist (Responses)" is the list to read
 //      (form id in WAITLIST_FORM_ID, kept out of this public repo);
@@ -7,10 +7,8 @@
 import { put } from '@vercel/blob';
 
 const E164 = /^\+[1-9]\d{7,14}$/;
-const CHANNELS = ['whatsapp', 'imessage'];
-const LABEL = { whatsapp: 'WhatsApp', imessage: 'iMessage' };
-// question ids of the Google Form: Phone, Channels, Source, Country
-const FIELD = { phone: 'entry.1928729108', channels: 'entry.1574310555', source: 'entry.1976967182', country: 'entry.439988013' };
+// question ids of the Google Form: Phone, Source, Country (its Channels question is no longer used)
+const FIELD = { phone: 'entry.1928729108', source: 'entry.1976967182', country: 'entry.439988013' };
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -23,12 +21,9 @@ export default async function handler(req, res) {
 
   const phone = String(body.phone || '').replace(/[\s().-]/g, '');
   if (!E164.test(phone)) return res.status(400).json({ ok: false, error: 'invalid_phone' });
-  const channels = CHANNELS.filter(c => Array.isArray(body.channels) && body.channels.includes(c));
-  if (!channels.length) return res.status(400).json({ ok: false, error: 'no_channel' });
 
   const entry = {
     phone,
-    channels,
     source: ['hero', 'join'].includes(body.source) ? body.source : 'site',
     joinedAt: new Date().toISOString(),
     country: req.headers['x-vercel-ip-country'] || null,
@@ -45,7 +40,6 @@ async function toSheet(entry) {
   if (!form) throw new Error('WAITLIST_FORM_ID is not set');
   const fields = new URLSearchParams({
     [FIELD.phone]: entry.phone,
-    [FIELD.channels]: entry.channels.map(c => LABEL[c]).join(', '),
     [FIELD.source]: entry.source,
     [FIELD.country]: entry.country || '',
   });

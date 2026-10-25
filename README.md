@@ -35,12 +35,12 @@ The page is static, but the sign-up form needs `api/join.js` to run as a Vercel 
 
 ## Waitlist signups
 
-The hero and the blue "join" section each have the same waitlist sign-up ("Join the waitlist"): a phone number (country
-code defaults to +1) and two checkboxes, WhatsApp and iMessage, at least one required. Submitting posts to `/api/join`,
-which validates the number and saves it in two places:
+The hero and the blue "join" section each have the same waitlist sign-up ("Join the waitlist"): just a phone number
+(country code defaults to +1). Submitting posts to `/api/join`, which validates the number and saves it in two places:
 
 1. **The Google Sheet "MAKAI waitlist (Responses)"** in manav@makaicare.com's Drive. This is the list to read: one row per
-   sign-up with Timestamp, Phone, Channels, Source (hero or join) and Country (from Vercel's IP geolocation). The function
+   sign-up with Timestamp, Phone, Source (hero or join) and Country (from Vercel's IP geolocation). The Channels column
+   is left over from an earlier version with WhatsApp/iMessage checkboxes and stays empty now. The function
    fills the unlisted Google Form "MAKAI waitlist", which is linked to that Sheet. The form's id lives in the Vercel env
    var `WAITLIST_FORM_ID`, not in this public repo. The question ids are in `api/join.js` (`FIELD`); if you edit the
    form's questions, update them there.
