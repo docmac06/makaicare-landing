@@ -5,8 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MAKAI</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Makai is an AI care companion for older adults. It books appointments, orders refills, calls the pharmacy and doctor's office, checks insurance and keeps the family updated, all by text.">
+<meta name="description" content="Makai is your personal health assistant, one text away. It books your appointments, orders your refills, calls the pharmacy and the doctor's office, checks your insurance and keeps your family posted if you like.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='100' fill='%23066DB8'/%3E%3Crect x='42.5' y='42.5' width='115' height='115' rx='15' fill='%236FCF78' stroke='%230B1418' stroke-width='7'/%3E%3Cpath d='M100 42.5V157.5M46.1 47.75 100 157.5M153.9 47.75 100 157.5M42.5 97.5H70.53M129.47 97.5H157.5' fill='none' stroke='%230B1418' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E">
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "Organization", "name": "MAKAI", "url": "https://makaicare.com",
+ "email": "manav@makaicare.com", "telephone": "+1-628-294-3964",
+ "address": {"@type": "PostalAddress", "streetAddress": "650 California Street, 7th Floor", "addressLocality": "San Francisco",
+             "addressRegion": "CA", "postalCode": "94108", "addressCountry": "US"}}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=IBM+Plex+Mono:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
@@ -363,8 +369,18 @@ html.top-dark body::before { background: #02060B; }
 
 /* ---------- footer */
 footer { padding-block: 48px 56px; border-top: 1px solid var(--line); }
-.foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; color: var(--muted); font-size: .92rem; }
+.foot { display: grid; grid-template-columns: 1fr auto; gap: 28px 48px; align-items: start; color: var(--muted); font-size: .92rem; }
+.foot-id { display: grid; justify-items: start; gap: 14px; }
 .foot .brand { color: var(--ink); }
+.foot .brand svg { flex: none; }
+.foot-contact { font-style: normal; display: grid; justify-items: start; }
+.foot-contact a { display: inline-flex; align-items: flex-start; gap: 12px; padding-block: 11px; color: var(--ink); font-size: 1rem; line-height: 1.45; text-decoration: none; }
+.foot-contact a:hover span { text-decoration: underline; text-underline-offset: 3px; }
+.foot-contact span { overflow-wrap: anywhere; }
+/* icons scale with the text and centre on its first line: (1.45em line - 1.2em icon) / 2 */
+.foot-contact svg { width: 1.2em; height: 1.2em; flex: none; margin-top: .125em; color: var(--blue); }
+.foot-copy { grid-column: 1 / -1; padding-top: 22px; border-top: 1px solid var(--line); }
+@media (max-width: 44em) { .foot { grid-template-columns: minmax(0, 1fr); } }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -398,6 +414,8 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
   <symbol id="i-heart" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></symbol>
   <symbol id="i-file" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7ZM14 2v4a2 2 0 0 0 2 2h4M16 13H8M16 17H8M10 9H8"/></symbol>
   <symbol id="i-msg" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M20 10c0 4.99-5.54 10.19-7.4 11.8a1 1 0 0 1-1.2 0C9.54 20.19 4 14.99 4 10a8 8 0 0 1 16 0zM12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zM22 7l-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
   <symbol id="i-lock" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M5 11h14a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2zM7 11V7a5 5 0 0 1 10 0v4"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"/></symbol>
   <symbol id="i-play" viewBox="0 0 24 24"><path fill="currentColor" d="M7 4.5v15a1 1 0 0 0 1.5.86l12.6-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></symbol>
@@ -410,9 +428,9 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
       <a href="#untangle">Why Makai</a>
       <a href="#film">Film</a>
       <a href="#features">What it does</a>
-      <a href="#family">Families</a>
+      <a href="#family">Your family</a>
     </nav>
-    <a class="btn btn-ink sm" href="#top" data-intake-focus>Join the waitlist</a>
+    <a class="btn btn-ink sm" href="#top" data-intake-focus>Sign up</a>
   </div>
 </header>
 
@@ -422,7 +440,7 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
   <section class="hero" id="hero">
     <div class="wrap hero-in">
       <h1>Everything healthcare. <em>Handled.</em></h1>
-      <p class="hero-sub">Your parents’ personal health assistant, one text away</p>
+      <p class="hero-sub">Your personal health assistant, one text away</p>
       <form class="intake" data-intake="hero" novalidate></form>
       <p class="hero-trust"><svg aria-hidden="true"><use href="#i-lock"/></svg>Protected by military-grade security</p>
     </div>
@@ -434,7 +452,7 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
     <div class="wrap">
       <header class="sec-head">
         <p class="eyebrow"><span class="dot"></span>Why Makai</p>
-        <h2 class="h2">Caring for an aging parent is a tangle of phone calls.</h2>
+        <h2 class="h2">Your healthcare shouldn’t be a tangle of phone calls.</h2>
       </header>
     </div>
     <div class="wrap ut-grid">
@@ -447,17 +465,17 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
         <article class="ut-step">
           <p class="kicker">The pharmacy</p>
           <h3 class="h3">A refill slips through the cracks.</h3>
-          <p>The bottle runs out on a Sunday. Nobody noticed it was getting low.</p>
+          <p>The bottle runs out on a Sunday, and the pharmacy needs a new prescription before it can refill it.</p>
         </article>
         <article class="ut-step">
-          <p class="kicker">The family</p>
-          <h3 class="h3">Everyone is worried. Nobody knows.</h3>
-          <p>Her kids live miles away and text each other to ask if anyone has talked to Mom.</p>
+          <p class="kicker">Your family</p>
+          <h3 class="h3">The kids keep asking.</h3>
+          <p>They live miles away and call to check in, so you end up giving the same update three times.</p>
         </article>
         <article class="ut-step">
           <p class="kicker">Makai</p>
           <h3 class="h3">Makai untangles it.</h3>
-          <p>One companion handles the calls, the refills and the paperwork, then tells everyone what happened.</p>
+          <p>You send one text. Makai handles the calls, the refills and the paperwork, then tells you what happened, and your family too if you like.</p>
         </article>
       </div>
       <div class="ut-stage-col">
@@ -491,7 +509,7 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
     <div class="wrap">
       <header class="sec-head">
         <p class="eyebrow"><span class="dot"></span>What Makai does</p>
-        <h2 class="h2">It all happens in a text thread she already knows how to use.</h2>
+        <h2 class="h2">It all happens in a text thread you already know how to use.</h2>
       </header>
       <div class="ft-grid">
         <div class="ft-phone-col">
@@ -518,9 +536,9 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
   <section class="family pad" id="family">
     <div class="wrap fam-grid">
       <div class="fam-copy">
-        <p class="eyebrow"><span class="dot"></span>For families</p>
-        <h2 class="h2">The whole family, <em>in the loop.</em></h2>
-        <p>Add the people who help look after her. Each time Makai books, refills, calls or checks coverage, they hear about it right away.</p>
+        <p class="eyebrow"><span class="dot"></span>Your family</p>
+        <h2 class="h2">Your family, <em>in the loop.</em></h2>
+        <p>Add the people you’d like to keep posted. Each time Makai books, refills, calls or checks coverage, they hear about it right away, without you lifting a finger.</p>
         <ul class="feed" id="feed" aria-label="Example care updates"></ul>
       </div>
       <div class="circle" id="circle" aria-hidden="true">
@@ -535,14 +553,14 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
     <div class="wrap">
       <header class="sec-head">
         <p class="eyebrow"><span class="dot"></span>Getting started</p>
-        <h2 class="h2">Three steps, and she never waits on hold again.</h2>
+        <h2 class="h2">Three steps, and you never wait on hold again.</h2>
       </header>
       <div class="how-track">
       <svg class="how-line" id="howLine" viewBox="0 0 100 4" preserveAspectRatio="none" aria-hidden="true"><path d="M0 2H100" fill="none" style="stroke:var(--ink)" stroke-width="4" vector-effect="non-scaling-stroke" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/></svg>
       <ol class="how-steps" id="howSteps">
-        <li><span class="how-num">1</span><h3 class="h3">Set up her care circle</h3><p>Add her doctors, her pharmacy and her insurance, plus the family members who want updates.</p></li>
-        <li><span class="how-num">2</span><h3 class="h3">She texts Makai</h3><p>In iMessage or WhatsApp, the same way she texts the grandkids. No new app, no passwords.</p></li>
-        <li><span class="how-num">3</span><h3 class="h3">Makai takes it from there</h3><p>It books, refills, calls, checks coverage and keeps everyone posted as it goes.</p></li>
+        <li><span class="how-num">1</span><h3 class="h3">Set up your care circle</h3><p>Add your doctors, your pharmacy and your insurance, plus anyone in the family you’d like to keep posted.</p></li>
+        <li><span class="how-num">2</span><h3 class="h3">Text Makai</h3><p>In iMessage or WhatsApp, the same way you text the grandkids. No new app, no passwords.</p></li>
+        <li><span class="how-num">3</span><h3 class="h3">Makai takes it from there</h3><p>It books, refills, calls, checks coverage and keeps you posted as it goes.</p></li>
       </ol>
       </div>
     </div>
@@ -553,8 +571,8 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
     <div class="wrap secure-in">
       <header class="sec-head">
         <p class="eyebrow"><span class="dot"></span>Privacy &amp; security</p>
-        <h2 class="h2">Her health data, <em>locked down.</em></h2>
-        <p class="lede">Every text, call and record Makai handles is protected with military-grade security, so her information stays hers.</p>
+        <h2 class="h2">Your health data, <em>locked down.</em></h2>
+        <p class="lede">Every text, call and record Makai handles is protected with military-grade security, so your information stays yours.</p>
       </header>
       <div class="vault" id="vault">
         <div class="vault-top"><span class="vault-shield"><svg aria-hidden="true"><use href="#i-lock"/></svg></span>
@@ -582,11 +600,11 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
     </svg>
     <div class="wrap join-in">
       <div>
-        <h2>Healthcare, handled. <em>For her, and for you.</em></h2>
-        <p>We’re inviting families to try MAKAI early. Leave your phone number and we’ll message you when there’s a spot.</p>
+        <h2>Healthcare, handled. <em>One text away.</em></h2>
+        <p>Enter your mobile number and you’ll receive a link to sign up for MAKAI.</p>
       </div>
       <div class="beta-card">
-        <p class="beta-eyebrow">The MAKAI waitlist</p>
+        <p class="beta-eyebrow">Sign up for MAKAI</p>
         <form class="intake" data-intake="join" novalidate></form>
       </div>
     </div>
@@ -595,9 +613,16 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
 
 <footer>
   <div class="wrap foot">
-    <a class="brand" href="#top"><svg aria-hidden="true"><use href="#mk"/></svg>MAKAI</a>
-    <span>Healthcare, handled. Works in iMessage and WhatsApp.</span>
-    <span>© 2026 MAKAI</span>
+    <div class="foot-id">
+      <a class="brand" href="#top"><svg aria-hidden="true"><use href="#mk"/></svg>MAKAI</a>
+      <span>Healthcare, handled. Works in iMessage and WhatsApp.</span>
+    </div>
+    <address class="foot-contact">
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=650+California+Street+San+Francisco+CA+94108" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-pin"/></svg><span>650 California Street, 7th Floor<br>San Francisco, CA 94108</span></a>
+      <a href="tel:+16282943964"><svg aria-hidden="true"><use href="#i-phone"/></svg><span>(628) 294-3964</span></a>
+      <a href="mailto:manav@makaicare.com"><svg aria-hidden="true"><use href="#i-mail"/></svg><span>manav@makaicare.com</span></a>
+    </address>
+    <span class="foot-copy">© 2026 MAKAI</span>
   </div>
 </footer>
 
@@ -730,7 +755,7 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
   const miss = el('g', {});
   el('rect', { x: -78, y: -24, width: 156, height: 48, rx: 24, fill: 'var(--coral-wash)', stroke: 'var(--coral)', 'stroke-width': 2 }, miss);
   const missT = el('text', { y: 8, 'text-anchor': 'middle', 'font-size': 22, 'font-weight': 800, fill: 'var(--coral)' }, miss); missT.textContent = 'Refill missed';
-  const worry = ['Has anyone called Mom?', 'Is she okay?'].map((txt, i) => {
+  const worry = ['Did you call the doctor yet?', 'Any news on the refill?'].map((txt, i) => {
     const g = el('g', {});
     const w = txt.length * 12.4 + 36;
     el('rect', { x: -w / 2, y: -25, width: w, height: 50, rx: 18, class: 'pill-bg' }, g);
@@ -816,20 +841,20 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
   // ---------------------------------------------------------------- features: one text thread per job
   const FEATURES = [
     { label: 'Appointments', icon: 'i-cal', tone: 'green', title: 'Books the appointment.',
-      body: 'She says what she needs in plain words. Makai finds a time, books it with the office and confirms it with her.',
+      body: 'Say what you need in plain words. Makai finds a time, books it with the office and confirms it with you.',
       head: 'MAKAI', msgs: [['out', 'I need to see Dr. Patel about my heart.'], ['in', 'I can set that up. Thursday at 2:00 PM or Friday at 10:00 AM?'], ['out', 'Thursday, please.'], ['in', 'Booked: Thursday, Nov 12 at 2:00 PM with Dr. Patel.']] },
     { label: 'Prescriptions', icon: 'i-pill', tone: 'blue', title: 'Orders refills before they run out.',
-      body: 'Makai keeps an eye on her prescriptions and asks the pharmacy for a refill in time, so she never misses a dose.',
+      body: 'Makai keeps an eye on your prescriptions and asks the pharmacy for a refill in time, so you never miss a dose.',
       head: 'MAKAI', msgs: [['in', 'Your lisinopril runs out in 5 days. Should I order the refill?'], ['out', 'Yes please.'], ['in', 'Done. It’s ready at your pharmacy today at 4:00 PM.']] },
     { label: 'Phone calls', icon: 'i-phone', tone: 'green', title: 'Calls the pharmacy and the doctor’s office.',
-      body: 'Makai makes the calls, waits on hold and sends live updates as it goes. She never spends another afternoon listening to hold music.',
+      body: 'Makai makes the calls, waits on hold and sends you live updates as it goes. No more afternoons listening to hold music.',
       head: 'MAKAI', msgs: [['out', 'Can you call Dr. Patel’s office? I need to move Thursday.'], ['in', 'Calling them now. I’ll keep you posted.'], ['sys', 'Makai is on hold · 12 min'], ['in', 'All set. You’re now Friday at 10:00 AM, same doctor.']] },
     { label: 'Insurance', icon: 'i-shield', tone: 'blue', title: 'Checks coverage before the visit.',
-      body: 'Before an appointment or a new prescription, Makai checks what her plan covers and what she will pay.',
-      head: 'MAKAI', msgs: [['out', 'Will my insurance cover the heart ultrasound?'], ['sys', 'Checking her plan'], ['in', 'Yes, it’s covered. Your copay is $0.']] },
-    { label: 'Family updates', icon: 'i-users', tone: 'green', title: 'Keeps the family posted.',
-      body: 'Everyone in her care circle sees each update as it happens. Nobody has to call around to find out what the doctor said.',
-      head: 'Margaret’s care circle', msgs: [['in', 'Mom’s cardiology visit is confirmed for Friday at 10:00 AM.', 'Makai'], ['in', 'Lisinopril refill picked up.', 'Makai'], ['in', 'Thank you, Makai! ♥', 'Sarah'], ['out', 'I’m all set, sweetheart.']] },
+      body: 'Before an appointment or a new prescription, Makai checks what your plan covers and what you will pay.',
+      head: 'MAKAI', msgs: [['out', 'Will my insurance cover the heart ultrasound?'], ['sys', 'Checking your plan'], ['in', 'Yes, it’s covered. Your copay is $0.']] },
+    { label: 'Family updates', icon: 'i-users', tone: 'green', title: 'Keeps your family posted.',
+      body: 'You choose who gets updates. They see each one as it happens, so nobody has to call around and you don’t have to repeat yourself.',
+      head: 'My family', msgs: [['in', 'Margaret’s cardiology visit is confirmed for Friday at 10:00 AM.', 'Makai'], ['in', 'Lisinopril refill picked up.', 'Makai'], ['in', 'Thank you, Makai! ♥', 'Sarah'], ['out', 'I’m all set, sweetheart.']] },
   ];
   const msgHTML = ([kind, text, who]) => kind === 'sys'
     ? `<div class="msg sys"><span class="wave"><span></span><span style="animation-delay:-.3s"></span><span style="animation-delay:-.6s"></span></span>${text}</div>`
@@ -885,7 +910,7 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
   };
   renderFeed(0);
   const PEOPLE = [
-    { k: 'margaret', name: 'Margaret', role: 'Mom', a: -90 },
+    { k: 'margaret', name: 'Margaret', role: 'You', a: -90 },
     { k: 'sarah', name: 'Sarah', role: 'Daughter', a: 0 },
     { k: 'emma', name: 'Emma', role: 'Granddaughter', a: 90 },
     { k: 'jake', name: 'Jake', role: 'Son', a: 180 },
@@ -961,7 +986,7 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
     const n = e164.length - 1 - code.length, [lo, hi] = NATIONAL[code] || [6, 12];
     return n >= lo && n <= hi;
   }
-  const NOTE = 'No spam. One message when it’s your turn.';
+  const NOTE = 'You’ll receive a signup link on your mobile.';
   const forms = [...document.querySelectorAll('[data-intake]')];
   forms.forEach(form => {
     const id = 'wa-' + form.dataset.intake;
@@ -969,13 +994,13 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
       <div class="ipill">
         <label class="cc"><span class="cc-v"></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <select aria-label="Country code">${COUNTRIES.map(([iso, name, code]) => `<option value="${iso}">${flag(iso)} ${name} (+${code})</option>`).join('')}</select></label>
-        <input id="${id}" type="tel" name="whatsapp" inputmode="tel" autocomplete="tel" placeholder="Phone number" aria-label="Phone number" aria-describedby="${id}-note" required>
+        <input id="${id}" type="tel" name="whatsapp" inputmode="tel" autocomplete="tel" placeholder="Mobile number" aria-label="Mobile number" aria-describedby="${id}-note" required>
         <input class="hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <button class="btn btn-light" type="submit">Join the waitlist</button>
+        <button class="btn btn-light" type="submit">Get my signup link</button>
       </div>
       <p class="inote" id="${id}-note" aria-live="polite">${NOTE}</p>
       <div class="idone" role="status"><b><svg aria-hidden="true"><use href="#i-check"/></svg></b>
-        <span>You’re on the list.<small>We’ll message you when it’s your turn.</small></span>
+        <span>You’re all set.<small>Watch your phone for your signup link.</small></span>
         <button type="button">Add another</button></div>`;
     const sel = form.querySelector('select'), cv = form.querySelector('.cc-v'), input = form.querySelector('input[type=tel]');
     const note = form.querySelector('.inote'), btn = form.querySelector('button[type=submit]');
@@ -992,8 +1017,8 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
       e.preventDefault();
       const code = COUNTRIES.find(c => c[0] === sel.value)[2];
       const phone = compose(code, input.value);
-      if (!valid(phone, code, input.value)) { analytics('waitlist_invalid_number', { source: form.dataset.intake }); return fail(`Enter your phone number, like ${cv.textContent} ${code === '1' ? '415 555 0123' : '98765 43210'}.`); }
-      btn.disabled = true; btn.textContent = 'Joining…';
+      if (!valid(phone, code, input.value)) { analytics('waitlist_invalid_number', { source: form.dataset.intake }); return fail(`Enter your mobile number, like ${cv.textContent} ${code === '1' ? '415 555 0123' : '98765 43210'}.`); }
+      btn.disabled = true; btn.textContent = 'One moment…';
       try {
         const r = await fetch('/api/join', { method: 'POST', headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ phone, source: form.dataset.intake, company: form.querySelector('.hp').value }) });
@@ -1005,7 +1030,7 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
         analytics('waitlist_failed', { source: form.dataset.intake, reason: err.message });
         fail(err.message === 'invalid' ? 'That number doesn’t look right. Check the country code and try again.' : 'Couldn’t save that just now. Please try again.');
       } finally {
-        btn.disabled = false; btn.textContent = 'Join the waitlist';
+        btn.disabled = false; btn.textContent = 'Get my signup link';
       }
     });
   });
