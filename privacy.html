@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MAKAI Privacy</title>
+<meta name="description" content="How MAKAI uses the mobile number you give us: one text with your signup link. We never sell it or give it to anyone for their own use.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='100' fill='%23066DB8'/%3E%3Crect x='42.5' y='42.5' width='115' height='115' rx='15' fill='%236FCF78' stroke='%230B1418' stroke-width='7'/%3E%3Cpath d='M100 42.5V157.5M46.1 47.75 100 157.5M153.9 47.75 100 157.5M42.5 97.5H70.53M129.47 97.5H157.5' fill='none' stroke='%230B1418' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Same tokens as the landing page, trimmed to what this page uses. */
+:root {
+  --paper: #F2F4EE;  --surface: #FFFFFF;  --ink: #0B1418;  --muted: #56635F;  --line: rgba(11, 20, 24, .12);  --blue: #066DB8;
+  --f-display: 'Fraunces', 'Iowan Old Style', Georgia, serif;
+  --f-body: 'Plus Jakarta Sans', 'Segoe UI', system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0B141A;  --surface: #13212B;  --ink: #E7EFEC;  --muted: #9AACA7;  --line: rgba(231, 239, 236, .13);  --blue: #5BAAE8;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0B141A;  --surface: #13212B;  --ink: #E7EFEC;  --muted: #9AACA7;  --line: rgba(231, 239, 236, .13);  --blue: #5BAAE8;
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 400 1.125rem/1.65 var(--f-body); }
+a { color: var(--blue); text-underline-offset: 3px; }
+:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; border-radius: 8px; }
+.wrap { max-width: 720px; margin-inline: auto; padding: 0 max(16px, env(safe-area-inset-right, 0px)) 0 max(16px, env(safe-area-inset-left, 0px)); }
+@media (min-width: 720px) { .wrap { padding-inline: 40px; } }
+header { padding-block: 22px; border-bottom: 1px solid var(--line); }
+header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.brand { display: inline-flex; align-items: center; gap: 12px; color: var(--ink); text-decoration: none; font: 650 1.2rem/1 var(--f-display); letter-spacing: .1em; }
+.brand svg { width: 34px; height: 34px; flex: none; }
+.back { font-weight: 600; font-size: 1rem; }
+main.wrap { padding-top: clamp(36px, 7vw, 72px); padding-bottom: 64px; }
+h1 { margin: 0; font: 560 clamp(2.4rem, 6vw, 3.4rem)/1.05 var(--f-display); letter-spacing: -.03em; }
+.lede { margin: 18px 0 0; font-size: 1.25rem; line-height: 1.55; }
+.updated { margin: 14px 0 0; color: var(--muted); font-size: 1rem; }
+h2 { margin: 44px 0 0; font: 600 1.5rem/1.2 var(--f-display); letter-spacing: -.01em; }
+p, ul { margin: 12px 0 0; }
+ul { padding-left: 1.2em; }
+li + li { margin-top: 6px; }
+address { margin-top: 12px; font-style: normal; }
+footer { padding-block: 28px 40px; border-top: 1px solid var(--line); color: var(--muted); font-size: .95rem; }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="./"><svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="100" fill="#066DB8"/><rect x="42.5" y="42.5" width="115" height="115" rx="15" fill="#6FCF78"/><g fill="none" stroke="#0B1418" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"><path d="M100 42.5V157.5M46.1 47.75 100 157.5M153.9 47.75 100 157.5M42.5 97.5H70.53M129.47 97.5H157.5"/><rect x="42.5" y="42.5" width="115" height="115" rx="15"/></g></svg>MAKAI</a>
+    <a class="back" href="./">Back to sign up</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <h1>Privacy</h1>
+  <p class="lede">The short version: we use your mobile number to text you a signup link, once. We never sell it or give it to anyone for their own use.</p>
+  <p class="updated">Last updated November 3, 2026</p>
+
+  <h2>What we collect when you sign up</h2>
+  <ul>
+    <li>Your mobile number.</li>
+    <li>Which sign-up box you used on the page.</li>
+    <li>The country your internet connection comes from, and the date and time.</li>
+  </ul>
+  <p>That’s all. We don’t ask for your name, your health information or any payment details on this page. If you’re signing up a parent, we ask for your number, not theirs.</p>
+
+  <h2>How we use it</h2>
+  <p>We text you once with your link to sign up for MAKAI. If you reply STOP, we won’t text you again. Message and data rates may apply.</p>
+
+  <h2>Who can see it</h2>
+  <p>Only the MAKAI team uses it. Your number is stored with the two services that run this sign-up: Google (our private sign-up list) and our web host, Vercel (a private backup). They keep it for us and don’t use it for anything else. We never sell your number, give it to other companies for their own use, or use it for advertising.</p>
+
+  <h2>How we measure this page</h2>
+  <ul>
+    <li>We use PostHog to see how people use this page. It records visits (where you scroll and what you tap) so we can make the page easier to use. Anything you type into the form is hidden from it, and it never receives your phone number.</li>
+    <li>Like every website, our web host keeps short-lived request logs, such as your browser type and country.</li>
+  </ul>
+
+  <h2>Deleting your number</h2>
+  <p>Email <a href="mailto:manav@makaicare.com">manav@makaicare.com</a> and we’ll delete your number from our sign-up form, list and backup.</p>
+
+  <h2>Contact</h2>
+  <address>MAKAI<br>650 California Street, 7th Floor<br>San Francisco, CA 94108<br><a href="mailto:manav@makaicare.com">manav@makaicare.com</a></address>
+</main>
+
+<footer>
+  <div class="wrap">© 2026 MAKAI</div>
+</footer>
+<script>
+// Back to the page the visitor came from: the family version keeps its own address, and history.back() keeps
+// their scroll position (and anything they typed) when they came from this site.
+(() => {
+  const home = new URLSearchParams(location.search).get('for') === 'family' ? '/family' : './';
+  let fromSite = false;
+  try { fromSite = !!document.referrer && new URL(document.referrer).origin === location.origin; } catch {}
+  document.querySelectorAll('.brand, .back').forEach(a => {
+    a.href = home;
+    if (fromSite && a.classList.contains('back')) a.addEventListener('click', e => { e.preventDefault(); history.back(); });
+  });
+})();
+</script>
+</body>
+</html>
