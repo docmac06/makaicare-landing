@@ -123,7 +123,16 @@ section { position: relative; }
 .idone span { font-weight: 700; line-height: 1.3; }
 .idone small { display: block; font-weight: 500; font-size: .88rem; color: var(--muted); }
 .idone button { margin-left: auto; flex: none; border: 0; background: none; padding: 6px 4px; font: 700 .88rem/1 var(--f-body); color: var(--blue); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
-.intake.done .ipill, .intake.done .inote { display: none; }
+/* the price, big and on the brand green, so nobody has to wonder what it costs */
+.iprice { margin: 0 0 4px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.iprice-amt { flex: none; display: inline-flex; align-items: baseline; padding: .08em .3em .12em; border-radius: 18px; background: #6FCF78; color: #0B1418;
+  font: 700 clamp(2.9rem, 9vw, 3.5rem)/1 var(--f-display); letter-spacing: -.03em;
+  box-shadow: 0 0 0 6px rgba(111, 207, 120, .25), 0 18px 44px -14px rgba(111, 207, 120, .8); }
+.iprice-amt span { margin-left: .16em; font: 800 .32em/1 var(--f-body); letter-spacing: 0; }
+.iprice-txt { font: 700 1rem/1.35 var(--f-body); color: inherit; text-align: left; white-space: nowrap; }
+.hero .iprice { justify-content: center; }
+.hero .iprice-txt { color: #FFFFFF; }
+.intake.done .ipill, .intake.done .inote, .intake.done .iprice { display: none; }
 .intake.done .idone { display: flex; animation: chipIn .5s cubic-bezier(.2, 1.2, .3, 1) both; }
 .intake.shake .ipill { animation: shake .4s; }
 @keyframes chipIn { from { opacity: 0; translate: 0 18px; scale: .9; } }
@@ -476,7 +485,7 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
       <h1 data-family="Mom texts. <em>Makai makes the calls.</em>">Refills, labs, eye exams, <em>without the phone calls.</em></h1>
       <p class="hero-what" data-family="Makai is an AI assistant your mom texts. It calls her pharmacy, doctor and insurance for her.">Makai is an AI assistant you text. It calls the pharmacy and the doctor’s office, waits on hold, and texts you back.</p>
       <form class="intake" data-intake="hero" novalidate></form>
-      <p class="hero-trust"><svg aria-hidden="true"><use href="#i-lock"/></svg>Protected by military-grade security</p>
+      <p class="hero-trust"><svg aria-hidden="true"><use href="#i-lock"/></svg>Protected by healthcare-grade security</p>
     </div>
     <div class="horizon" id="horizon" aria-hidden="true"></div>
   </section>
@@ -606,11 +615,11 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
       <header class="sec-head">
         <p class="eyebrow"><span class="dot"></span>Privacy &amp; security</p>
         <h2 class="h2" data-family="Her health data, &lt;em&gt;locked down.&lt;/em&gt;">Your health data, <em>locked down.</em></h2>
-        <p class="lede" data-family="Every text, call and record Makai handles is protected with military-grade security, so her information stays hers.">From insulin refills to eye exams, everything Makai handles is protected with military-grade security, so your information stays yours.</p>
+        <p class="lede" data-family="Every text, call and record Makai handles is protected with healthcare-grade security, so her information stays hers.">From insulin refills to eye exams, everything Makai handles is protected with healthcare-grade security, so your information stays yours.</p>
       </header>
       <div class="vault" id="vault">
         <div class="vault-top"><span class="vault-shield"><svg aria-hidden="true"><use href="#i-lock"/></svg></span>
-          <span><strong>Military-grade security</strong><small>Protecting everything Makai handles</small></span></div>
+          <span><strong>Healthcare-grade security</strong><small>Protecting everything Makai handles</small></span></div>
         <div class="vrow"><span class="ic"><svg aria-hidden="true"><use href="#i-msg"/></svg></span>Messages<span class="ok"><svg aria-hidden="true"><use href="#i-check"/></svg>Protected</span></div>
         <div class="vrow"><span class="ic"><svg aria-hidden="true"><use href="#i-phone"/></svg></span>Calls<span class="ok"><svg aria-hidden="true"><use href="#i-check"/></svg>Protected</span></div>
         <div class="vrow"><span class="ic"><svg aria-hidden="true"><use href="#i-file"/></svg></span>Health records<span class="ok"><svg aria-hidden="true"><use href="#i-check"/></svg>Protected</span></div>
@@ -635,7 +644,7 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
     <div class="wrap join-in">
       <div>
         <h2 data-family="Healthcare, handled. &lt;em&gt;One text away.&lt;/em&gt;">You handle your diabetes. <em>Makai handles the rest.</em></h2>
-        <p data-family="Enter your own mobile number, not your mom’s, and you’ll receive a link to sign her up for MAKAI.">Enter your mobile number and we’ll text you a free signup link.</p>
+        <p data-family="Enter your own mobile number, not your mom’s, and you’ll receive a link to sign her up for MAKAI at the introductory price of $9 a month.">Enter your mobile number and we’ll text you a signup link. Lock in the introductory price of $9 a month.</p>
       </div>
       <div class="beta-card">
         <p class="beta-eyebrow">Sign up for MAKAI</p>
@@ -1067,16 +1076,17 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
     return n >= lo && n <= hi;
   }
   const NOTE = FAMILY ? 'Enter your number, not your mom’s.' : 'You’ll receive a signup link on your mobile.';
-  const ASSURE = `Free. We’ll text you once. Reply STOP anytime. We never share your number. <a href="privacy.html${FAMILY ? '?for=family' : ''}">Privacy</a>`;
+  const ASSURE = `We’ll text you once. Reply STOP anytime. We never share your number. <a href="privacy.html${FAMILY ? '?for=family' : ''}">Privacy</a>`;
   const FIELD = FAMILY ? 'Your mobile number' : 'Mobile number';
   const forms = [...document.querySelectorAll('[data-intake]')];
   forms.forEach(form => {
     const id = 'wa-' + form.dataset.intake;
     form.innerHTML = `
+      <p class="iprice" id="${id}-price"><span class="iprice-amt">$9<span>/month</span></span><span class="iprice-txt">Introductory price,<br>locked in at sign-up.</span></p>
       <div class="ipill">
         <label class="cc"><span class="cc-v"></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <select aria-label="Country code">${COUNTRIES.map(([iso, name, code]) => `<option value="${iso}">${flag(iso)} ${name} (+${code})</option>`).join('')}</select></label>
-        <input id="${id}" type="tel" name="whatsapp" inputmode="tel" autocomplete="tel" placeholder="${FIELD}" aria-label="${FIELD}" aria-describedby="${id}-note ${id}-assure" required>
+        <input id="${id}" type="tel" name="whatsapp" inputmode="tel" autocomplete="tel" placeholder="${FIELD}" aria-label="${FIELD}" aria-describedby="${id}-price ${id}-note ${id}-assure" required>
         <input class="hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
         <button class="btn btn-light" type="submit">Get my signup link</button>
       </div>
