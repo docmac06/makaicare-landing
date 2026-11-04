@@ -644,7 +644,7 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
     <div class="wrap join-in">
       <div>
         <h2 data-family="Healthcare, handled. &lt;em&gt;One text away.&lt;/em&gt;">You handle your diabetes. <em>Makai handles the rest.</em></h2>
-        <p data-family="Enter your own mobile number, not your mom’s, and you’ll receive a link to sign her up for MAKAI at the introductory price of $9 a month.">Enter your mobile number and we’ll text you a signup link. Lock in the introductory price of $9 a month.</p>
+        <p data-family="Enter your own mobile number, not your mom’s, and you’ll receive a link to sign her up for MAKAI at the introductory price of $15 a month.">Enter your mobile number and we’ll text you a signup link. Lock in the introductory price of $15 a month.</p>
       </div>
       <div class="beta-card">
         <p class="beta-eyebrow">Sign up for MAKAI</p>
@@ -1082,7 +1082,7 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
   forms.forEach(form => {
     const id = 'wa-' + form.dataset.intake;
     form.innerHTML = `
-      <p class="iprice" id="${id}-price"><span class="iprice-amt">$9<span>/month</span></span><span class="iprice-txt">Introductory price,<br>locked in at sign-up.</span></p>
+      <p class="iprice" id="${id}-price"><span class="iprice-amt">$15<span>/month</span></span><span class="iprice-txt">Introductory price,<br>locked in at sign-up.</span></p>
       <div class="ipill">
         <label class="cc"><span class="cc-v"></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <select aria-label="Country code">${COUNTRIES.map(([iso, name, code]) => `<option value="${iso}">${flag(iso)} ${name} (+${code})</option>`).join('')}</select></label>
