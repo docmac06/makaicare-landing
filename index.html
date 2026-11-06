@@ -162,6 +162,10 @@ html:not([data-audience="family"]) .film { background: var(--paper); color: var(
 html:not([data-audience="family"]) .film .eyebrow { color: var(--blue); }
 html:not([data-audience="family"]) .film .lede { color: var(--muted); }
 html:not([data-audience="family"]) .film-frame { box-shadow: 0 50px 100px -40px rgba(10, 40, 60, .5), 0 0 0 1px var(--line); }
+/* /glp1 has no film yet: the features section, Makai at work in a text thread, takes its place under the hero */
+html[data-audience="glp1"] .film { display: none; }
+html[data-audience="glp1"] #features { display: block; padding-top: clamp(28px, 4vw, 56px); }
+html[data-audience="glp1"] .foot-contact a[href^="tel:"] { display: none; }
 /* over the night-sky hero */
 .nav.on-dark .brand { color: #FFFFFF; }
 .nav.on-dark .links a { color: rgba(255, 255, 255, .68); }
@@ -313,6 +317,8 @@ html.top-dark body::before { background: #02060B; }
   .mini { display: flex; flex-direction: column; gap: 7px; margin-top: 8px; padding: 16px 14px; border-radius: 22px; background: var(--screen); border: 1px solid var(--line); }
   .mini .msg { opacity: 1; transform: none; font-size: .9rem; }
 }
+/* in desktop windows under about 860px tall the sticky phone runs past the bottom edge, so stack its texts from the top */
+@media (min-width: 901px) and (max-height: 860px) { .thread { justify-content: flex-start; } }
 
 /* ---------- family */
 .fam-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(40px, 6vw, 96px); align-items: center; }
@@ -424,16 +430,25 @@ footer { padding-block: 48px 56px; border-top: 1px solid var(--line); }
 </style>
 <!-- PostHog analytics (project "makaicare"); the token is the public project key -->
 <script>
+// Never on a GLP-1 view: build_site.sh leaves this file out of glp1.html, and this skips /?for=glp1. A visit there
+// suggests the visitor takes a GLP-1, which is health information (see privacy.html).
+if (!/glp-?1/i.test(location.pathname + '?' + Array.from(new URLSearchParams(location.search)).join('&'))) {
 !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagResult isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
 // maskAllInputs is pinned here because privacy.html promises that anything typed is hidden from the recordings
 posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'https://us.i.posthog.com', defaults: '2026-08-30', session_recording: { maskAllInputs: true } });
+}
 </script>
 </head>
 <body>
 <script>
-  // /family (and ?for=family) is the page the Mom ad links to: adult children signing up a parent. Decided before the
-  // page draws, so the main page never flashes the sections it leaves out.
-  if (/^\/family\/?$/.test(location.pathname) || new URLSearchParams(location.search).get('for') === 'family') document.documentElement.dataset.audience = 'family';
+  // /family (and ?for=family) is the page the Mom ad links to: adult children signing up a parent. /glp1 (built as
+  // glp1.html, and ?for=glp1) is for people on a GLP-1 medicine. Decided before the page draws, so no page flashes the
+  // sections it leaves out.
+  {
+    const forWho = new URLSearchParams(location.search).get('for');
+    if (/^\/family\/?$/.test(location.pathname) || forWho === 'family') document.documentElement.dataset.audience = 'family';
+    else if (/^\/glp1(\.html)?\/?$/.test(location.pathname) || forWho === 'glp1') document.documentElement.dataset.audience = 'glp1';
+  }
 </script>
 
 <!-- shared symbols: the Makai mark and line icons -->
@@ -482,8 +497,8 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
   <!-- ===================== HERO ===================== -->
   <section class="hero" id="hero">
     <div class="wrap hero-in">
-      <h1 data-family="Mom texts. <em>Makai makes the calls.</em>">Everything healthcare, <em>handled.</em></h1>
-      <p class="hero-what" data-family="Makai is an AI assistant your mom texts. It calls her pharmacy, doctor and insurance for her.">Makai is an AI assistant you text. It calls the pharmacy and the doctor’s office, waits on hold, and texts you back.</p>
+      <h1 data-family="Mom texts. <em>Makai makes the calls.</em>" data-glp1="The GLP‑1 runaround, &lt;em&gt;handled.&lt;/em&gt;">Everything healthcare, <em>handled.</em></h1>
+      <p class="hero-what" data-family="Makai is an AI assistant your mom texts. It calls her pharmacy, doctor and insurance for her." data-glp1="Makai is an AI assistant you text. It calls your plan, pharmacy and doctor’s office, waits on hold, and texts you back.">Makai is an AI assistant you text. It calls the pharmacy and the doctor’s office, waits on hold, and texts you back.</p>
       <form class="intake" data-intake="hero" novalidate></form>
       <p class="hero-trust"><svg aria-hidden="true"><use href="#i-lock"/></svg>Protected by healthcare-grade security</p>
     </div>
@@ -551,8 +566,8 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
   <section class="features pad full-only" id="features">
     <div class="wrap">
       <header class="sec-head">
-        <p class="eyebrow"><span class="dot"></span>What Makai does</p>
-        <h2 class="h2" data-family="It all happens in a text thread she already knows how to use.">Your refills, labs and eye exams, in one text thread.</h2>
+        <p class="eyebrow" data-glp1="&lt;span class=&quot;dot&quot;&gt;&lt;/span&gt;You ask. Makai calls."><span class="dot"></span>What Makai does</p>
+        <h2 class="h2" data-family="It all happens in a text thread she already knows how to use." data-glp1="It’s not the GLP‑1. It’s everything around it.">Your refills, labs and eye exams, in one text thread.</h2>
       </header>
       <div class="ft-grid">
         <div class="ft-phone-col">
@@ -643,8 +658,8 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
     </svg>
     <div class="wrap join-in">
       <div>
-        <h2 data-family="Healthcare, handled. &lt;em&gt;One text away.&lt;/em&gt;">You handle your diabetes. <em>Makai handles the rest.</em></h2>
-        <p data-family="Enter your own mobile number, not your mom’s, and you’ll receive a link to sign her up for MAKAI at the introductory price of $15 a month.">Enter your mobile number and we’ll text you a signup link. Lock in the introductory price of $15 a month.</p>
+        <h2 data-family="Healthcare, handled. &lt;em&gt;One text away.&lt;/em&gt;" data-glp1="You and your doctor decide. &lt;em&gt;Makai makes the calls.&lt;/em&gt;">You handle your diabetes. <em>Makai handles the rest.</em></h2>
+        <p data-family="Enter your own mobile number, not your mom’s, and you’ll receive a link to sign her up for MAKAI at the introductory price of $15 a month." data-glp1="Enter your mobile number and we’ll text you a signup link. Lock in the introductory price of $15 a month. That’s for Makai’s calls and texts, not medicine or copays.">Enter your mobile number and we’ll text you a signup link. Lock in the introductory price of $15 a month.</p>
       </div>
       <div class="beta-card">
         <p class="beta-eyebrow">Sign up for MAKAI</p>
@@ -658,7 +673,7 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
   <div class="wrap foot">
     <div class="foot-id">
       <a class="brand" href="#top"><svg aria-hidden="true"><use href="#mk"/></svg>MAKAI</a>
-      <span data-family="Healthcare, handled. Works in iMessage and WhatsApp.">The rest, handled. Works in iMessage and WhatsApp.</span>
+      <span data-family="Healthcare, handled. Works in iMessage and WhatsApp." data-glp1="Everything healthcare, handled. Works in iMessage and WhatsApp.">The rest, handled. Works in iMessage and WhatsApp.</span>
     </div>
     <address class="foot-contact">
       <a href="https://www.google.com/maps/search/?api=1&amp;query=650+California+Street+San+Francisco+CA+94108" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-pin"/></svg><span>650 California Street, 7th Floor<br>San Francisco, CA 94108</span></a>
@@ -679,12 +694,13 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
     back: t => { const c = 1.6; return 1 + (c + 1) * Math.pow(t - 1, 3) + c * Math.pow(t - 1, 2); } };
   const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
   // set by the snippet at the top of the page
-  const FAMILY = document.documentElement.dataset.audience === 'family';
+  const FAMILY = document.documentElement.dataset.audience === 'family', GLP1 = document.documentElement.dataset.audience === 'glp1';
   if (FAMILY) document.querySelectorAll('[data-family]').forEach(el => { el.innerHTML = el.dataset.family; });
+  if (GLP1) document.querySelectorAll('[data-glp1]').forEach(el => { el.innerHTML = el.dataset.glp1; });
   // PostHog events (production build only, see analytics.html) and the Meta Pixel's Lead (pixel.html, once it has an id);
   // both are no-ops where their scripts aren't loaded
   const analytics = (event, props) => {
-    window.posthog?.capture?.(event, { audience: FAMILY ? 'family' : 'patient', ...props });
+    window.posthog?.capture?.(event, { audience: FAMILY ? 'family' : GLP1 ? 'glp1' : 'patient', ...props });
     if (event === 'waitlist_joined') window.fbq?.('track', 'Lead');
   };
   const NS = 'http://www.w3.org/2000/svg';
@@ -878,6 +894,7 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
   const filmFrame = $('filmFrame'), video = $('filmVideo'), playBtn = $('playBtn');
   const upright = matchMedia('(max-width: 600px) and (orientation: portrait)');
   function pickFilm() {
+    if (GLP1) return;   // /glp1 hides the film for now, so don't fetch a poster or video nobody sees
     if (video.currentSrc && (!video.paused || video.currentTime > 0)) return;   // never swap a film someone has started
     const tall = !FAMILY && upright.matches;
     const [src, poster] = FAMILY ? ['film.mp4', 'poster.jpg'] : tall ? ['the-rest-9x16.mp4', 'the-rest-9x16.jpg'] : ['the-rest-16x9.mp4', 'the-rest-16x9.jpg'];
@@ -906,6 +923,20 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
 
   // ---------------------------------------------------------------- features: one text thread per job
   // the five jobs, told through diabetes care; /family keeps the general version it launched with
+  const GLP1_FEATURES = [   // GLP1_FEATURES_SLOT
+    { label: 'Refills', icon: 'i-pill', tone: 'green', title: 'Sorts it out when your dose changes.',
+      body: 'Text what’s going on. Makai calls the pharmacy, waits on hold and gets the reason. If they need a new prescription, it can call your doctor’s office too.',
+      head: 'MAKAI', msgs: [['out', 'My dose changed again, and the pharmacy only has the old prescription. Can you sort it out?'], ['in', 'Oak Street Pharmacy says your prescription is for the old dose. Should I ask Dr. Rivera’s office for a new one?'], ['out', 'Yes, please.'], ['in', 'Done. The office sent it over. Oak Street says it’s ready Thursday after 4 PM.']] },
+    { label: 'Insurance', icon: 'i-shield', tone: 'blue', title: 'Checks next year’s coverage and cost.',
+      body: 'Got a letter from your plan? Makai calls them and asks if your prescription is covered next year and what you’d pay. You’re not on hold at work.',
+      head: 'MAKAI', msgs: [['out', 'My plan sent a letter about its 2027 drug list. Is my GLP‑1 still covered? What would I pay?'], ['sys', 'On hold · 41 min'], ['in', 'Your plan says it’s on the 2027 drug list, but it needs a new prior auth in January.'], ['in', 'They said your cost per fill stays the same. I spoke with Dana, ref #K7‑2291.']] },
+    { label: 'Appointments', icon: 'i-cal', tone: 'green', title: 'Books the visit around your schedule.',
+      body: 'Tell Makai what times work. It calls your doctor’s office, waits on hold and books the visit. It tells family only if you ask.',
+      head: 'MAKAI', msgs: [['out', 'Can you book my follow-up with Dr. Rivera? Any weekday morning works. Please let Sam know the time.'], ['sys', 'On hold · 9 min'], ['in', 'Booked: Tuesday at 8:40 AM, Lakeview Medical, Suite 210. I texted Sam the time too.'], ['out', 'Perfect. Thank you!']] },
+    { label: 'Prior auth', icon: 'i-phone', tone: 'blue', title: 'Plays phone tag, so you don’t have to.',
+      body: 'The pharmacy says denied. The office says it’s on file. Makai calls them and your plan, then texts you where it’s stuck and who has to act.',
+      head: 'MAKAI', msgs: [['out', 'Pharmacy says my prior auth was denied. Dr. Rivera’s office says it’s on file. Who’s right?'], ['sys', '3 calls · 52 min'], ['in', 'Your plan says the old prior auth ran out last month. The renewal never reached them.'], ['in', 'Dr. Rivera’s office is resending it now. Confirmed with Kim.']] },
+  ];
   const FEATURES = FAMILY ? [
     { label: 'Appointments', icon: 'i-cal', tone: 'green', title: 'Books the appointment.',
       body: 'She says what she needs in plain words. Makai finds a time, books it with the office and confirms it with her.',
@@ -922,7 +953,7 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
     { label: 'Family updates', icon: 'i-users', tone: 'green', title: 'Keeps your family posted.',
       body: 'You choose who gets updates. They see each one as it happens, so nobody has to call around and you don’t have to repeat yourself.',
       head: 'Margaret’s care circle', msgs: [['in', 'Mom’s cardiology visit is confirmed for Friday at 10:00 AM.', 'Makai'], ['in', 'Lisinopril refill picked up.', 'Makai'], ['in', 'Thank you, Makai! ♥', 'Sarah'], ['out', 'I’m all set, sweetheart.']] },
-  ] : [
+  ] : GLP1 ? GLP1_FEATURES : [
     { label: 'Refills', icon: 'i-pill', tone: 'green', title: 'Refills insulin and sensors when you ask.',
       body: 'Text what you need. Makai calls the pharmacy and texts you back. If they need a new prescription, it can call your doctor’s office too.',
       head: 'MAKAI', msgs: [['out', 'Running low on insulin and sensors. Can you refill both?'], ['in', 'Insulin’s ready tomorrow, $35. Sensors need a new prescription. Should I ask Dr. Shah?'], ['out', 'Yes, please.'], ['in', 'Done. Dr. Shah’s office sent it, and your sensors will be ready Thursday.']] },
@@ -1076,13 +1107,17 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
     return n >= lo && n <= hi;
   }
   const NOTE = FAMILY ? 'Enter your number, not your mom’s.' : 'You’ll receive a signup link on your mobile.';
-  const ASSURE = `We’ll text you once. Reply STOP anytime. We never share your number. <a href="privacy.html${FAMILY ? '?for=family' : ''}">Privacy</a>`;
+  const ASSURE = `We’ll text you once. Reply STOP anytime. We never share your number. <a href="privacy.html${FAMILY ? '?for=family' : GLP1 ? '?for=glp1' : ''}">Privacy</a>`;
   const FIELD = FAMILY ? 'Your mobile number' : 'Mobile number';
+  // next to a GLP-1 headline a bare "$15/month" can read as the medicine's price, so say whose price it is
+  const PRICE_TXT = GLP1 ? 'Makai’s intro price,<br>locked in at sign-up.' : 'Introductory price,<br>locked in at sign-up.';
+  // a sign-up from /glp1 is saved as health information (privacy.html), so don't invite someone else's number there
+  const AGAIN = FAMILY || GLP1 ? 'Change number' : 'Add another';
   const forms = [...document.querySelectorAll('[data-intake]')];
   forms.forEach(form => {
     const id = 'wa-' + form.dataset.intake;
     form.innerHTML = `
-      <p class="iprice" id="${id}-price"><span class="iprice-amt">$15<span>/month</span></span><span class="iprice-txt">Introductory price,<br>locked in at sign-up.</span></p>
+      <p class="iprice" id="${id}-price"><span class="iprice-amt">$15<span>/month</span></span><span class="iprice-txt">${PRICE_TXT}</span></p>
       <div class="ipill">
         <label class="cc"><span class="cc-v"></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <select aria-label="Country code">${COUNTRIES.map(([iso, name, code]) => `<option value="${iso}">${flag(iso)} ${name} (+${code})</option>`).join('')}</select></label>
@@ -1093,7 +1128,7 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
       <p class="inote" id="${id}-note" aria-live="polite">${NOTE}</p>
       <div class="idone" role="status"><b><svg aria-hidden="true"><use href="#i-check"/></svg></b>
         <span>You’re all set.<small>Watch your phone for your signup link.</small></span>
-        <button type="button">${FAMILY ? 'Change number' : 'Add another'}</button></div>
+        <button type="button">${AGAIN}</button></div>
       <p class="iassure" id="${id}-assure">${ASSURE}</p>`;
     const sel = form.querySelector('select'), cv = form.querySelector('.cc-v'), input = form.querySelector('input[type=tel]');
     const note = form.querySelector('.inote'), btn = form.querySelector('button[type=submit]');
@@ -1123,7 +1158,7 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
       btn.disabled = true; btn.textContent = 'One moment…';
       try {
         const r = await fetch('/api/join', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ phone, source: (FAMILY ? 'family-' : '') + form.dataset.intake, company: form.querySelector('.hp').value }) });
+          body: JSON.stringify({ phone, source: (FAMILY ? 'family-' : GLP1 ? 'glp1-' : '') + form.dataset.intake, company: form.querySelector('.hp').value }) });
         if (!r.ok) throw new Error(r.status === 400 ? 'invalid' : 'server');
         forms.forEach(f => {
           f.classList.add('done'); f.querySelector('input[type=tel]').value = '';

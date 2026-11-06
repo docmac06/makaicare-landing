@@ -61,7 +61,7 @@ footer { padding-block: 28px 40px; border-top: 1px solid var(--line); color: var
 <main class="wrap">
   <h1>Privacy</h1>
   <p class="lede">The short version: we use your mobile number to text you a signup link, once. We never sell it or give it to anyone for their own use.</p>
-  <p class="updated">Last updated November 3, 2026</p>
+  <p class="updated">Last updated November 6, 2026</p>
 
   <h2>What we collect when you sign up</h2>
   <ul>
@@ -70,6 +70,7 @@ footer { padding-block: 28px 40px; border-top: 1px solid var(--line); color: var
     <li>The country your internet connection comes from, and the date and time.</li>
   </ul>
   <p>That’s all. We don’t ask for your name, your health information or any payment details on this page. If you’re signing up a parent, we ask for your number, not theirs.</p>
+  <p>If you sign up on our page for people who take a GLP-1, the sign-up box you used tells us you may take one. That’s health information, so we treat it like your number: only the MAKAI team uses it, and we never use it for advertising or give it to other companies for their own use.</p>
 
   <h2>How we use it</h2>
   <p>We text you once with your link to sign up for MAKAI. If you reply STOP, we won’t text you again.</p>
@@ -79,7 +80,7 @@ footer { padding-block: 28px 40px; border-top: 1px solid var(--line); color: var
 
   <h2>How we measure this page</h2>
   <ul>
-    <li>We use PostHog to see how people use this page. It records visits (where you scroll and what you tap) so we can make the page easier to use. Anything you type into the form is hidden from it, and it never receives your phone number.</li>
+    <li>We use PostHog to see how people use this page. It records visits (where you scroll and what you tap) so we can make the page easier to use. Anything you type into the form is hidden from it, and it never receives your phone number. It isn’t on our GLP-1 page.</li>
     <li>Like every website, our web host keeps short-lived request logs, such as your browser type and country.</li>
   </ul>
 
@@ -94,10 +95,11 @@ footer { padding-block: 28px 40px; border-top: 1px solid var(--line); color: var
   <div class="wrap">© 2026 MAKAI</div>
 </footer>
 <script>
-// Back to the page the visitor came from: the family version keeps its own address, and history.back() keeps
-// their scroll position (and anything they typed) when they came from this site.
+// Back to the page the visitor came from: the family and GLP-1 versions keep their own addresses, and history.back()
+// keeps their scroll position (and anything they typed) when they came from this site.
 (() => {
-  const home = new URLSearchParams(location.search).get('for') === 'family' ? '/family' : './';
+  const forWho = new URLSearchParams(location.search).get('for');
+  const home = forWho === 'family' ? '/family' : forWho === 'glp1' ? '/glp1' : './';
   let fromSite = false;
   try { fromSite = !!document.referrer && new URL(document.referrer).origin === location.origin; } catch {}
   document.querySelectorAll('.brand, .back').forEach(a => {

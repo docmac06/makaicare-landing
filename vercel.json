@@ -1,4 +1,7 @@
 {
   "trailingSlash": false,
-  "rewrites": [{ "source": "/family", "destination": "/index.html" }]
+  "rewrites": [
+    { "source": "/family", "destination": "/index.html" },
+    { "source": "/glp1", "destination": "/glp1.html" }
+  ]
 }
