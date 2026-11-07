@@ -102,7 +102,7 @@ section { position: relative; }
 .btn-light { background: #FFFFFF; color: #04416F; justify-content: center; font-size: 1.08rem; padding: 1.05em 1.6em; }
 .btn-light:focus-visible { outline: 3px solid #FFFFFF; outline-offset: 3px; }
 
-/* ---------- WhatsApp intake: one field, one button */
+/* ---------- sign-up: one field (a mobile number or an email), one button */
 .intake { display: grid; gap: 12px; width: 100%; max-width: 540px; }
 .ipill { display: flex; align-items: center; gap: 4px; padding: 6px; border-radius: 999px; background: var(--surface); border: 1.5px solid var(--line);
   box-shadow: var(--shadow); transition: border-color .2s, box-shadow .2s; }
@@ -110,8 +110,8 @@ section { position: relative; }
 .cc { position: relative; flex: none; display: inline-flex; align-items: center; gap: 5px; height: 50px; padding: 0 4px 0 18px; font: 700 1.05rem/1 var(--f-body); color: var(--ink); cursor: pointer; border-radius: 999px; }
 .cc svg { width: 14px; height: 14px; opacity: .55; }
 .cc select { position: absolute; inset: 0; width: 100%; opacity: 0; cursor: pointer; font-size: 16px; }
-.ipill input[type=tel] { flex: 1; min-width: 0; height: 50px; border: 0; background: transparent; padding: 0 10px; font: 600 1.06rem/1 var(--f-body); color: var(--ink); outline: none; }
-.ipill input[type=tel]::placeholder { color: var(--muted); font-weight: 500; opacity: .85; }
+.ipill .ifield { flex: 1; min-width: 0; height: 50px; border: 0; background: transparent; padding: 0 10px; font: 600 1.06rem/1 var(--f-body); color: var(--ink); outline: none; }
+.ipill .ifield::placeholder { color: var(--muted); font-weight: 500; opacity: .85; }
 .ipill .btn { flex: none; padding: 1.02em 1.5em; }
 .ipill .btn[disabled] { opacity: .7; cursor: progress; transform: none; }
 .intake .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
@@ -125,21 +125,33 @@ section { position: relative; }
 .idone button { margin-left: auto; flex: none; border: 0; background: none; padding: 6px 4px; font: 700 .88rem/1 var(--f-body); color: var(--blue); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
 /* the price, big and on the brand green, so nobody has to wonder what it costs (same badge as the main page) */
 .iprice { margin: 0 0 4px; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px 14px; }
-.iprice-from { flex-basis: 100%; margin-bottom: 2px; font: 600 .74rem/1 var(--f-mono); letter-spacing: .22em; text-transform: uppercase; color: rgba(255, 255, 255, .75); }
 .iprice-amt { flex: none; display: inline-flex; align-items: baseline; padding: .08em .3em .12em; border-radius: 18px; background: #6FCF78; color: #0B1418;
   font: 700 clamp(2.9rem, 9vw, 3.5rem)/1 var(--f-display); letter-spacing: -.03em;
   box-shadow: 0 0 0 6px rgba(111, 207, 120, .25), 0 18px 44px -14px rgba(111, 207, 120, .8); }
-.iprice-amt span { margin-left: .16em; font: 800 .32em/1 var(--f-body); letter-spacing: 0; }
-.iprice-txt { font: 700 1rem/1.35 var(--f-body); color: #FFFFFF; text-align: left; white-space: nowrap; }
-@media (max-width: 380px) { .iprice-txt { flex-basis: 100%; text-align: center; } .iprice-txt br { display: none; } }
-.intake.done .ipill, .intake.done .inote, .intake.done .iprice { display: none; }
+.iprice-amt span { margin-right: .22em; font: 800 .34em/1 var(--f-body); letter-spacing: 0; }
+.iprice-txt { font: 500 1rem/1.4 var(--f-body); color: rgba(255, 255, 255, .85); text-align: left; white-space: nowrap; }
+.iprice-txt b { font-weight: 800; color: #FFFFFF; }
+@media (max-width: 600px) { .iprice-txt { flex-basis: 100%; text-align: center; white-space: normal; } }   /* under the badge: two centred lines */
+/* Mobile or Email: how the signup link reaches you (styled for the dark hero, the only form on the page) */
+.imode { justify-self: center; display: inline-flex; gap: 4px; margin: 0; padding: 4px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, .17); background: rgba(255, 255, 255, .07); }
+.imode label { position: relative; }
+.imode input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.imode span { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 22px; border-radius: 999px; font: 700 1rem/1 var(--f-body); color: rgba(255, 255, 255, .78); transition: background .2s, color .2s; }
+.imode svg { width: 17px; height: 17px; }
+.imode input:checked + span { background: #FFFFFF; color: #0B1418; }
+.imode input:focus-visible + span { outline: 3px solid #9CCBF5; outline-offset: 2px; }
+.imode:disabled { opacity: .6; }
+.imode:disabled input { cursor: default; }
+.intake.email .cc { display: none; }
+.intake.email .ipill .ifield { padding-left: 20px; }
+.intake.done .ipill, .intake.done .inote, .intake.done .iprice, .intake.done .imode { display: none; }
 .intake.done .idone { display: flex; animation: chipIn .5s cubic-bezier(.2, 1.2, .3, 1) both; }
 .intake.shake .ipill { animation: shake .4s; }
 @keyframes chipIn { from { opacity: 0; translate: 0 18px; scale: .9; } }
 @keyframes shake { 20%, 60% { translate: -8px 0; } 40%, 80% { translate: 8px 0; } }
 @media (max-width: 440px) {
   .ipill { flex-wrap: wrap; border-radius: 30px; }
-  .ipill input[type=tel] { flex-basis: 0; }
+  .ipill .ifield { flex-basis: 0; }
   .ipill .btn { width: 100%; justify-content: center; }
   .idone { border-radius: 26px; flex-wrap: wrap; }
 }
@@ -169,19 +181,23 @@ html.top-dark body::before { background: #02060B; }
   -webkit-mask-image: linear-gradient(#000 0%, transparent 75%); mask-image: linear-gradient(#000 0%, transparent 75%); }
 .hero-in { position: relative; z-index: 2; flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center;
   padding-top: calc(var(--nav-h) + clamp(40px, 8vh, 120px)); padding-bottom: clamp(170px, 23vh, 260px); }
-.hero h1 { margin: 0; max-width: 11ch; font: 560 clamp(3.4rem, 7.4vw, 6.2rem)/.97 var(--f-display); letter-spacing: -.035em; text-wrap: balance;
+.hero h1 { margin: 0; max-width: 7.4em; font: 560 clamp(3.4rem, 7.4vw, 6.2rem)/.97 var(--f-display); letter-spacing: -.035em; text-wrap: balance;
   font-optical-sizing: auto; animation: rise .9s cubic-bezier(.2, .8, .2, 1) both; }
 .hero h1 em { display: block; font-style: italic; font-weight: 440; color: #9CCBF5; }   /* the second sentence starts its own line */
 .hero-what { margin: clamp(22px, 3.5vh, 32px) 0 0; max-width: 31em; font: 500 clamp(1.08rem, 1.7vw, 1.3rem)/1.5 var(--f-body);
   text-wrap: balance; color: rgba(255, 255, 255, .84); animation: rise .9s .12s cubic-bezier(.2, .8, .2, 1) both; }
-@media (max-height: 620px) { .hero-what { margin-top: 12px; } .hero .intake { margin-top: 18px; } }
 .hero .intake { margin-top: clamp(36px, 6vh, 56px); max-width: 560px; animation: rise .9s .24s cubic-bezier(.2, .8, .2, 1) both; }
+/* short screens and phones: tighter spacing so the button (under the Mobile/Email choice) stays on the first screen.
+   These come after the rules they override. */
+@media (max-height: 620px) { .hero-what { margin-top: 12px; } .hero .intake { margin-top: 18px; } }
+@media (max-width: 600px) and (max-height: 940px) { .hero-in { padding-top: calc(var(--nav-h) + 20px); } .hero-what { margin-top: 12px; } .hero .intake { margin-top: 18px; } }
 .hero-trust { margin: 16px 0 0; display: inline-flex; align-items: center; gap: 10px; padding: 9px 18px 9px 14px; border-radius: 999px; text-align: left;
   background: rgba(111, 207, 120, .1); border: 1px solid rgba(139, 227, 154, .32); color: #C5F0CD; font: 700 .9rem/1.25 var(--f-body);
   animation: rise .9s .36s cubic-bezier(.2, .8, .2, 1) both; }
 .hero-trust svg { width: 17px; height: 17px; flex: none; }
 @keyframes rise { from { opacity: 0; translate: 0 24px; } }
 @media (max-width: 380px) { .hero h1 { font-size: 3.05rem; } }
+@media (max-width: 600px) and (max-height: 700px) { .hero h1 { font-size: 2.9rem; } }   /* short phones, after the rule above */
 .horizon { position: absolute; z-index: 1; left: 50%; bottom: 0; width: max(2400px, 250vw); aspect-ratio: 1; border-radius: 50%; pointer-events: none;
   translate: -50% calc(100% - clamp(96px, 15vh, 170px));
   background: linear-gradient(180deg, color-mix(in srgb, #7CC0F5 22%, var(--paper)) 0, var(--paper) 120px);
@@ -190,8 +206,8 @@ html.top-dark body::before { background: #02060B; }
 .hero .ipill { background: rgba(255, 255, 255, .07); border-color: rgba(255, 255, 255, .17); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 24px 60px -24px rgba(0, 0, 0, .7), inset 0 1px 0 rgba(255, 255, 255, .06); }
 .hero .ipill:focus-within { border-color: rgba(255, 255, 255, .55); box-shadow: 0 0 0 4px rgba(124, 192, 245, .2), 0 24px 60px -24px rgba(0, 0, 0, .7); }
-.hero .cc, .hero .ipill input[type=tel] { color: #FFFFFF; }
-.hero .ipill input[type=tel]::placeholder { color: rgba(255, 255, 255, .55); }
+.hero .cc, .hero .ipill .ifield { color: #FFFFFF; }
+.hero .ipill .ifield::placeholder { color: rgba(255, 255, 255, .55); }
 .hero .cc select { color: #0B1418; }
 .hero .inote { padding-left: 0; text-align: center; color: rgba(255, 255, 255, .5); }
 .hero .inote.err { color: #FFB4A2; }
@@ -212,6 +228,7 @@ footer { padding-block: 48px 56px; border-top: 1px solid var(--line); }
 /* icons scale with the text and centre on its first line: (1.45em line - 1.2em icon) / 2 */
 .foot-contact svg { width: 1.2em; height: 1.2em; flex: none; margin-top: .125em; color: var(--blue); }
 .foot-copy { grid-column: 1 / -1; padding-top: 22px; border-top: 1px solid var(--line); }
+.foot-copy a { display: inline-block; padding: 12px 4px; margin: -12px -4px; color: inherit; text-underline-offset: 3px; }
 @media (max-width: 44em) { .foot { grid-template-columns: minmax(0, 1fr); } }
 
 @media (prefers-reduced-motion: reduce) {
@@ -291,7 +308,7 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
       <a href="tel:+16282943964"><svg aria-hidden="true"><use href="#i-phone"/></svg><span>(628) 294-3964</span></a>
       <a href="mailto:manav@makaicare.com"><svg aria-hidden="true"><use href="#i-mail"/></svg><span>manav@makaicare.com</span></a>
     </address>
-    <span class="foot-copy">© 2026 MAKAI</span>
+    <span class="foot-copy">© 2026 MAKAI · <a href="privacy.html">Privacy</a></span>
   </div>
 </footer>
 
@@ -334,7 +351,7 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
     document.documentElement.classList.toggle('top-dark', dark);
   });
 
-  // ---------------------------------------------------------------- waitlist intake: a phone number, nothing else
+  // ---------------------------------------------------------------- sign-up: a mobile number or an email, nothing else
   const COUNTRIES = [
     ['US', 'United States', '1'], ['IN', 'India', '91'], ['GB', 'United Kingdom', '44'], ['CA', 'Canada', '1'], ['AE', 'United Arab Emirates', '971'],
     ['AU', 'Australia', '61'], ['SG', 'Singapore', '65'], ['NZ', 'New Zealand', '64'], ['IE', 'Ireland', '353'], ['DE', 'Germany', '49'],
@@ -364,32 +381,58 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
     const n = e164.length - 1 - code.length, [lo, hi] = NATIONAL[code] || [6, 12];
     return n >= lo && n <= hi;
   }
-  const NOTE = 'You’ll receive a signup link on your mobile.';
+  // the two ways to get the signup link; the field, the note and the thank-you follow the choice
+  const VIA = {
+    mobile: { type: 'tel', mode: 'tel', auto: 'tel', field: 'Mobile number', note: 'You’ll receive a signup link on your mobile.', done: 'Watch your phone for your signup link.' },
+    email: { type: 'email', mode: 'email', auto: 'email', field: 'Email address', note: 'You’ll receive a signup link by email.', done: 'Watch your inbox for your signup link.' },
+  };
+  const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
   const forms = [...document.querySelectorAll('[data-intake]')];
   forms.forEach(form => {
     const id = 'wa-' + form.dataset.intake;
     // the hero form opens with the price; the join form further down stays as it was
     const hero = form.dataset.intake === 'hero', label = hero ? 'Start caring together' : 'Get my signup link';
     const price = hero
-      ? `<p class="iprice" id="${id}-price"><span class="iprice-from">Starting at</span><span class="iprice-amt">$15<span>/month</span></span><span class="iprice-txt">Lock in the <br>introductory price now.</span></p>` : '';
+      ? `<p class="iprice" id="${id}-price"><span class="iprice-amt"><span>1st month</span>free</span><span class="iprice-txt"><b>From then on, $15/month.</b> <br>Lock in the introductory price now.</span></p>` : '';
     form.innerHTML = `${price}
+      <fieldset class="imode" aria-label="Get your signup link by">
+        <label><input type="radio" name="${id}-via" value="mobile" autocomplete="off" checked><span><svg aria-hidden="true"><use href="#i-phone"/></svg>Mobile</span></label>
+        <label><input type="radio" name="${id}-via" value="email" autocomplete="off"><span><svg aria-hidden="true"><use href="#i-mail"/></svg>Email</span></label>
+      </fieldset>
       <div class="ipill">
         <label class="cc"><span class="cc-v"></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <select aria-label="Country code">${COUNTRIES.map(([iso, name, code]) => `<option value="${iso}">${flag(iso)} ${name} (+${code})</option>`).join('')}</select></label>
-        <input id="${id}" type="tel" name="whatsapp" inputmode="tel" autocomplete="tel" placeholder="Mobile number" aria-label="Mobile number" aria-describedby="${price ? id + '-price ' : ''}${id}-note" required>
+        <input id="${id}" class="ifield" type="tel" name="contact" inputmode="tel" autocomplete="tel" placeholder="Mobile number" aria-label="Mobile number" aria-describedby="${price ? id + '-price ' : ''}${id}-note" required>
         <input class="hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
         <button class="btn btn-light" type="submit">${label}</button>
       </div>
-      <p class="inote" id="${id}-note" aria-live="polite">${NOTE}</p>
+      <p class="inote" id="${id}-note" aria-live="polite">${VIA.mobile.note}</p>
       <div class="idone" role="status"><b><svg aria-hidden="true"><use href="#i-check"/></svg></b>
-        <span>You’re all set.<small>Watch your phone for your signup link.</small></span>
+        <span>You’re all set.<small>${VIA.mobile.done}</small></span>
         <button type="button">Add another</button></div>`;
-    const sel = form.querySelector('select'), cv = form.querySelector('.cc-v'), input = form.querySelector('input[type=tel]');
-    const note = form.querySelector('.inote'), btn = form.querySelector('button[type=submit]');
+    const sel = form.querySelector('select'), cv = form.querySelector('.cc-v'), input = form.querySelector('.ifield');
+    const note = form.querySelector('.inote'), btn = form.querySelector('button[type=submit]'), thanks = form.querySelector('.idone small');
+    const mode = form.querySelector('.imode'), typed = { mobile: '', email: '' };
+    let via = 'mobile';
+    // each mode keeps what was typed in it, so trying the other one loses nothing
+    const setVia = next => {
+      typed[via] = input.value; via = next;
+      form.querySelector(`.imode input[value=${next}]`).checked = true;
+      const v = VIA[via];
+      form.classList.toggle('email', via === 'email');
+      Object.assign(input, { type: v.type, inputMode: v.mode, autocomplete: v.auto, placeholder: v.field, value: typed[via] });
+      input.setAttribute('aria-label', v.field);
+      note.classList.remove('err'); note.textContent = v.note; thanks.textContent = v.done;
+    };
+    form.querySelectorAll('.imode input').forEach(r => {
+      r.addEventListener('change', () => setVia(r.value));
+      // a tap moves on to the field; arrow keys (detail 0) stay on the choice so both can be tried
+      r.addEventListener('click', e => { if (e.detail > 0) input.focus(); });
+    });
     const setCode = () => { cv.textContent = '+' + COUNTRIES.find(c => c[0] === sel.value)[2]; };
     sel.value = 'US'; setCode();   // US by default; the picker covers everyone else
     sel.addEventListener('change', () => { setCode(); input.focus(); });
-    input.addEventListener('input', () => { if (note.classList.contains('err')) { note.classList.remove('err'); note.textContent = NOTE; } });
+    input.addEventListener('input', () => { if (note.classList.contains('err')) { note.classList.remove('err'); note.textContent = VIA[via].note; } });
     form.querySelector('.idone button').addEventListener('click', () => { forms.forEach(f => f.classList.remove('done')); input.value = ''; input.focus(); });
     const fail = msg => {
       note.textContent = msg; note.classList.add('err');
@@ -398,28 +441,38 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
     form.addEventListener('submit', async e => {
       e.preventDefault();
       const code = COUNTRIES.find(c => c[0] === sel.value)[2];
-      const phone = compose(code, input.value);
-      if (!valid(phone, code, input.value)) { analytics('waitlist_invalid_number', { source: form.dataset.intake }); return fail(`Enter your mobile number, like ${cv.textContent} ${code === '1' ? '415 555 0123' : '98765 43210'}.`); }
-      btn.disabled = true; btn.textContent = 'One moment…';
+      if (via === 'mobile' && input.value.includes('@')) { const typedEmail = input.value; setVia('email'); input.value = typedEmail; }
+      let contact;
+      if (via === 'email') {
+        const email = input.value.trim();
+        if (email.length > 254 || !EMAIL.test(email)) { analytics('waitlist_invalid_email', { source: form.dataset.intake }); return fail('Enter your email, like name@example.com.'); }
+        contact = { email };
+      } else {
+        const phone = compose(code, input.value);
+        if (!valid(phone, code, input.value)) { analytics('waitlist_invalid_number', { source: form.dataset.intake }); return fail(`Enter your mobile number, like ${cv.textContent} ${code === '1' ? '415 555 0123' : '98765 43210'}.`); }
+        contact = { phone };
+      }
+      btn.disabled = mode.disabled = true; btn.textContent = 'One moment…';
       try {
         const r = await fetch('/api/join', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ phone, source: 'eldercare-' + form.dataset.intake, company: form.querySelector('.hp').value }) });
+          body: JSON.stringify({ ...contact, source: 'eldercare-' + form.dataset.intake, company: form.querySelector('.hp').value }) });
         if (!r.ok) throw new Error(r.status === 400 ? 'invalid' : 'server');
-        forms.forEach(f => { f.classList.add('done'); f.querySelector('input[type=tel]').value = ''; });
-        // the phone number itself never goes to PostHog, only where the sign-up came from
-        analytics('waitlist_joined', { source: form.dataset.intake, country_code: code });
+        forms.forEach(f => { f.classList.add('done'); f.querySelector('.ifield').value = ''; });
+        // the number or email itself never goes to PostHog, only where the sign-up came from and how
+        if (!form.querySelector('.hp').value) analytics('waitlist_joined', { source: form.dataset.intake, via, ...(via === 'mobile' && { country_code: code }) });
       } catch (err) {
         analytics('waitlist_failed', { source: form.dataset.intake, reason: err.message });
-        fail(err.message === 'invalid' ? 'That number doesn’t look right. Check the country code and try again.' : 'Couldn’t save that just now. Please try again.');
+        fail(err.message !== 'invalid' ? 'Couldn’t save that just now. Please try again.'
+          : via === 'email' ? 'That email doesn’t look right. Check it and try again.' : 'That number doesn’t look right. Check the country code and try again.');
       } finally {
-        btn.disabled = false; btn.textContent = label;
+        btn.disabled = mode.disabled = false; btn.textContent = label;
       }
     });
   });
   // the nav button jumps to the hero field
   document.querySelectorAll('[data-intake-focus]').forEach(a => a.addEventListener('click', e => {
     e.preventDefault();
-    const f = forms[0].querySelector('input[type=tel]');
+    const f = forms[0].querySelector('.ifield');
     window.scrollTo({ top: 0, behavior: RM ? 'auto' : 'smooth' });
     setTimeout(() => f.focus({ preventScroll: true }), RM ? 0 : 450);
   }));

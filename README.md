@@ -7,7 +7,7 @@ The landing page for MAKAI, an AI care companion for older adults. It books appo
 | File | What it is |
 | --- | --- |
 | `index.html` | The whole page: markup, styles and scroll animations in one file, no build step |
-| `api/join.js` | Vercel function behind the waitlist sign-up: saves each phone number to private Vercel Blob storage |
+| `api/join.js` | Vercel function behind the waitlist sign-up: saves each phone number or email (see below) |
 | `film.mp4` | The 77-second brand film (1080p30, web encode, about 14 MB) |
 | `poster.jpg` | Poster frame shown before the film plays |
 
@@ -35,17 +35,19 @@ The page is static, but the sign-up form needs `api/join.js` to run as a Vercel 
 
 ## Waitlist signups
 
-The hero and the blue "join" section each have the same waitlist sign-up ("Join the waitlist"): just a phone number
-(country code defaults to +1). Submitting posts to `/api/join`, which validates the number and saves it in two places:
+The main page's sign-up takes a mobile number or an email (a Mobile / Email choice above the field); /family and /glp1
+take a phone number only (country code defaults to +1). Submitting posts to `/api/join`, which validates it and saves it
+in two places:
 
 1. **The Google Sheet "MAKAI waitlist (Responses)"** in manav@makaicare.com's Drive. This is the list to read: one row per
-   sign-up with Timestamp, Phone, Source (hero or join) and Country (from Vercel's IP geolocation). The Channels column
-   is left over from an earlier version with WhatsApp/iMessage checkboxes and stays empty now. The function
+   sign-up with Timestamp, Phone, Channels, Source and Country (from Vercel's IP geolocation). Phone holds the number
+   or the email, whichever was given, and Channels says how to send the signup link: "text" or "email" (rows from
+   before 2026-11-07 leave it empty). The function
    fills the unlisted Google Form "MAKAI waitlist", which is linked to that Sheet. The form's id lives in the Vercel env
    var `WAITLIST_FORM_ID`, not in this public repo. The question ids are in `api/join.js` (`FIELD`); if you edit the
    form's questions, update them there.
-2. **A backup** in the private Vercel Blob store `makai-waitlist`, as `waitlist/<number>.json` (one file per number, so a
-   repeat sign-up overwrites rather than duplicates). Browse it in Vercel → Storage → makai-waitlist.
+2. **A backup** in the private Vercel Blob store `makai-waitlist`, as `waitlist/<number>.json` or
+   `waitlist/email/<address>.json` (one file per number or address, so a repeat sign-up overwrites rather than duplicates). Browse it in Vercel → Storage → makai-waitlist.
 
 A sign-up counts as saved if either write succeeds; failures are logged in the Vercel function logs.
 
@@ -56,12 +58,13 @@ PostHog (project "makaicare", US cloud) is loaded in `<head>` and records page v
 
 | Event | When | Properties |
 | --- | --- | --- |
-| `waitlist_joined` | a sign-up is saved | `source` (hero or join), `country_code` |
+| `waitlist_joined` | a sign-up is saved | `source`, `via` (mobile or email, main page only), `country_code` (mobile only) |
 | `waitlist_failed` | saving a sign-up fails | `source`, `reason` |
 | `waitlist_invalid_number` | the number doesn't validate | `source` |
+| `waitlist_invalid_email` | the email doesn't validate (main page) | `source` |
 | `film_played` / `film_completed` | the brand film starts / ends | none |
 
-The phone number itself is never sent to PostHog. Events go through `analytics()` in the page script, which does nothing
+The phone number or email itself is never sent to PostHog. Events go through `analytics()` in the page script, which does nothing
 where PostHog isn't loaded.
 
 **Editing this page:** this `index.html` is generated from the page source kept outside the repo

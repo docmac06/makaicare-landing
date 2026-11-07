@@ -1,14 +1,17 @@
-// POST /api/join  { phone: "+14155550123", source: "eldercare-hero" | "eldercare-join" | "hero" | "join" | "family-hero" | "family-join" | "glp1-hero" | "glp1-join" }
+// POST /api/join  { phone: "+14155550123" } or { email: "name@example.com" }, plus
+//   source: "eldercare-hero" | "eldercare-join" | "hero" | "join" | "family-hero" | "family-join" | "glp1-hero" | "glp1-join"
 // Saves a waitlist signup in two places:
 //   1. the "MAKAI waitlist" Google Form, whose linked Sheet "MAKAI waitlist (Responses)" is the list to read
-//      (form id in WAITLIST_FORM_ID, kept out of this public repo);
-//   2. the private "makai-waitlist" Blob store as waitlist/<digits>.json, a backup (one file per number).
+//      (form id in WAITLIST_FORM_ID, kept out of this public repo). An email goes in the Phone column too, and the
+//      Channels column says how to send the signup link: "text" or "email";
+//   2. the private "makai-waitlist" Blob store as waitlist/<digits>.json or waitlist/email/<address>.json, a backup.
 // The sign-up counts as saved if either write succeeds.
 import { put } from '@vercel/blob';
 
 const E164 = /^\+[1-9]\d{7,14}$/;
-// question ids of the Google Form: Phone, Source, Country (its Channels question is no longer used)
-const FIELD = { phone: 'entry.1928729108', source: 'entry.1976967182', country: 'entry.439988013' };
+const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+// question ids of the Google Form: Phone, Channels, Source, Country
+const FIELD = { phone: 'entry.1928729108', channel: 'entry.1574310555', source: 'entry.1976967182', country: 'entry.439988013' };
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -19,11 +22,19 @@ export default async function handler(req, res) {
   // bots fill the hidden "company" field; pretend it worked and keep nothing
   if (body.company) return res.status(200).json({ ok: true });
 
-  const phone = String(body.phone || '').replace(/[\s().-]/g, '');
-  if (!E164.test(phone)) return res.status(400).json({ ok: false, error: 'invalid_phone' });
+  let contact;
+  if (body.email != null) {
+    const email = String(body.email).trim().toLowerCase();
+    if (email.length > 254 || !EMAIL.test(email)) return res.status(400).json({ ok: false, error: 'invalid_email' });
+    contact = { email };
+  } else {
+    const phone = String(body.phone || '').replace(/[\s().-]/g, '');
+    if (!E164.test(phone)) return res.status(400).json({ ok: false, error: 'invalid_phone' });
+    contact = { phone };
+  }
 
   const entry = {
-    phone,
+    ...contact,
     // family-*: an adult child signing up a parent from /family, so the number is the child's;
     // glp1-*: signed up on /glp1, so it says the person may take a GLP-1 (privacy.html treats that as health information)
     source: ['eldercare-hero', 'eldercare-join', 'hero', 'join', 'family-hero', 'family-join', 'glp1-hero', 'glp1-join'].includes(body.source) ? body.source : 'site',
@@ -41,7 +52,8 @@ async function toSheet(entry) {
   const form = process.env.WAITLIST_FORM_ID;
   if (!form) throw new Error('WAITLIST_FORM_ID is not set');
   const fields = new URLSearchParams({
-    [FIELD.phone]: entry.phone,
+    [FIELD.phone]: entry.phone || entry.email,
+    [FIELD.channel]: entry.email ? 'email' : 'text',
     [FIELD.source]: entry.source,
     [FIELD.country]: entry.country || '',
   });
@@ -52,7 +64,8 @@ async function toSheet(entry) {
 }
 
 function toBlob(entry) {
-  return put(`waitlist/${entry.phone.slice(1)}.json`, JSON.stringify(entry, null, 2), {
+  const path = entry.email ? `waitlist/email/${entry.email.replace(/[^a-z0-9@._+-]/g, '_')}.json` : `waitlist/${entry.phone.slice(1)}.json`;
+  return put(path, JSON.stringify(entry, null, 2), {
     access: 'private',
     contentType: 'application/json',
     addRandomSuffix: false,
