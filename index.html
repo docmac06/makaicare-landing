@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MAKAI</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Makai, an AI assistant you text, makes the calls around your diabetes, from insulin and sensor refills to A1C labs and eye exams, and checks your coverage.">
+<meta name="description" content="Makai is your personal health assistant, one text away. It books your appointments, orders your refills, calls the pharmacy and the doctor's office, checks your insurance and keeps your family posted if you like.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='100' fill='%23066DB8'/%3E%3Crect x='42.5' y='42.5' width='115' height='115' rx='15' fill='%236FCF78' stroke='%230B1418' stroke-width='7'/%3E%3Cpath d='M100 42.5V157.5M46.1 47.75 100 157.5M153.9 47.75 100 157.5M42.5 97.5H70.53M129.47 97.5H157.5' fill='none' stroke='%230B1418' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E">
 <script type="application/ld+json">
 {"@context": "https://schema.org", "@type": "Organization", "name": "MAKAI", "url": "https://makaicare.com",
@@ -25,7 +25,7 @@
   --blue-wash: #E3EEF7;  --green-wash: #E2F2E2;  --amber: #A86B12;  --amber-wash: #FBF0DA;  --coral: #BF4F34;  --coral-wash: #FBE6E0;
   --tangle: #8E989B;
   --theater: #071722;  --theater-ink: #EAF2EF;  --theater-muted: #93A9A6;
-  --cta: #066DB8;  --cta-ink: #FFFFFF;  --cta-field: rgba(255, 255, 255, .04);  --cta-line: rgba(255, 255, 255, .38);
+  --cta: #066DB8;  --cta-ink: #FFFFFF;  --cta-field: rgba(255, 255, 255, .14);  --cta-line: rgba(255, 255, 255, .38);
   --screen: #FFFFFF;  --bubble-in: #E9E9EB;  --bubble-in-ink: #0B1418;  --im-out: #0A84FF;
   --wa-bg: #ECE5DD;  --wa-in: #FFFFFF;  --wa-out: #D9FDD3;  --wa-head: #075E54;
   --shadow: 0 30px 60px -32px rgba(10, 40, 60, .38), 0 10px 22px -12px rgba(10, 40, 60, .16);
@@ -108,30 +108,28 @@ section { position: relative; }
 .cc { position: relative; flex: none; display: inline-flex; align-items: center; gap: 5px; height: 50px; padding: 0 4px 0 18px; font: 700 1.05rem/1 var(--f-body); color: var(--ink); cursor: pointer; border-radius: 999px; }
 .cc svg { width: 14px; height: 14px; opacity: .55; }
 .cc select { position: absolute; inset: 0; width: 100%; opacity: 0; cursor: pointer; font-size: 16px; }
-.ipill input[type=tel] { flex: 1; min-width: 0; width: 0; height: 50px; border: 0; background: transparent; padding: 0 10px; font: 600 1.06rem/1 var(--f-body); color: var(--ink); outline: none; }
+.ipill input[type=tel] { flex: 1; min-width: 0; height: 50px; border: 0; background: transparent; padding: 0 10px; font: 600 1.06rem/1 var(--f-body); color: var(--ink); outline: none; }
 .ipill input[type=tel]::placeholder { color: var(--muted); font-weight: 500; opacity: .85; }
 .ipill .btn { flex: none; padding: 1.02em 1.5em; }
 .ipill .btn[disabled] { opacity: .7; cursor: progress; transform: none; }
 .intake .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
-.inote { margin: 0; padding-left: 20px; font-size: .92rem; color: var(--muted); text-wrap: balance; }
+.inote { margin: 0; padding-left: 20px; font-size: .92rem; color: var(--muted); }
 .inote.err { color: var(--coral); font-weight: 600; }
-.iassure { margin: 0; padding-left: 20px; font-size: .95rem; line-height: 1.5; color: var(--muted); }
-.iassure a { display: inline-block; padding: 12px 8px; margin: -12px -8px; color: inherit; font-weight: 600; text-underline-offset: 3px; }
 .idone { display: none; align-items: center; gap: 14px; padding: 10px 22px 10px 10px; border-radius: 999px; background: var(--green-wash); border: 1.5px solid color-mix(in srgb, var(--green) 45%, transparent); }
 .idone b { width: 46px; height: 46px; flex: none; border-radius: 50%; display: grid; place-items: center; background: var(--green); color: #0B1418; }
 .idone b svg { width: 22px; height: 22px; }
 .idone span { font-weight: 700; line-height: 1.3; }
 .idone small { display: block; font-weight: 500; font-size: .88rem; color: var(--muted); }
 .idone button { margin-left: auto; flex: none; border: 0; background: none; padding: 6px 4px; font: 700 .88rem/1 var(--f-body); color: var(--blue); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
-/* the price, big and on the brand green, so nobody has to wonder what it costs */
-.iprice { margin: 0 0 4px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+/* the price, big and on the brand green, so nobody has to wonder what it costs (same badge as the main page) */
+.iprice { margin: 0 0 4px; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px 14px; }
+.iprice-from { flex-basis: 100%; margin-bottom: 2px; font: 600 .74rem/1 var(--f-mono); letter-spacing: .22em; text-transform: uppercase; color: rgba(255, 255, 255, .75); }
 .iprice-amt { flex: none; display: inline-flex; align-items: baseline; padding: .08em .3em .12em; border-radius: 18px; background: #6FCF78; color: #0B1418;
   font: 700 clamp(2.9rem, 9vw, 3.5rem)/1 var(--f-display); letter-spacing: -.03em;
   box-shadow: 0 0 0 6px rgba(111, 207, 120, .25), 0 18px 44px -14px rgba(111, 207, 120, .8); }
 .iprice-amt span { margin-left: .16em; font: 800 .32em/1 var(--f-body); letter-spacing: 0; }
-.iprice-txt { font: 700 1rem/1.35 var(--f-body); color: inherit; text-align: left; white-space: nowrap; }
-.hero .iprice { justify-content: center; }
-.hero .iprice-txt { color: #FFFFFF; }
+.iprice-txt { font: 700 1rem/1.35 var(--f-body); color: #FFFFFF; text-align: left; white-space: nowrap; }
+@media (max-width: 380px) { .iprice-txt { flex-basis: 100%; text-align: center; } .iprice-txt br { display: none; } }
 .intake.done .ipill, .intake.done .inote, .intake.done .iprice { display: none; }
 .intake.done .idone { display: flex; animation: chipIn .5s cubic-bezier(.2, 1.2, .3, 1) both; }
 .intake.shake .ipill { animation: shake .4s; }
@@ -154,18 +152,6 @@ section { position: relative; }
 .links a { text-decoration: none; font-weight: 600; font-size: .95rem; color: var(--muted); transition: color .2s; }
 .links a:hover { color: var(--ink); }
 @media (max-width: 860px) { .links { display: none; } .nav .btn { margin-left: auto; } }
-/* the main page is the sign-up, the film and the sign-up again; /family keeps every section */
-html:not([data-audience="family"]) .full-only { display: none; }
-html:not([data-audience="family"]) .nav .btn { margin-left: auto; }
-/* with the story sections gone, the hero's horizon rises straight into the film, so the film sits on the light page */
-html:not([data-audience="family"]) .film { background: var(--paper); color: var(--ink); padding-top: clamp(28px, 4vw, 56px); }
-html:not([data-audience="family"]) .film .eyebrow { color: var(--blue); }
-html:not([data-audience="family"]) .film .lede { color: var(--muted); }
-html:not([data-audience="family"]) .film-frame { box-shadow: 0 50px 100px -40px rgba(10, 40, 60, .5), 0 0 0 1px var(--line); }
-/* /glp1 has no film yet: the features section, Makai at work in a text thread, takes its place under the hero */
-html[data-audience="glp1"] .film { display: none; }
-html[data-audience="glp1"] #features { display: block; padding-top: clamp(28px, 4vw, 56px); }
-html[data-audience="glp1"] .foot-contact a[href^="tel:"] { display: none; }
 /* over the night-sky hero */
 .nav.on-dark .brand { color: #FFFFFF; }
 .nav.on-dark .links a { color: rgba(255, 255, 255, .68); }
@@ -188,9 +174,10 @@ html.top-dark body::before { background: #02060B; }
   padding-top: calc(var(--nav-h) + clamp(40px, 8vh, 120px)); padding-bottom: clamp(170px, 23vh, 260px); }
 .hero h1 { margin: 0; max-width: 11ch; font: 560 clamp(3.4rem, 7.4vw, 6.2rem)/.97 var(--f-display); letter-spacing: -.035em; text-wrap: balance;
   font-optical-sizing: auto; animation: rise .9s cubic-bezier(.2, .8, .2, 1) both; }
-.hero h1 em { font-style: italic; font-weight: 440; color: #9CCBF5; }
+.hero h1 em { display: block; font-style: italic; font-weight: 440; color: #9CCBF5; }   /* the second sentence starts its own line */
 .hero-what { margin: clamp(22px, 3.5vh, 32px) 0 0; max-width: 31em; font: 500 clamp(1.08rem, 1.7vw, 1.3rem)/1.5 var(--f-body);
   text-wrap: balance; color: rgba(255, 255, 255, .84); animation: rise .9s .12s cubic-bezier(.2, .8, .2, 1) both; }
+@media (max-height: 620px) { .hero-what { margin-top: 12px; } .hero .intake { margin-top: 18px; } }
 .hero .intake { margin-top: clamp(36px, 6vh, 56px); max-width: 560px; animation: rise .9s .24s cubic-bezier(.2, .8, .2, 1) both; }
 .hero-trust { margin: 16px 0 0; display: inline-flex; align-items: center; gap: 10px; padding: 9px 18px 9px 14px; border-radius: 999px; text-align: left;
   background: rgba(111, 207, 120, .1); border: 1px solid rgba(139, 227, 154, .32); color: #C5F0CD; font: 700 .9rem/1.25 var(--f-body);
@@ -198,7 +185,6 @@ html.top-dark body::before { background: #02060B; }
 .hero-trust svg { width: 17px; height: 17px; flex: none; }
 @keyframes rise { from { opacity: 0; translate: 0 24px; } }
 @media (max-width: 380px) { .hero h1 { font-size: 3.05rem; } }
-@media (max-height: 620px) { .hero-in { padding-top: calc(var(--nav-h) + 12px); } .hero-what { margin-top: 12px; } .hero .intake { margin-top: 18px; } }
 .horizon { position: absolute; z-index: 1; left: 50%; bottom: 0; width: max(2400px, 250vw); aspect-ratio: 1; border-radius: 50%; pointer-events: none;
   translate: -50% calc(100% - clamp(96px, 15vh, 170px));
   background: linear-gradient(180deg, color-mix(in srgb, #7CC0F5 22%, var(--paper)) 0, var(--paper) 120px);
@@ -210,12 +196,8 @@ html.top-dark body::before { background: #02060B; }
 .hero .cc, .hero .ipill input[type=tel] { color: #FFFFFF; }
 .hero .ipill input[type=tel]::placeholder { color: rgba(255, 255, 255, .55); }
 .hero .cc select { color: #0B1418; }
-.hero .inote { padding-left: 0; text-align: center; color: rgba(255, 255, 255, .74); }
-/* the family page's one instruction: whose number goes in the field */
-[data-audience="family"] .inote:not(.err) { font-weight: 700; }
-[data-audience="family"] .hero .inote:not(.err) { color: #FFFFFF; }
+.hero .inote { padding-left: 0; text-align: center; color: rgba(255, 255, 255, .5); }
 .hero .inote.err { color: #FFB4A2; }
-.hero .iassure { padding-left: 0; text-align: center; text-wrap: balance; color: rgba(255, 255, 255, .74); }
 .hero .idone { background: rgba(255, 255, 255, .08); border-color: rgba(255, 255, 255, .2); text-align: left; }
 .hero .idone small { color: rgba(255, 255, 255, .7); }
 .hero .idone button { color: #9CCBF5; }
@@ -229,7 +211,7 @@ html.top-dark body::before { background: #02060B; }
 .ut-step p:last-child { color: var(--muted); }
 .ut-step:last-child .h3 { color: var(--blue); }
 .ut-stage { position: sticky; top: calc(env(safe-area-inset-top, 0px) + var(--nav-h) + 2vh); height: min(84vh, 760px); display: grid; place-items: center; }
-.ut-stage svg { width: 100%; height: 100%; min-height: 0; max-height: 100%; overflow: visible; }
+.ut-stage svg { width: 100%; height: 100%; overflow: visible; }
 .ut-stage text { font-family: var(--f-body); }
 .node-ring { fill: var(--surface); stroke: var(--line); stroke-width: 2; transition: stroke .4s; }
 .node.calm .node-ring { stroke: var(--green); stroke-width: 3; }
@@ -251,8 +233,6 @@ html.top-dark body::before { background: #02060B; }
 .film-frame { position: relative; margin-top: clamp(36px, 5vw, 64px); aspect-ratio: 16 / 9; max-width: 100%; border-radius: 26px; overflow: hidden;
   background: #000; box-shadow: 0 70px 140px -50px rgba(0, 0, 0, .9), 0 0 0 1px rgba(255, 255, 255, .08); transform-origin: 50% 20%; will-change: transform; }
 .film-frame video { width: 100%; height: 100%; display: block; object-fit: cover; }
-/* phones held upright get the 9:16 cut, as tall as the screen allows */
-.film-frame.tall { aspect-ratio: 9 / 16; width: min(100%, calc((100svh - var(--nav-h) - 48px) * 9 / 16)); margin-inline: auto; }
 .play { all: unset; position: absolute; inset: 0; cursor: pointer; background: linear-gradient(180deg, rgba(3, 9, 14, 0) 55%, rgba(3, 9, 14, .5) 100%); }
 .play-pill { position: absolute; left: clamp(14px, 3vw, 32px); bottom: clamp(14px, 3vw, 32px); display: flex; align-items: center; gap: 14px; padding: 8px 22px 8px 8px; border-radius: 999px;
   background: rgba(7, 23, 34, .72); color: #FFFFFF; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 20px 40px -16px rgba(0, 0, 0, .7); transition: transform .3s cubic-bezier(.2, 1.4, .3, 1); }
@@ -317,8 +297,6 @@ html.top-dark body::before { background: #02060B; }
   .mini { display: flex; flex-direction: column; gap: 7px; margin-top: 8px; padding: 16px 14px; border-radius: 22px; background: var(--screen); border: 1px solid var(--line); }
   .mini .msg { opacity: 1; transform: none; font-size: .9rem; }
 }
-/* in desktop windows under about 860px tall the sticky phone runs past the bottom edge, so stack its texts from the top */
-@media (min-width: 901px) and (max-height: 860px) { .thread { justify-content: flex-start; } }
 
 /* ---------- family */
 .fam-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(40px, 6vw, 96px); align-items: center; }
@@ -381,7 +359,7 @@ html.top-dark body::before { background: #02060B; }
 .join-in { position: relative; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: clamp(36px, 6vw, 90px); align-items: center; }
 .join h2 { font: 560 clamp(2.4rem, 5.4vw, 4.6rem)/1 var(--f-display); letter-spacing: -.035em; margin: 0; text-wrap: balance; }
 .join h2 em { color: var(--cta-ink); opacity: .85; }
-.join h2 + p { margin-top: 20px; font-size: 1.15rem; opacity: .85; max-width: 30em; }
+.join p { margin-top: 20px; font-size: 1.15rem; opacity: .85; max-width: 30em; }
 .beta-card { display: grid; gap: 22px; padding: clamp(24px, 3vw, 36px); border-radius: 26px; background: var(--cta-field); border: 1px solid var(--cta-line); backdrop-filter: blur(6px); }
 .join .beta-eyebrow { margin: 0; font: 600 .74rem/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; opacity: .85; }
 .btn-light { background: #FFFFFF; color: #04416F; justify-content: center; font-size: 1.08rem; padding: 1.05em 1.6em; }
@@ -394,15 +372,6 @@ html.top-dark body::before { background: #02060B; }
 .join .cc select { color: #0B1418; }
 .join .inote { margin-top: 0; font-size: .92rem; opacity: 1; color: rgba(255, 255, 255, .78); }
 .join .inote.err { color: #FFD7CC; }
-.join .inote:not(.err), .join .iassure, .join .iassure a { color: #FFFFFF; }
-/* the card is narrow beside the headline on desktop, so its field and button stack there as on phones */
-.beta-card, .join .intake { grid-template-columns: minmax(0, 1fr); }
-.beta-card { container-type: inline-size; }
-@container (max-width: 440px) {
-  .join .ipill { flex-wrap: wrap; border-radius: 30px; }
-  .join .ipill input[type=tel] { flex-basis: 0; }
-  .join .ipill .btn { width: 100%; justify-content: center; white-space: normal; text-align: center; }
-}
 .join .idone { background: rgba(255, 255, 255, .14); border-color: var(--cta-line); }
 .join .idone small { color: rgba(255, 255, 255, .78); }
 .join .idone button { color: #FFFFFF; }
@@ -440,16 +409,6 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
 </script>
 </head>
 <body>
-<script>
-  // /family (and ?for=family) is the page the Mom ad links to: adult children signing up a parent. /glp1 (built as
-  // glp1.html, and ?for=glp1) is for people on a GLP-1 medicine. Decided before the page draws, so no page flashes the
-  // sections it leaves out.
-  {
-    const forWho = new URLSearchParams(location.search).get('for');
-    if (/^\/family\/?$/.test(location.pathname) || forWho === 'family') document.documentElement.dataset.audience = 'family';
-    else if (/^\/glp1(\.html)?\/?$/.test(location.pathname) || forWho === 'glp1') document.documentElement.dataset.audience = 'glp1';
-  }
-</script>
 
 <!-- shared symbols: the Makai mark and line icons -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -475,18 +434,16 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
   <symbol id="i-lock" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M5 11h14a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2zM7 11V7a5 5 0 0 1 10 0v4"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"/></symbol>
   <symbol id="i-play" viewBox="0 0 24 24"><path fill="currentColor" d="M7 4.5v15a1 1 0 0 0 1.5.86l12.6-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></symbol>
-  <symbol id="i-vial" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M9 2h6M10 2v6.5L4.8 18.2A2 2 0 0 0 6.5 21h11a2 2 0 0 0 1.7-2.8L14 8.5V2M7.2 14.5h9.6"/></symbol>
-  <symbol id="i-eye" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12zM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></symbol>
 </svg>
 
 <header class="nav on-dark" id="nav">
   <div class="wrap nav-in">
     <a class="brand" href="#top" aria-label="MAKAI, back to top"><svg aria-hidden="true"><use href="#mk"/></svg>MAKAI</a>
-    <nav class="links full-only" aria-label="Sections">
-      <a href="#untangle" data-family="Why Makai">Why Makai</a>
-      <a href="#film" data-family="Film">Frank’s story</a>
-      <a href="#features" data-family="What it does">What it does</a>
-      <a href="#family" data-family="Family">Your family</a>
+    <nav class="links" aria-label="Sections">
+      <a href="#untangle">Why Makai</a>
+      <a href="#film">Film</a>
+      <a href="#features">What it does</a>
+      <a href="#family">Your family</a>
     </nav>
     <a class="btn btn-ink sm" href="#top" data-intake-focus>Sign up</a>
   </div>
@@ -497,8 +454,8 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
   <!-- ===================== HERO ===================== -->
   <section class="hero" id="hero">
     <div class="wrap hero-in">
-      <h1 data-family="Mom texts. <em>Makai makes the calls.</em>" data-glp1="The GLP‑1 runaround, &lt;em&gt;handled.&lt;/em&gt;">Everything healthcare, <em>handled.</em></h1>
-      <p class="hero-what" data-family="Makai is an AI assistant your mom texts. It calls her pharmacy, doctor and insurance for her." data-glp1="Makai is an AI assistant you text. It calls your plan, pharmacy and doctor’s office, waits on hold, and texts you back.">Makai is an AI assistant you text. It calls the pharmacy and the doctor’s office, waits on hold, and texts you back.</p>
+      <h1>Your parents’ care. <em>Your family, in sync.</em></h1>
+      <p class="hero-what">Coordinate appointments, medications, and everyday care—all through a simple chat with your family.</p>
       <form class="intake" data-intake="hero" novalidate></form>
       <p class="hero-trust"><svg aria-hidden="true"><use href="#i-lock"/></svg>Protected by healthcare-grade security</p>
     </div>
@@ -506,34 +463,34 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
   </section>
 
   <!-- ===================== UNTANGLE ===================== -->
-  <section class="untangle full-only" id="untangle">
+  <section class="untangle" id="untangle">
     <div class="wrap">
       <header class="sec-head">
-        <p class="eyebrow" data-family="&lt;span class=&quot;dot&quot;&gt;&lt;/span&gt;Why Makai"><span class="dot"></span>The rest</p>
-        <h2 class="h2" data-family="Caring for an aging parent is a tangle of phone calls.">It’s not the diabetes. It’s everything around it.</h2>
+        <p class="eyebrow"><span class="dot"></span>Why Makai</p>
+        <h2 class="h2">Your healthcare shouldn’t be a tangle of phone calls.</h2>
       </header>
     </div>
     <div class="wrap ut-grid">
       <div class="ut-steps" id="utSteps">
         <article class="ut-step on">
-          <p class="kicker" data-family="The clinic">The doctor’s office</p>
-          <h3 class="h3" data-family="40 minutes on hold.">40 minutes on hold. For one lab.</h3>
-          <p data-family="Booking one appointment means calling the office, waiting, and calling back after they close for lunch.">Every few months, there’s an A1C lab to book. You call, you wait, and you call back after they close for lunch.</p>
+          <p class="kicker">The clinic</p>
+          <h3 class="h3">40 minutes on hold.</h3>
+          <p>Booking one appointment means calling the office, waiting, and calling back after they close for lunch.</p>
         </article>
         <article class="ut-step">
-          <p class="kicker" data-family="The pharmacy">The pharmacy</p>
-          <h3 class="h3" data-family="A refill slips through the cracks.">Your insulin’s ready. Your sensors aren’t.</h3>
-          <p data-family="The bottle runs out on a Sunday, and the pharmacy needs a new prescription before it can refill it.">The pharmacy needs a new prescription first. So you call the doctor’s office, then call the pharmacy back to see if it came in.</p>
+          <p class="kicker">The pharmacy</p>
+          <h3 class="h3">A refill slips through the cracks.</h3>
+          <p>The bottle runs out on a Sunday, and the pharmacy needs a new prescription before it can refill it.</p>
         </article>
         <article class="ut-step">
-          <p class="kicker" data-family="The family">Your family</p>
-          <h3 class="h3" data-family="Everyone is worried. Nobody knows.">The kids keep asking.</h3>
-          <p data-family="Her kids live miles away and text each other to ask if anyone has talked to Mom.">They live miles away and want to help. So you give the same update on the sensors three times.</p>
+          <p class="kicker">Your family</p>
+          <h3 class="h3">The kids keep asking.</h3>
+          <p>They live miles away and call to check in, so you end up giving the same update three times.</p>
         </article>
         <article class="ut-step">
-          <p class="kicker" data-family="Makai">Makai</p>
-          <h3 class="h3" data-family="Makai untangles it.">You ask. Makai handles the rest.</h3>
-          <p data-family="She sends one text. Makai handles the calls, the refills and the paperwork, then tells her what happened, and you too if she likes.">Makai waits on hold, books the lab and asks for the new prescription. It keeps you posted, and your family too if you like.</p>
+          <p class="kicker">Makai</p>
+          <h3 class="h3">Makai untangles it.</h3>
+          <p>You send one text. Makai handles the calls, the refills and the paperwork, then tells you what happened, and your family too if you like.</p>
         </article>
       </div>
       <div class="ut-stage-col">
@@ -546,16 +503,16 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
   <section class="film pad" id="film">
     <div class="wrap">
       <header class="sec-head center">
-        <p class="eyebrow" data-family="&lt;span class=&quot;dot&quot;&gt;&lt;/span&gt;The film"><span class="dot"></span>The film</p>
-        <h2 class="h2" data-family="Meet Makai in 77 seconds.">Four calls for Makai. Zero for Frank.</h2>
-        <p class="lede" data-family="From 40 minutes on hold to a family that always knows what’s happening.">Frank’s list may look familiar: insulin, sensors, an A1C lab and an eye exam.</p>
+        <p class="eyebrow"><span class="dot"></span>The film</p>
+        <h2 class="h2">Meet Makai in 77 seconds.</h2>
+        <p class="lede">From 40 minutes on hold to a family that always knows what’s happening.</p>
       </header>
       <div class="film-frame" id="filmFrame">
-        <video id="filmVideo" preload="none" playsinline></video>
-        <button class="play" id="playBtn" type="button" aria-label="Play Frank’s film with sound">
+        <video id="filmVideo" src="film.mp4" poster="poster.jpg" preload="metadata" playsinline></video>
+        <button class="play" id="playBtn" type="button" aria-label="Play the MAKAI film with sound">
           <span class="play-pill">
             <span class="play-btn"><svg aria-hidden="true"><use href="#i-play"/></svg></span>
-            <span class="play-label" data-family="Play with sound&lt;small&gt;1:17&lt;/small&gt;">Play with sound<small>1:22</small></span>
+            <span class="play-label">Play with sound<small>1:17</small></span>
           </span>
         </button>
       </div>
@@ -563,11 +520,11 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
   </section>
 
   <!-- ===================== FEATURES ===================== -->
-  <section class="features pad full-only" id="features">
+  <section class="features pad" id="features">
     <div class="wrap">
       <header class="sec-head">
-        <p class="eyebrow" data-glp1="&lt;span class=&quot;dot&quot;&gt;&lt;/span&gt;You ask. Makai calls."><span class="dot"></span>What Makai does</p>
-        <h2 class="h2" data-family="It all happens in a text thread she already knows how to use." data-glp1="It’s not the GLP‑1. It’s everything around it.">Your refills, labs and eye exams, in one text thread.</h2>
+        <p class="eyebrow"><span class="dot"></span>What Makai does</p>
+        <h2 class="h2">It all happens in a text thread you already know how to use.</h2>
       </header>
       <div class="ft-grid">
         <div class="ft-phone-col">
@@ -591,12 +548,12 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
   </section>
 
   <!-- ===================== FAMILY ===================== -->
-  <section class="family pad full-only" id="family">
+  <section class="family pad" id="family">
     <div class="wrap fam-grid">
       <div class="fam-copy">
-        <p class="eyebrow" data-family="&lt;span class=&quot;dot&quot;&gt;&lt;/span&gt;For families"><span class="dot"></span>Your family</p>
-        <h2 class="h2" data-family="The whole family, &lt;em&gt;in the loop.&lt;/em&gt;">The people you choose, <em>in the loop.</em></h2>
-        <p data-family="Add the people who help look after her. Each time Makai books, refills, calls or checks coverage, they hear about it right away.">Add your daughter, your son, anyone you like. When Makai books your eye exam or refills your insulin, they hear right away, without you lifting a finger.</p>
+        <p class="eyebrow"><span class="dot"></span>Your family</p>
+        <h2 class="h2">Your family, <em>in the loop.</em></h2>
+        <p>Add the people you’d like to keep posted. Each time Makai books, refills, calls or checks coverage, they hear about it right away, without you lifting a finger.</p>
         <ul class="feed" id="feed" aria-label="Example care updates"></ul>
       </div>
       <div class="circle" id="circle" aria-hidden="true">
@@ -607,34 +564,34 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
   </section>
 
   <!-- ===================== HOW ===================== -->
-  <section class="how pad full-only" id="how" style="padding-top:0">
+  <section class="how pad" id="how" style="padding-top:0">
     <div class="wrap">
       <header class="sec-head">
         <p class="eyebrow"><span class="dot"></span>Getting started</p>
-        <h2 class="h2" data-family="Three steps, and she never waits on hold again.">Three steps, and the hold music is Makai’s.</h2>
+        <h2 class="h2">Three steps, and you never wait on hold again.</h2>
       </header>
       <div class="how-track">
       <svg class="how-line" id="howLine" viewBox="0 0 100 4" preserveAspectRatio="none" aria-hidden="true"><path d="M0 2H100" fill="none" style="stroke:var(--ink)" stroke-width="4" vector-effect="non-scaling-stroke" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/></svg>
       <ol class="how-steps" id="howSteps">
-        <li><span class="how-num">1</span><h3 class="h3" data-family="Set up her care circle">Set up your care circle</h3><p data-family="Add her doctors, her pharmacy and her insurance, plus the family members who want updates.">Add your doctor, eye doctor, pharmacy and insurance. Then add only the family members you’d like to keep posted.</p></li>
-        <li><span class="how-num">2</span><h3 class="h3" data-family="She texts Makai">Text Makai</h3><p data-family="In iMessage or WhatsApp, the same way she texts the grandkids. No new app, no passwords.">In iMessage or WhatsApp, in your own words, like “Refill my insulin.” No new app, no passwords.</p></li>
-        <li><span class="how-num">3</span><h3 class="h3" data-family="Makai takes it from there">Makai takes it from there</h3><p data-family="It books, refills, calls, checks coverage and keeps everyone posted as it goes.">It calls the pharmacy, books the lab, checks your coverage and keeps you posted as it goes. You stay in charge.</p></li>
+        <li><span class="how-num">1</span><h3 class="h3">Set up your care circle</h3><p>Add your doctors, your pharmacy and your insurance, plus anyone in the family you’d like to keep posted.</p></li>
+        <li><span class="how-num">2</span><h3 class="h3">Text Makai</h3><p>In iMessage or WhatsApp, the same way you text the grandkids. No new app, no passwords.</p></li>
+        <li><span class="how-num">3</span><h3 class="h3">Makai takes it from there</h3><p>It books, refills, calls, checks coverage and keeps you posted as it goes.</p></li>
       </ol>
       </div>
     </div>
   </section>
 
   <!-- ===================== SECURITY ===================== -->
-  <section class="secure pad full-only" id="security" style="padding-top:0">
+  <section class="secure pad" id="security" style="padding-top:0">
     <div class="wrap secure-in">
       <header class="sec-head">
         <p class="eyebrow"><span class="dot"></span>Privacy &amp; security</p>
-        <h2 class="h2" data-family="Her health data, &lt;em&gt;locked down.&lt;/em&gt;">Your health data, <em>locked down.</em></h2>
-        <p class="lede" data-family="Every text, call and record Makai handles is protected with healthcare-grade security, so her information stays hers.">From insulin refills to eye exams, everything Makai handles is protected with healthcare-grade security, so your information stays yours.</p>
+        <h2 class="h2">Your health data, <em>locked down.</em></h2>
+        <p class="lede">Every text, call and record Makai handles is protected with healthcare-grade security, so your information stays yours.</p>
       </header>
       <div class="vault" id="vault">
         <div class="vault-top"><span class="vault-shield"><svg aria-hidden="true"><use href="#i-lock"/></svg></span>
-          <span><strong>Healthcare-grade security</strong><small>Protecting everything Makai handles</small></span></div>
+          <span><strong>Military-grade security</strong><small>Protecting everything Makai handles</small></span></div>
         <div class="vrow"><span class="ic"><svg aria-hidden="true"><use href="#i-msg"/></svg></span>Messages<span class="ok"><svg aria-hidden="true"><use href="#i-check"/></svg>Protected</span></div>
         <div class="vrow"><span class="ic"><svg aria-hidden="true"><use href="#i-phone"/></svg></span>Calls<span class="ok"><svg aria-hidden="true"><use href="#i-check"/></svg>Protected</span></div>
         <div class="vrow"><span class="ic"><svg aria-hidden="true"><use href="#i-file"/></svg></span>Health records<span class="ok"><svg aria-hidden="true"><use href="#i-check"/></svg>Protected</span></div>
@@ -658,8 +615,8 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
     </svg>
     <div class="wrap join-in">
       <div>
-        <h2 data-family="Healthcare, handled. &lt;em&gt;One text away.&lt;/em&gt;" data-glp1="You and your doctor decide. &lt;em&gt;Makai makes the calls.&lt;/em&gt;">You handle your diabetes. <em>Makai handles the rest.</em></h2>
-        <p data-family="Enter your own mobile number, not your mom’s, and you’ll receive a link to sign her up for MAKAI at the introductory price of $15 a month." data-glp1="Enter your mobile number and we’ll text you a signup link. Lock in the introductory price of $15 a month. That’s for Makai’s calls and texts, not medicine or copays.">Enter your mobile number and we’ll text you a signup link. Lock in the introductory price of $15 a month.</p>
+        <h2>Healthcare, handled. <em>One text away.</em></h2>
+        <p>Enter your mobile number and you’ll receive a link to sign up for MAKAI.</p>
       </div>
       <div class="beta-card">
         <p class="beta-eyebrow">Sign up for MAKAI</p>
@@ -673,7 +630,7 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
   <div class="wrap foot">
     <div class="foot-id">
       <a class="brand" href="#top"><svg aria-hidden="true"><use href="#mk"/></svg>MAKAI</a>
-      <span data-family="Healthcare, handled. Works in iMessage and WhatsApp." data-glp1="Everything healthcare, handled. Works in iMessage and WhatsApp.">The rest, handled. Works in iMessage and WhatsApp.</span>
+      <span>Healthcare, handled. Works in iMessage and WhatsApp.</span>
     </div>
     <address class="foot-contact">
       <a href="https://www.google.com/maps/search/?api=1&amp;query=650+California+Street+San+Francisco+CA+94108" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-pin"/></svg><span>650 California Street, 7th Floor<br>San Francisco, CA 94108</span></a>
@@ -693,16 +650,8 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
   const ease = { io: t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2, out: t => 1 - Math.pow(1 - t, 3),
     back: t => { const c = 1.6; return 1 + (c + 1) * Math.pow(t - 1, 3) + c * Math.pow(t - 1, 2); } };
   const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  // set by the snippet at the top of the page
-  const FAMILY = document.documentElement.dataset.audience === 'family', GLP1 = document.documentElement.dataset.audience === 'glp1';
-  if (FAMILY) document.querySelectorAll('[data-family]').forEach(el => { el.innerHTML = el.dataset.family; });
-  if (GLP1) document.querySelectorAll('[data-glp1]').forEach(el => { el.innerHTML = el.dataset.glp1; });
-  // PostHog events (production build only, see analytics.html) and the Meta Pixel's Lead (pixel.html, once it has an id);
-  // both are no-ops where their scripts aren't loaded
-  const analytics = (event, props) => {
-    window.posthog?.capture?.(event, { audience: FAMILY ? 'family' : GLP1 ? 'glp1' : 'patient', ...props });
-    if (event === 'waitlist_joined') window.fbq?.('track', 'Lead');
-  };
+  // PostHog events (production build only, see analytics.html); a no-op where PostHog isn't loaded
+  const analytics = (event, props) => window.posthog?.capture?.(event, { audience: 'eldercare', ...props });
   const NS = 'http://www.w3.org/2000/svg';
 
   // ---------------------------------------------------------------- avatars (same illustration style as the film)
@@ -751,7 +700,7 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
     const vh = innerHeight;
     for (const t of tracked) {
       const r = t.el.getBoundingClientRect();
-      if (!r.height || r.bottom < -vh * .5 || r.top > vh * 1.5) continue;
+      if (r.bottom < -vh * .5 || r.top > vh * 1.5) continue;
       t.fn(r, vh);
     }
   }
@@ -786,15 +735,14 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
     [[80, 380], [300, 170], [570, 570], [480, 420], [400, 280], [770, 300], [640, 120]],
     [[560, 690], [290, 730], [650, 380], [360, 330], [70, 270], [250, 710], [80, 380]],
   ];
-  // the six places the lines run between: the diabetes ones here, the general ones on /family
-  const NODE_TEXT = FAMILY
-    ? [['Clinic', 'i-steth'], ['Pharmacy', 'i-pill'], ['Insurance', 'i-shield'], ['Family', 'i-users'], ['Billing', 'i-file'], ['Cardiology', 'i-heart']]
-    : [['Doctor', 'i-steth'], ['Pharmacy', 'i-pill'], ['Insurance', 'i-shield'], ['Family', 'i-users'], ['A1C lab', 'i-vial'], ['Eye exam', 'i-eye']];
   const NODES = [
-    { id: 'clinic', at: [150, 150] }, { id: 'pharmacy', at: [640, 120] }, { id: 'insurance', at: [700, 470] },
-    { id: 'family', at: [560, 690] }, { id: 'billing', at: [130, 620] }, { id: 'cardio', at: [80, 380] },
-  ].map((n, i) => { const a = (-90 + 60 * i) * Math.PI / 180; return { ...n, label: NODE_TEXT[i][0], icon: NODE_TEXT[i][1], orbit: [C + Math.cos(a) * 318, C + Math.sin(a) * 318] }; });
-  if (!FAMILY) svg.setAttribute('aria-label', `Lines between ${NODE_TEXT.slice(0, -1).map(n => n[0]).join(', ')} and ${NODE_TEXT[NODE_TEXT.length - 1][0]} straighten into the Makai mark.`);
+    { id: 'clinic', label: 'Clinic', icon: 'i-steth', at: [150, 150] },
+    { id: 'pharmacy', label: 'Pharmacy', icon: 'i-pill', at: [640, 120] },
+    { id: 'insurance', label: 'Insurance', icon: 'i-shield', at: [700, 470] },
+    { id: 'family', label: 'Family', icon: 'i-users', at: [560, 690] },
+    { id: 'billing', label: 'Billing', icon: 'i-file', at: [130, 620] },
+    { id: 'cardio', label: 'Cardiology', icon: 'i-heart', at: [80, 380] },
+  ].map((n, i) => { const a = (-90 + 60 * i) * Math.PI / 180; return { ...n, orbit: [C + Math.cos(a) * 318, C + Math.sin(a) * 318] }; });
   const path7 = p => `M${p[0]}C${p[1]} ${p[2]} ${p[3]}C${p[4]} ${p[5]} ${p[6]}`.replace(/(\d+\.\d{2})\d+/g, '$1');
 
   const gDeco = el('g', { fill: 'none', 'stroke-width': 3, 'stroke-linecap': 'round', stroke: 'var(--tangle)' });
@@ -816,14 +764,13 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
   });
   // story props: the hold timer, the missed refill, the worried family
   const hold = el('g', {});
-  el('rect', { x: -98, y: -27, width: 250, height: 54, rx: 27, class: 'pill-bg' }, hold);
+  el('rect', { x: -98, y: -27, width: 196, height: 54, rx: 27, class: 'pill-bg' }, hold);
   el('circle', { cx: -70, cy: 0, r: 7, fill: 'var(--coral)' }, hold);
   const holdT = el('text', { x: -52, y: 9, 'font-size': 25, 'font-weight': 700, fill: 'var(--ink)', 'font-family': 'IBM Plex Mono, monospace' }, hold); holdT.textContent = 'On hold 00:00';
-  const MISS = FAMILY ? 'Refill missed' : 'No refills left', missW = FAMILY ? 156 : MISS.length * 12.4 + 40;
   const miss = el('g', {});
-  el('rect', { x: -missW / 2, y: -24, width: missW, height: 48, rx: 24, fill: 'var(--coral-wash)', stroke: 'var(--coral)', 'stroke-width': 2 }, miss);
-  const missT = el('text', { y: 8, 'text-anchor': 'middle', 'font-size': 22, 'font-weight': 800, fill: 'var(--coral)' }, miss); missT.textContent = MISS;
-  const worry = (FAMILY ? ['Has anyone called Mom?', 'Is she okay?'] : ['Any news on the sensors?', 'When’s your eye exam?']).map((txt, i) => {
+  el('rect', { x: -78, y: -24, width: 156, height: 48, rx: 24, fill: 'var(--coral-wash)', stroke: 'var(--coral)', 'stroke-width': 2 }, miss);
+  const missT = el('text', { y: 8, 'text-anchor': 'middle', 'font-size': 22, 'font-weight': 800, fill: 'var(--coral)' }, miss); missT.textContent = 'Refill missed';
+  const worry = ['Did you call the doctor yet?', 'Any news on the refill?'].map((txt, i) => {
     const g = el('g', {});
     const w = txt.length * 12.4 + 36;
     el('rect', { x: -w / 2, y: -25, width: w, height: 50, rx: 18, class: 'pill-bg' }, g);
@@ -890,22 +837,7 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
   drawUntangle(0);
 
   // ---------------------------------------------------------------- film: frame grows into place, play with sound
-  // Frank's film ("The rest.") in 16:9, or its 9:16 cut on a phone held upright; /family keeps the brand film
   const filmFrame = $('filmFrame'), video = $('filmVideo'), playBtn = $('playBtn');
-  const upright = matchMedia('(max-width: 600px) and (orientation: portrait)');
-  function pickFilm() {
-    if (GLP1) return;   // /glp1 hides the film for now, so don't fetch a poster or video nobody sees
-    if (video.currentSrc && (!video.paused || video.currentTime > 0)) return;   // never swap a film someone has started
-    const tall = !FAMILY && upright.matches;
-    const [src, poster] = FAMILY ? ['film.mp4', 'poster.jpg'] : tall ? ['the-rest-9x16.mp4', 'the-rest-9x16.jpg'] : ['the-rest-16x9.mp4', 'the-rest-16x9.jpg'];
-    filmFrame.classList.toggle('tall', tall);
-    if (video.getAttribute('src') === src) return;
-    video.poster = poster; video.src = src; video.preload = 'metadata';
-  }
-  pickFilm();
-  // Safari before 14 only has addListener on a MediaQueryList, and a throw here would stop the rest of the page script
-  if (upright.addEventListener) upright.addEventListener('change', pickFilm); else upright.addListener(pickFilm);
-  if (FAMILY) playBtn.setAttribute('aria-label', 'Play the MAKAI film with sound');
   track($('film'), (r, vh) => {
     if (RM) return;
     const fr = filmFrame.getBoundingClientRect();
@@ -917,58 +849,27 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
     playBtn.hidden = true;
     video.controls = true;
     video.play().catch(() => { playBtn.hidden = false; video.controls = false; });
-    analytics('film_played', { film: video.getAttribute('src') });
+    analytics('film_played');
   });
-  video.addEventListener('ended', () => { playBtn.hidden = false; video.controls = false; analytics('film_completed', { film: video.getAttribute('src') }); });
+  video.addEventListener('ended', () => { playBtn.hidden = false; video.controls = false; analytics('film_completed'); });
 
   // ---------------------------------------------------------------- features: one text thread per job
-  // the five jobs, told through diabetes care; /family keeps the general version it launched with
-  const GLP1_FEATURES = [   // GLP1_FEATURES_SLOT
-    { label: 'Refills', icon: 'i-pill', tone: 'green', title: 'Sorts it out when your dose changes.',
-      body: 'Text what’s going on. Makai calls the pharmacy, waits on hold and gets the reason. If they need a new prescription, it can call your doctor’s office too.',
-      head: 'MAKAI', msgs: [['out', 'My dose changed again, and the pharmacy only has the old prescription. Can you sort it out?'], ['in', 'Oak Street Pharmacy says your prescription is for the old dose. Should I ask Dr. Rivera’s office for a new one?'], ['out', 'Yes, please.'], ['in', 'Done. The office sent it over. Oak Street says it’s ready Thursday after 4 PM.']] },
-    { label: 'Insurance', icon: 'i-shield', tone: 'blue', title: 'Checks next year’s coverage and cost.',
-      body: 'Got a letter from your plan? Makai calls them and asks if your prescription is covered next year and what you’d pay. You’re not on hold at work.',
-      head: 'MAKAI', msgs: [['out', 'My plan sent a letter about its 2027 drug list. Is my GLP‑1 still covered? What would I pay?'], ['sys', 'On hold · 41 min'], ['in', 'Your plan says it’s on the 2027 drug list, but it needs a new prior auth in January.'], ['in', 'They said your cost per fill stays the same. I spoke with Dana, ref #K7‑2291.']] },
-    { label: 'Appointments', icon: 'i-cal', tone: 'green', title: 'Books the visit around your schedule.',
-      body: 'Tell Makai what times work. It calls your doctor’s office, waits on hold and books the visit. It tells family only if you ask.',
-      head: 'MAKAI', msgs: [['out', 'Can you book my follow-up with Dr. Rivera? Any weekday morning works. Please let Sam know the time.'], ['sys', 'On hold · 9 min'], ['in', 'Booked: Tuesday at 8:40 AM, Lakeview Medical, Suite 210. I texted Sam the time too.'], ['out', 'Perfect. Thank you!']] },
-    { label: 'Prior auth', icon: 'i-phone', tone: 'blue', title: 'Plays phone tag, so you don’t have to.',
-      body: 'The pharmacy says denied. The office says it’s on file. Makai calls them and your plan, then texts you where it’s stuck and who has to act.',
-      head: 'MAKAI', msgs: [['out', 'Pharmacy says my prior auth was denied. Dr. Rivera’s office says it’s on file. Who’s right?'], ['sys', '3 calls · 52 min'], ['in', 'Your plan says the old prior auth ran out last month. The renewal never reached them.'], ['in', 'Dr. Rivera’s office is resending it now. Confirmed with Kim.']] },
-  ];
-  const FEATURES = FAMILY ? [
+  const FEATURES = [
     { label: 'Appointments', icon: 'i-cal', tone: 'green', title: 'Books the appointment.',
-      body: 'She says what she needs in plain words. Makai finds a time, books it with the office and confirms it with her.',
+      body: 'Say what you need in plain words. Makai finds a time, books it with the office and confirms it with you.',
       head: 'MAKAI', msgs: [['out', 'I need to see Dr. Patel about my heart.'], ['in', 'I can set that up. Thursday at 2:00 PM or Friday at 10:00 AM?'], ['out', 'Thursday, please.'], ['in', 'Booked: Thursday, Nov 12 at 2:00 PM with Dr. Patel.']] },
     { label: 'Prescriptions', icon: 'i-pill', tone: 'blue', title: 'Orders refills before they run out.',
-      body: 'Makai keeps an eye on her prescriptions and asks the pharmacy for a refill in time, so she never misses a dose.',
+      body: 'Makai keeps an eye on your prescriptions and asks the pharmacy for a refill in time, so you never miss a dose.',
       head: 'MAKAI', msgs: [['in', 'Your lisinopril runs out in 5 days. Should I order the refill?'], ['out', 'Yes please.'], ['in', 'Done. It’s ready at your pharmacy today at 4:00 PM.']] },
     { label: 'Phone calls', icon: 'i-phone', tone: 'green', title: 'Calls the pharmacy and the doctor’s office.',
-      body: 'Makai makes the calls, waits on hold and sends live updates as it goes. She never spends another afternoon listening to hold music.',
+      body: 'Makai makes the calls, waits on hold and sends you live updates as it goes. No more afternoons listening to hold music.',
       head: 'MAKAI', msgs: [['out', 'Can you call Dr. Patel’s office? I need to move Thursday.'], ['in', 'Calling them now. I’ll keep you posted.'], ['sys', 'Makai is on hold · 12 min'], ['in', 'All set. You’re now Friday at 10:00 AM, same doctor.']] },
     { label: 'Insurance', icon: 'i-shield', tone: 'blue', title: 'Checks coverage before the visit.',
       body: 'Before an appointment or a new prescription, Makai checks what your plan covers and what you will pay.',
       head: 'MAKAI', msgs: [['out', 'Will my insurance cover the heart ultrasound?'], ['sys', 'Checking your plan'], ['in', 'Yes, it’s covered. Your copay is $0.']] },
     { label: 'Family updates', icon: 'i-users', tone: 'green', title: 'Keeps your family posted.',
       body: 'You choose who gets updates. They see each one as it happens, so nobody has to call around and you don’t have to repeat yourself.',
-      head: 'Margaret’s care circle', msgs: [['in', 'Mom’s cardiology visit is confirmed for Friday at 10:00 AM.', 'Makai'], ['in', 'Lisinopril refill picked up.', 'Makai'], ['in', 'Thank you, Makai! ♥', 'Sarah'], ['out', 'I’m all set, sweetheart.']] },
-  ] : GLP1 ? GLP1_FEATURES : [
-    { label: 'Refills', icon: 'i-pill', tone: 'green', title: 'Refills insulin and sensors when you ask.',
-      body: 'Text what you need. Makai calls the pharmacy and texts you back. If they need a new prescription, it can call your doctor’s office too.',
-      head: 'MAKAI', msgs: [['out', 'Running low on insulin and sensors. Can you refill both?'], ['in', 'Insulin’s ready tomorrow, $35. Sensors need a new prescription. Should I ask Dr. Shah?'], ['out', 'Yes, please.'], ['in', 'Done. Dr. Shah’s office sent it, and your sensors will be ready Thursday.']] },
-    { label: 'Appointments', icon: 'i-cal', tone: 'blue', title: 'Books your labs and eye exams.',
-      body: 'Say what you need in plain words, like an A1C lab or an eye exam. Makai finds a time, checks it with you and books it.',
-      head: 'MAKAI', msgs: [['out', 'I’m due for my A1C and an eye exam. Can you book both?'], ['in', 'The lab has Tuesday at 8:30 AM. Lakeside Eye Care has Monday at 9 AM. Do those work?'], ['out', 'Both work. Thank you.'], ['in', 'Booked. A1C lab: Tuesday 8:30 AM. Eye exam: Monday 9 AM at Lakeside.']] },
-    { label: 'Phone calls', icon: 'i-phone', tone: 'green', title: 'Waits on hold, so you don’t.',
-      body: 'Makai calls the pharmacy and the doctor’s office for you, waits on hold and texts you live updates as it goes. Your afternoon stays yours.',
-      head: 'MAKAI', msgs: [['out', 'Can you call Dr. Shah’s office? I need to move my checkup.'], ['in', 'Calling them now. I’ll keep you posted.'], ['sys', 'Makai is on hold · 12 min'], ['in', 'All set. Your checkup with Dr. Shah is now Friday at 10 AM.']] },
-    { label: 'Insurance', icon: 'i-shield', tone: 'blue', title: 'Checks what’s covered and what it costs.',
-      body: 'Ask Makai before a refill, a lab or an eye exam. It checks your plan and tells you what you’ll pay.',
-      head: 'MAKAI', msgs: [['out', 'Is my A1C lab on Tuesday covered? What will I pay?'], ['sys', 'Checking your plan'], ['in', 'Yes, it’s covered. You’ll pay $0.']] },
-    { label: 'Family updates', icon: 'i-users', tone: 'green', title: 'Keeps your family posted, if you like.',
-      body: 'You choose who gets updates. They see each one as it happens, so nobody calls around and you don’t give the same update three times.',
-      head: 'My family', msgs: [['in', 'Insulin is ready tomorrow at 10 AM. Sensors will be ready Thursday.', 'Makai'], ['in', 'A1C lab is Tuesday at 8:30 AM. Eye exam is Monday at 9 AM.', 'Makai'], ['in', 'Thank you!! ♥', 'Linda'], ['out', 'All set, sweetheart. Lunch on Sunday?']] },
+      head: 'My family', msgs: [['in', 'Margaret’s cardiology visit is confirmed for Friday at 10:00 AM.', 'Makai'], ['in', 'Lisinopril refill picked up.', 'Makai'], ['in', 'Thank you, Makai! ♥', 'Sarah'], ['out', 'I’m all set, sweetheart.']] },
   ];
   const msgHTML = ([kind, text, who]) => kind === 'sys'
     ? `<div class="msg sys"><span class="wave"><span></span><span style="animation-delay:-.3s"></span><span style="animation-delay:-.6s"></span></span>${text}</div>`
@@ -984,7 +885,7 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
     if (i !== shownConv) {
       thread.innerHTML = FEATURES[i].msgs.map(msgHTML).join('');
       $('pName').textContent = FEATURES[i].head;
-      $('pSub').textContent = i === 4 ? `${FAMILY ? 'Sarah' : 'Linda'}, Jake, Emma, Makai` : 'online';
+      $('pSub').textContent = i === 4 ? 'Sarah, Jake, Emma, Makai' : 'online';
       shownConv = i; shownCount = -1;
     }
     if (count !== shownCount) {
@@ -1009,18 +910,12 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
   segWa.addEventListener('click', () => setApp(true));
 
   // ---------------------------------------------------------------- family: updates travel out to everyone
-  const FEED = FAMILY ? [
+  const FEED = [
     ['2:04 PM', 'Refill ready at the pharmacy at 4:00 PM.'],
     ['1:41 PM', 'Coverage check: heart ultrasound covered, $0 copay.'],
     ['11:15 AM', 'Cardiology visit moved to Friday at 10:00 AM.'],
     ['9:02 AM', 'Appointment confirmed with Dr. Patel’s office.'],
     ['Yesterday', 'Lisinopril refill picked up.'],
-  ] : [
-    ['2:04 PM', 'Eye exam booked: Monday 9 AM at Lakeside Eye Care.'],
-    ['1:41 PM', 'New sensor prescription sent. Sensors ready Thursday.'],
-    ['11:15 AM', 'A1C lab booked for Tuesday at 8:30 AM.'],
-    ['9:40 AM', 'Insulin ready tomorrow at 10 AM, Main Street Pharmacy.'],
-    ['Yesterday', 'Checkup with Dr. Shah moved to Friday at 10 AM.'],
   ];
   const feed = $('feed');
   const renderFeed = start => {
@@ -1030,8 +925,8 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
   };
   renderFeed(0);
   const PEOPLE = [
-    { k: 'margaret', name: FAMILY ? 'Margaret' : 'You', role: FAMILY ? 'Mom' : '', a: -90 },
-    { k: 'sarah', name: FAMILY ? 'Sarah' : 'Linda', role: 'Daughter', a: 0 },
+    { k: 'margaret', name: 'Margaret', role: 'You', a: -90 },
+    { k: 'sarah', name: 'Sarah', role: 'Daughter', a: 0 },
     { k: 'emma', name: 'Emma', role: 'Granddaughter', a: 90 },
     { k: 'jake', name: 'Jake', role: 'Son', a: 180 },
   ].map(p => ({ ...p, x: 50 + Math.cos(p.a * Math.PI / 180) * 37, y: 50 + Math.sin(p.a * Math.PI / 180) * 37 }));
@@ -1106,45 +1001,32 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
     const n = e164.length - 1 - code.length, [lo, hi] = NATIONAL[code] || [6, 12];
     return n >= lo && n <= hi;
   }
-  const NOTE = FAMILY ? 'Enter your number, not your mom’s.' : 'You’ll receive a signup link on your mobile.';
-  const ASSURE = `We’ll text you once. Reply STOP anytime. We never share your number. <a href="privacy.html${FAMILY ? '?for=family' : GLP1 ? '?for=glp1' : ''}">Privacy</a>`;
-  const FIELD = FAMILY ? 'Your mobile number' : 'Mobile number';
-  // next to a GLP-1 headline a bare "$15/month" can read as the medicine's price, so say whose price it is
-  const PRICE_TXT = GLP1 ? 'Makai’s intro price,<br>locked in at sign-up.' : 'Introductory price,<br>locked in at sign-up.';
-  // a sign-up from /glp1 is saved as health information (privacy.html), so don't invite someone else's number there
-  const AGAIN = FAMILY || GLP1 ? 'Change number' : 'Add another';
+  const NOTE = 'You’ll receive a signup link on your mobile.';
   const forms = [...document.querySelectorAll('[data-intake]')];
   forms.forEach(form => {
     const id = 'wa-' + form.dataset.intake;
-    form.innerHTML = `
-      <p class="iprice" id="${id}-price"><span class="iprice-amt">$15<span>/month</span></span><span class="iprice-txt">${PRICE_TXT}</span></p>
+    // the hero form opens with the price; the join form further down stays as it was
+    const hero = form.dataset.intake === 'hero', label = hero ? 'Start caring together' : 'Get my signup link';
+    const price = hero
+      ? `<p class="iprice" id="${id}-price"><span class="iprice-from">Starting at</span><span class="iprice-amt">$15<span>/month</span></span><span class="iprice-txt">Lock in the <br>introductory price now.</span></p>` : '';
+    form.innerHTML = `${price}
       <div class="ipill">
         <label class="cc"><span class="cc-v"></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <select aria-label="Country code">${COUNTRIES.map(([iso, name, code]) => `<option value="${iso}">${flag(iso)} ${name} (+${code})</option>`).join('')}</select></label>
-        <input id="${id}" type="tel" name="whatsapp" inputmode="tel" autocomplete="tel" placeholder="${FIELD}" aria-label="${FIELD}" aria-describedby="${id}-price ${id}-note ${id}-assure" required>
+        <input id="${id}" type="tel" name="whatsapp" inputmode="tel" autocomplete="tel" placeholder="Mobile number" aria-label="Mobile number" aria-describedby="${price ? id + '-price ' : ''}${id}-note" required>
         <input class="hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <button class="btn btn-light" type="submit">Get my signup link</button>
+        <button class="btn btn-light" type="submit">${label}</button>
       </div>
       <p class="inote" id="${id}-note" aria-live="polite">${NOTE}</p>
       <div class="idone" role="status"><b><svg aria-hidden="true"><use href="#i-check"/></svg></b>
         <span>You’re all set.<small>Watch your phone for your signup link.</small></span>
-        <button type="button">${AGAIN}</button></div>
-      <p class="iassure" id="${id}-assure">${ASSURE}</p>`;
+        <button type="button">Add another</button></div>`;
     const sel = form.querySelector('select'), cv = form.querySelector('.cc-v'), input = form.querySelector('input[type=tel]');
     const note = form.querySelector('.inote'), btn = form.querySelector('button[type=submit]');
     const setCode = () => { cv.textContent = '+' + COUNTRIES.find(c => c[0] === sel.value)[2]; };
     sel.value = 'US'; setCode();   // US by default; the picker covers everyone else
     sel.addEventListener('change', () => { setCode(); input.focus(); });
-    // the first time someone taps or types in the field; the nav button's own focus doesn't count
-    const touched = () => {
-      if (form.dataset.touched) return;
-      form.dataset.touched = '1';
-      analytics('waitlist_field_focus', { source: form.dataset.intake });
-    };
-    input.addEventListener('pointerdown', touched);
-    input.addEventListener('focus', () => { if (form.dataset.autoFocus) delete form.dataset.autoFocus; else touched(); });
-    input.addEventListener('input', () => {
-      touched(); if (note.classList.contains('err')) { note.classList.remove('err'); note.textContent = NOTE; } });
+    input.addEventListener('input', () => { if (note.classList.contains('err')) { note.classList.remove('err'); note.textContent = NOTE; } });
     form.querySelector('.idone button').addEventListener('click', () => { forms.forEach(f => f.classList.remove('done')); input.value = ''; input.focus(); });
     const fail = msg => {
       note.textContent = msg; note.classList.add('err');
@@ -1158,20 +1040,16 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
       btn.disabled = true; btn.textContent = 'One moment…';
       try {
         const r = await fetch('/api/join', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ phone, source: (FAMILY ? 'family-' : GLP1 ? 'glp1-' : '') + form.dataset.intake, company: form.querySelector('.hp').value }) });
+          body: JSON.stringify({ phone, source: 'eldercare-' + form.dataset.intake, company: form.querySelector('.hp').value }) });
         if (!r.ok) throw new Error(r.status === 400 ? 'invalid' : 'server');
-        forms.forEach(f => {
-          f.classList.add('done'); f.querySelector('input[type=tel]').value = '';
-          const n = f.querySelector('.inote'); n.classList.remove('err'); n.textContent = NOTE;
-        });
-        // the phone number itself never goes to PostHog or Meta, only where the sign-up came from; bots that
-        // filled the hidden field get the same success screen but aren't counted
-        if (!form.querySelector('.hp').value) analytics('waitlist_joined', { source: form.dataset.intake, country_code: code });
+        forms.forEach(f => { f.classList.add('done'); f.querySelector('input[type=tel]').value = ''; });
+        // the phone number itself never goes to PostHog, only where the sign-up came from
+        analytics('waitlist_joined', { source: form.dataset.intake, country_code: code });
       } catch (err) {
         analytics('waitlist_failed', { source: form.dataset.intake, reason: err.message });
         fail(err.message === 'invalid' ? 'That number doesn’t look right. Check the country code and try again.' : 'Couldn’t save that just now. Please try again.');
       } finally {
-        btn.disabled = false; btn.textContent = 'Get my signup link';
+        btn.disabled = false; btn.textContent = label;
       }
     });
   });
@@ -1179,8 +1057,6 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
   document.querySelectorAll('[data-intake-focus]').forEach(a => a.addEventListener('click', e => {
     e.preventDefault();
     const f = forms[0].querySelector('input[type=tel]');
-    forms[0].dataset.autoFocus = '1';
-    analytics('nav_signup_click');
     window.scrollTo({ top: 0, behavior: RM ? 'auto' : 'smooth' });
     setTimeout(() => f.focus({ preventScroll: true }), RM ? 0 : 450);
   }));

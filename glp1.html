@@ -436,7 +436,7 @@ footer { padding-block: 48px 56px; border-top: 1px solid var(--line); }
   // sections it leaves out.
   {
     const forWho = new URLSearchParams(location.search).get('for');
-    if (/^\/family\/?$/.test(location.pathname) || forWho === 'family') document.documentElement.dataset.audience = 'family';
+    if (/^\/family(\.html)?\/?$/.test(location.pathname) || forWho === 'family') document.documentElement.dataset.audience = 'family';
     else if (/^\/glp1(\.html)?\/?$/.test(location.pathname) || forWho === 'glp1') document.documentElement.dataset.audience = 'glp1';
   }
 </script>

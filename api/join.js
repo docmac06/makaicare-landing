@@ -1,4 +1,4 @@
-// POST /api/join  { phone: "+14155550123", source: "hero" | "join" | "family-hero" | "family-join" | "glp1-hero" | "glp1-join" }
+// POST /api/join  { phone: "+14155550123", source: "eldercare-hero" | "eldercare-join" | "hero" | "join" | "family-hero" | "family-join" | "glp1-hero" | "glp1-join" }
 // Saves a waitlist signup in two places:
 //   1. the "MAKAI waitlist" Google Form, whose linked Sheet "MAKAI waitlist (Responses)" is the list to read
 //      (form id in WAITLIST_FORM_ID, kept out of this public repo);
@@ -26,7 +26,7 @@ export default async function handler(req, res) {
     phone,
     // family-*: an adult child signing up a parent from /family, so the number is the child's;
     // glp1-*: signed up on /glp1, so it says the person may take a GLP-1 (privacy.html treats that as health information)
-    source: ['hero', 'join', 'family-hero', 'family-join', 'glp1-hero', 'glp1-join'].includes(body.source) ? body.source : 'site',
+    source: ['eldercare-hero', 'eldercare-join', 'hero', 'join', 'family-hero', 'family-join', 'glp1-hero', 'glp1-join'].includes(body.source) ? body.source : 'site',
     joinedAt: new Date().toISOString(),
     country: req.headers['x-vercel-ip-country'] || null,
   };
