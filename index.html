@@ -441,7 +441,7 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
     form.addEventListener('submit', async e => {
       e.preventDefault();
       const code = COUNTRIES.find(c => c[0] === sel.value)[2];
-      if (via === 'mobile' && input.value.includes('@')) { const typedEmail = input.value; setVia('email'); input.value = typedEmail; }
+      if (via === 'mobile' && input.value.includes('@')) { const typedEmail = input.value; input.value = ''; setVia('email'); input.value = typedEmail; }
       let contact;
       if (via === 'email') {
         const email = input.value.trim();
@@ -458,6 +458,7 @@ posthog.init('phc_pigW3St3owCJ4aouyz9LHYAybUyYXM6AqUBDnnHyXDFx', { api_host: 'ht
           body: JSON.stringify({ ...contact, source: 'eldercare-' + form.dataset.intake, company: form.querySelector('.hp').value }) });
         if (!r.ok) throw new Error(r.status === 400 ? 'invalid' : 'server');
         forms.forEach(f => { f.classList.add('done'); f.querySelector('.ifield').value = ''; });
+        typed.mobile = typed.email = '';   // "Add another" starts clean in both modes
         // the number or email itself never goes to PostHog, only where the sign-up came from and how
         if (!form.querySelector('.hp').value) analytics('waitlist_joined', { source: form.dataset.intake, via, ...(via === 'mobile' && { country_code: code }) });
       } catch (err) {
