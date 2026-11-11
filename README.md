@@ -35,8 +35,9 @@ The page is static, but the sign-up form needs `api/join.js` to run as a Vercel 
 
 ## Waitlist signups
 
-The main page's sign-up takes a mobile number or an email (a Mobile / Email choice above the field); /family and /glp1
-take a phone number only (country code defaults to +1). Submitting posts to `/api/join`, which validates it and saves it
+The main page's sign-up takes a US mobile number only (a fixed +1; Makai is US-only for now). /family and /glp1 take a
+phone number with a country picker that defaults to +1. `/api/join` still accepts `{ email }` (used 7–11 Nov 2026), but
+no page sends one now. Submitting posts to `/api/join`, which validates it and saves it
 in two places:
 
 1. **The Google Sheet "MAKAI waitlist (Responses)"** in manav@makaicare.com's Drive. This is the list to read: one row per
